@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class buttonFunctions : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	public void resume()
+	{
+		gameManager.instance.pause_game(false);
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	public void restart()
+	{
+		resume();
+		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+	}
+
+	public void quit()
+	{
+		Application.Quit();
+	}
 }
