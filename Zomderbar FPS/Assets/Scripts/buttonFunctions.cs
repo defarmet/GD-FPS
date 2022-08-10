@@ -17,6 +17,11 @@ public class buttonFunctions : MonoBehaviour
 		
 	}
 
+	public void Respawn()
+    {
+		
+    }
+
 	public void quit()
 	{
 		Application.Quit();

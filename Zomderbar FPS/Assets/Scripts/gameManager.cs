@@ -6,31 +6,50 @@ public class gameManager : MonoBehaviour
 {
 
 	public static gameManager instance;
+
 	public GameObject player;
+	public playerController playerScript;
 	
 	public GameObject pauseMenu;
-	public GameObject currentMenu;
+	public GameObject currentMenuOpen;
+	public GameObject playerDamageFlash;
+	public GameObject playerDeadMenu;
 
-	bool pauseState = false;
+	public GameObject playerSpawnPoint;
+
+	bool isPaused = false;
 
 	void Awake()
 	{
 		instance = this;
 		player = GameObject.FindGameObjectWithTag("Player");
+		playerScript = player.GetComponent<playerController>();
+
+		playerSpawnPoint = GameObject.FindGameObjectWithTag("Player Spawn Point");
+		playerScript.respawn();
+
 	}
 
 	void Update()
 	{
-		if (Input.GetButtonDown("Cancel")) {
-			currentMenu = pauseMenu;
-			pause_game(!pauseState);
+		if (Input.GetButtonDown("Cancel") && playerScript.hp > 0)
+		{
+			isPaused = !isPaused;
+			currentMenuOpen = pauseMenu;
+			currentMenuOpen.SetActive(isPaused);
+
+			//if (isPaused)
+			//	cursorLockPause();
+			//else
+			//	cursorUnlockUnpause();
+			pause_game(!isPaused);
 		}
 	}
 
 	public void pause_game(bool p)
 	{
 		Cursor.visible = p;
-		pauseState = p;
+		isPaused = p;
 		if (p) {
 			Cursor.lockState = CursorLockMode.Confined;
 			Time.timeScale = 0;
@@ -38,6 +57,6 @@ public class gameManager : MonoBehaviour
 			Cursor.lockState = CursorLockMode.Locked;
 			Time.timeScale = 1;
 		}
-		currentMenu.SetActive(p);
+		currentMenuOpen.SetActive(p);
 	}
 }
