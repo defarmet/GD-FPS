@@ -17,7 +17,7 @@ public class gameManager : MonoBehaviour
 
 	public GameObject playerSpawnPoint;
 
-	bool isPaused = false;
+	public bool isPaused = false;
 
 	void Awake()
 	{
@@ -38,25 +38,41 @@ public class gameManager : MonoBehaviour
 			currentMenuOpen = pauseMenu;
 			currentMenuOpen.SetActive(isPaused);
 
-			//if (isPaused)
-			//	cursorLockPause();
-			//else
-			//	cursorUnlockUnpause();
-			pause_game(!isPaused);
+            if (isPaused)
+                cursorLockPause();
+            else
+                cursorUnlockUnpause();
+            //pause_game(!isPaused);
 		}
 	}
 
-	public void pause_game(bool p)
+	public void cursorLockPause()
 	{
-		Cursor.visible = p;
-		isPaused = p;
-		if (p) {
-			Cursor.lockState = CursorLockMode.Confined;
-			Time.timeScale = 0;
-		} else {
-			Cursor.lockState = CursorLockMode.Locked;
-			Time.timeScale = 1;
-		}
-		currentMenuOpen.SetActive(p);
+		Cursor.visible = true;
+		Cursor.lockState = CursorLockMode.Confined;
+		Time.timeScale = 0;
 	}
+
+	public void cursorUnlockUnpause()
+	{
+		Cursor.visible = false;
+		Cursor.lockState = CursorLockMode.Locked;
+		Time.timeScale = 1;
+		currentMenuOpen.SetActive(isPaused);
+		currentMenuOpen = null;
+	}
+
+	//public void pause_game(bool p)
+	//{
+	//	Cursor.visible = p;
+	//	isPaused = p;
+	//	if (p) {
+	//		Cursor.lockState = CursorLockMode.Confined;
+	//		Time.timeScale = 0;
+	//	} else {
+	//		Cursor.lockState = CursorLockMode.Locked;
+	//		Time.timeScale = 1;
+	//	}
+	//	currentMenuOpen.SetActive(p);
+	//}
 }

@@ -29,21 +29,30 @@ public class playerController : MonoBehaviour
     float playerSpeedOG;
     bool isSprinting = false;
     bool isShooting = false;
+    int ogHP;
 
     private int weapIndx;
-    private int prevWeapIndx;
+    //private int prevWeapIndx;
 
     private void Start()
     {
         playerSpeedOG = playerSpeed;
+        ogHP = hp;
     }
 
     void Update()
     {
+        //DEBUG CODE
+        if (Input.GetKeyDown(KeyCode.L))
+            takeDamage(1);
+        //
+
+
         playerMovement();
         sprint();
+        gunSwitch();
 
-        //StartCoroutine(shoot());
+        StartCoroutine(shoot());
     }
 
     void playerMovement()
@@ -103,7 +112,10 @@ public class playerController : MonoBehaviour
                 {
                     IDamageable isDamageable = hit.collider.GetComponent<IDamageable>();
 
-                    isDamageable.takeDamage(shootDmg);
+                    if (hit.collider is SphereCollider)
+                        isDamageable.takeDamage(shootDmg * 3);
+                    else
+                        isDamageable.takeDamage(shootDmg);
                 }
             }
 
@@ -121,25 +133,73 @@ public class playerController : MonoBehaviour
         gunstat.Add(_gunStats);
     }
 
-    //void gunSwitch()
-    //{
-    //    for (int i = 0; i < gunstat.Count; i++)
-    //    {
-    //        if (Input.GetKeyDown((i+1).ToString()))
-    //        {
+    void gunSwitch()
+    {
+        if (gunstat.Count > 0)
+        {
+            if (Input.GetAxis("Mouse ScrollWheel") > 0f)
+            {
+                if (weapIndx >= gunstat.Count - 1)
+                {
+                    weapIndx = 0;
+                }
+                else
+                {
+                    weapIndx += 1;
+                }
+            }
+            else if (Input.GetAxis("Mouse ScrollWheel") < 0f)
+            {
+                if (weapIndx <= 0)
+                {
+                    weapIndx = gunstat.Count - 1;
+                }
+                else
+                {
+                    weapIndx -= 1;
+                }
+            }
 
-    //        }
-    //    }
-    //}
+            shootRate = gunstat[weapIndx].shootRate;
+            shootDistance = gunstat[weapIndx].shootDist;
+            shootDmg = gunstat[weapIndx].shootDmg;
+        }
+    }
 
-    //void EquipWeapon(int _index)
-    //{
-    //    if (_index == prevWeapIndx)
-    //        return;
+    public void takeDamage(int dmg)
+    {
+        hp -= dmg;
+        StartCoroutine(damageFlash());
 
-    //    weapIndx = _index;
-    //    //gunstat[weapIndx]
-    //}
+        if (hp <= 0)
+        {
+            death();
+        }
+    }
 
+    public void respawn()
+    {
+        controller.enabled = false;
+        transform.position = gameManager.instance.playerSpawnPoint.transform.position;
+        controller.enabled = true;
+    }
 
+    public void death()
+    {
+        gameManager.instance.cursorLockPause();
+        gameManager.instance.currentMenuOpen = gameManager.instance.playerDeadMenu;
+        gameManager.instance.currentMenuOpen.SetActive(true);
+    }
+
+    IEnumerator damageFlash()
+    {
+        gameManager.instance.playerDamageFlash.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        gameManager.instance.playerDamageFlash.SetActive(false);
+    }
+
+    public void resetHP()
+    {
+        hp = ogHP;
+    }
 }
