@@ -17,12 +17,12 @@ public class enemyAI : MonoBehaviour, IDamageable
     [Range(1, 10)][SerializeField] int damage;
     [Range(1, 10)][SerializeField] int bulletSpeed;
     [Range(1, 5)][SerializeField] int bulletDstryTime;
+    [Range(1, 10)] [SerializeField] private float shootRange;
     [SerializeField] GameObject bullet;
     [SerializeField] GameObject bulletSpawn;
 
     Vector3 playerDir;
     bool isShooting = false;
-    bool playerInRange = false;
 
     // Start is called before the first frame update
     void Start()
@@ -38,7 +38,7 @@ public class enemyAI : MonoBehaviour, IDamageable
 
         facePlayer();
 
-        if (!isShooting && playerInRange)
+        if (!isShooting && Vector3.Distance(transform.position, gameManager.instance.player.transform.position) <= shootRange)
             StartCoroutine(shoot());
 
     }
@@ -75,20 +75,5 @@ public class enemyAI : MonoBehaviour, IDamageable
         isShooting = false;
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            playerInRange = true;
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            playerInRange = false;
-        }
-    }
 
 }
