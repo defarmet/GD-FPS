@@ -13,7 +13,6 @@ public class gunStats : ScriptableObject
     public SelectFire fireType = SelectFire.Full;
 
     [Header("General")]
-    public bool hasWeapon;
     public float shootRate;
     public float shootDist;
     public int shootDmg;

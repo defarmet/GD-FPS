@@ -4,83 +4,58 @@ using UnityEngine;
 
 public class pickupController : MonoBehaviour
 {
-    [Header("PickUp Settings")]
-    [SerializeField] Transform holdArea;
-    private GameObject heldObject;
-    private Rigidbody heldObjectRB;
-    [SerializeField] private float pickupRange = 1;
-    [SerializeField] private float pickupForce = 50;
+    [Range(1, 10)] public int range;
+    public Transform holdArea;
+    GameObject currentWeapon;
+    private string weaponTag = "Weapon";
 
-    private void Start()
+    public bool inRange = false;
+    // Start is called before the first frame update
+    void Start()
     {
-        heldObject = null;
+
     }
-    private void Update()
+
+    // Update is called once per frame
+    void Update()
     {
-        if (Input.GetButtonDown("Interact"))
+        checkRange();
+        if (inRange)
         {
-            if (heldObject == null)
+            if (Input.GetButtonDown("Interact"))
             {
-                RaycastHit hit;
-                if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickupRange))
-                {
-                    PickUp(hit.transform.gameObject);
-                }
+                PickUp();
             }
         }
-        if (heldObject != null)
-        {
-            MoveObject();
-        }
+    }
 
-        if (Input.GetButtonDown("Drop"))
+    public bool checkRange()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, range))
         {
-            if (heldObject == null)
+            if (hit.transform.tag == weaponTag)
             {
-                return;
+                currentWeapon = hit.transform.gameObject;
+                inRange = true;
+                return true;
             }
-            else
-            {
-                Drop();
-            }
-
-
+            inRange = false;
+            return false;
+        }
+        else
+        {
+            inRange = false;
+            return false;
         }
     }
 
-    void PickUp(GameObject pickObj)
+    private void PickUp()
     {
-        if (pickObj.GetComponent<Rigidbody>())
-        {
-            heldObjectRB = pickObj.GetComponent<Rigidbody>();
-            heldObjectRB.useGravity = false;
-            heldObjectRB.drag = 10;
-            heldObjectRB.constraints = RigidbodyConstraints.FreezeRotation;
-
-            heldObjectRB.transform.parent = holdArea;
-            heldObject = pickObj;
-        }
-    }
-    void Drop()
-    {
-        if (Input.GetButtonDown("Drop"))
-        {
-            heldObjectRB.useGravity = true;
-            heldObjectRB.drag = 1;
-            heldObjectRB.constraints = RigidbodyConstraints.None;
-
-            heldObject.transform.parent = null;
-            heldObject = null;
-        }
-
-    }
-
-    void MoveObject()
-    {
-        if (Vector3.Distance(heldObject.transform.position, holdArea.position) > 0.1f)
-        {
-            Vector3 moveDirection = (holdArea.position - heldObject.transform.position);
-            heldObjectRB.AddForce(moveDirection * pickupForce);
-        }
+        currentWeapon.transform.position = holdArea.position;
+        currentWeapon.transform.parent = holdArea;
+        currentWeapon.transform.localEulerAngles = new Vector3(0f, 180f, 180f);
+        currentWeapon.GetComponent<Rigidbody>().isKinematic = true;
     }
 }
+
