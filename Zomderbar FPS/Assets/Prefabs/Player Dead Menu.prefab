@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 2001684348}
   - component: {fileID: 2001684347}
   - component: {fileID: 2001684346}
+  - component: {fileID: 1570206095}
   m_Layer: 5
   m_Name: Restart
   m_TagString: Untagged
@@ -256,7 +257,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2001684347}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1570206095}
+        m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
+        m_MethodName: restart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1570206095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2001684344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53beaf0aa87f57848b9e2c263ad2f7dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1294101179224595804
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,6 +429,7 @@ GameObject:
   - component: {fileID: 1294101179327932168}
   - component: {fileID: 1294101179327932183}
   - component: {fileID: 1294101179327932182}
+  - component: {fileID: 458426465}
   m_Layer: 5
   m_Name: Respawn
   m_TagString: Untagged
@@ -513,7 +539,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1294101179327932183}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 458426465}
+        m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
+        m_MethodName: Respawn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &458426465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1294101179327932180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53beaf0aa87f57848b9e2c263ad2f7dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1294101179930304976
 GameObject:
   m_ObjectHideFlags: 0
@@ -876,6 +926,7 @@ GameObject:
   - component: {fileID: 1294101181052269839}
   - component: {fileID: 1294101181052269838}
   - component: {fileID: 1294101181052269837}
+  - component: {fileID: 355499508}
   m_Layer: 5
   m_Name: Quit
   m_TagString: Untagged
@@ -985,4 +1036,28 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1294101181052269838}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 355499508}
+        m_TargetAssemblyTypeName: buttonFunctions, Assembly-CSharp
+        m_MethodName: restart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &355499508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1294101181052269835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53beaf0aa87f57848b9e2c263ad2f7dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
