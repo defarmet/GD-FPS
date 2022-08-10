@@ -7,14 +7,27 @@ public class buttonFunctions : MonoBehaviour
 {
 	public void resume()
 	{
-		gameManager.instance.pause_game(false);
+		if (gameManager.instance.isPaused)
+        {
+			gameManager.instance.isPaused = !gameManager.instance.isPaused;
+			gameManager.instance.cursorUnlockUnpause();
+		}
+		
 	}
 
 	public void restart()
 	{
-		resume();
+		//resume();
+		gameManager.instance.cursorUnlockUnpause();
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 		
+	}
+
+	public void Respawn()
+	{
+		gameManager.instance.playerScript.resetHP();
+		gameManager.instance.playerScript.respawn();
+		gameManager.instance.cursorUnlockUnpause();
 	}
 
 	public void quit()
