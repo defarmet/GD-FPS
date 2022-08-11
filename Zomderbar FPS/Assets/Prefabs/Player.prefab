@@ -191,8 +191,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 940c4bda6f342124e9bd9b1475af680b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensHori: 500
-  sensVert: 500
+  sensHori: 50
+  sensVert: 50
   lockVertMin: -75
   lockVertMax: 75
   invert: 0
