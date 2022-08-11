@@ -1176,9 +1176,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3119374755917614108}
-  - component: {fileID: -6998545811268655577}
   - component: {fileID: 6420373892928040643}
   - component: {fileID: 2489795412230746546}
+  - component: {fileID: -7247307445689169083}
   m_Layer: 0
   m_Name: AR
   m_TagString: Untagged
@@ -1219,19 +1219,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-6998545811268655577
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6294307136021496694}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5e338d2d1b58984b9d09f1fec99d5b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gunStat: {fileID: 11400000, guid: 4dfa9c51d20fcd04883f8541391b3e64, type: 2}
 --- !u!54 &6420373892928040643
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1261,6 +1248,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 18, y: 4.75, z: 1.5}
   m_Center: {x: -3.5, y: -0.6, z: 0}
+--- !u!114 &-7247307445689169083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6294307136021496694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca585038cef91744d9be483154187d3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  range: 0
+  holdArea: {fileID: 0}
+  inRange: 0
 --- !u!1 &7087379034156657827
 GameObject:
   m_ObjectHideFlags: 0
