@@ -6,7 +6,7 @@ public class gunPickup : MonoBehaviour
 {
     [SerializeField] gunStats gunStat;
 
-    private void Update()
+    private void Update() // double pickup due to update
     {
         if (Input.GetButtonDown("Interact"))
         {
