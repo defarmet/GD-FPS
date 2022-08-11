@@ -27,7 +27,7 @@ public class playerController : MonoBehaviour
     Vector3 move = Vector3.zero;
     int timesJumps;
     float playerSpeedOG;
-    bool isSprinting = false;
+    //bool isSprinting = false;
     bool isShooting = false;
     int ogHP;
 
@@ -84,13 +84,13 @@ public class playerController : MonoBehaviour
     {
         if (Input.GetButtonDown("Sprint"))
         {
-            isSprinting = true;
+            //isSprinting = true;
             playerSpeed = playerSpeed * sprintMult;
         }
 
         if (Input.GetButtonUp("Sprint"))
         {
-            isSprinting = false;
+            //isSprinting = false;
             playerSpeed = playerSpeedOG;
         }
     }
