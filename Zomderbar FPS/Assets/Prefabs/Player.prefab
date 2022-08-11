@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4052029023136829287
 Transform:
   m_ObjectHideFlags: 0
@@ -252,7 +252,7 @@ MonoBehaviour:
   jumpHeight: 9.08
   gravityValue: 17.5
   jumpMax: 1
-  hp: 0
+  hp: 5
   shootRate: 0
   shootDistance: 0
   shootDmg: 0
