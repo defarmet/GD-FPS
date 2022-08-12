@@ -6,6 +6,7 @@ public class gameManager : MonoBehaviour
 {
 
 	public static gameManager instance;
+	public playerController playerScript;
 	public GameObject player;
 	
 	public GameObject pauseMenu;

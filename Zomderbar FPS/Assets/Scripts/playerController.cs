@@ -6,6 +6,7 @@ public class playerController : MonoBehaviour
 {
     [Header("---------- Components -----------")]
     [SerializeField] CharacterController controller;
+    [SerializeField] GameObject gunModel;
 
     [Header("---------- Player Attributes -----------")]
     [Range(1, 10)][SerializeField] float playerSpeed;
@@ -18,7 +19,7 @@ public class playerController : MonoBehaviour
     [Range(0.1f, 5)][SerializeField] float shootRate;
     [Range(1, 30)][SerializeField] float shootDistance;
     [Range(1, 10)][SerializeField] int shootDmg;
-    //[SerializeField] List<gunStats> gunstat = new List<gunStats>();
+    [SerializeField] List<gunStats> gunstat = new List<gunStats>();
 
     //[SerializeField] GameObject cube;
 
@@ -85,49 +86,50 @@ public class playerController : MonoBehaviour
         }
     }
 
-    //IEnumerator shoot() //Need to implement gunstat and IDamageable
-    //{
-    //    Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDistance, Color.red, 0.0000001f);
-    //    //Debug.DrawLine(Camera.main.transform.position)
+    IEnumerator shoot() //Need to implement gunstat and IDamageable
+    {
+        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDistance, Color.red, 0.0000001f);
+        //Debug.DrawLine(Camera.main.transform.position)
 
-    //    if (gunstat.Count != 0 && Input.GetButton("Shoot") && isShooting == false)
-    //    {
-    //        isShooting = true;
+        if (gunstat.Count != 0 && Input.GetButton("Shoot") && isShooting == false)
+        {
+            isShooting = true;
 
-    //        RaycastHit hit;
-    //        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDistance)) //if it hits something
-    //        {
+            RaycastHit hit;
+            if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDistance)) //if it hits something
+            {
 
-    //            if (hit.collider.GetComponent<IDamageable>() != null)
-    //            {
-    //                IDamageable isDamageable = hit.collider.GetComponent<IDamageable>();
+                if (hit.collider.GetComponent<IDamageable>() != null)
+                {
+                    IDamageable isDamageable = hit.collider.GetComponent<IDamageable>();
 
-    //                isDamageable.takeDamage(shootDmg);
-    //            }
+                    isDamageable.takeDamage(shootDmg);
+                }
 
-    //            //if (hit.transform.CompareTag("Block"))
-    //            //{
-    //            //    Destroy(hit.transform.gameObject);
-    //            //}
-    //            //else
-    //            //{
-    //            //    Instantiate(cube, hit.point, cube.transform.rotation);
-    //            //}
-    //        }
+                //if (hit.transform.CompareTag("Block"))
+                //{
+                //    Destroy(hit.transform.gameObject);
+                //}
+                //else
+                //{
+                //    Instantiate(cube, hit.point, cube.transform.rotation);
+                //}
+            }
 
-    //        yield return new WaitForSeconds(shootRate);
-    //        isShooting = false;
-    //    }
-    //}
+            yield return new WaitForSeconds(shootRate);
+            isShooting = false;
+        }
+    }
 
-    //public void gunPickup(float _shootRate, int _shootDistance, int _shootDmg, gunStats _gunStats)
-    //{
-    //    shootRate = _shootRate;
-    //    shootDistance = _shootDistance;    //Need to add gunStats
-    //    shootDmg = _shootDmg;
-
-    //    gunstat.Add(_gunStats);
-    //}
+    public void gunPickup(float _shootRate, float _shootDistance, int _shootDmg,GameObject _model, gunStats _gunStats)
+    {
+        shootRate = _shootRate;
+        shootDistance = _shootDistance;    //Need to add gunStats
+        shootDmg = _shootDmg;
+        gunModel.GetComponent<MeshFilter>().sharedMesh = _model.GetComponent<MeshFilter>().sharedMesh;
+        gunModel.GetComponent<MeshRenderer>().sharedMaterial = _model.GetComponent<MeshRenderer>().sharedMaterial;
+        gunstat.Add(_gunStats);
+    }
 
     //void gunSwitch()
     //{

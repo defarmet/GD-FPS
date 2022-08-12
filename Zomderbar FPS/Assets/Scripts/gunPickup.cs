@@ -5,13 +5,9 @@ using UnityEngine;
 public class gunPickup : MonoBehaviour
 {
     [SerializeField] gunStats gunStat;
-
-    private void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        if (Input.GetButtonDown("Interact"))
-        {
-            gameManager.instance.playerScript.gunPickup(gunStat.shootRate, gunStat.shootDist, gunStat.shootDmg, gunStat);
-            //Destroy(gameObject);
-        }
+        gameManager.instance.playerScript.gunPickup(gunStat.shootRate, gunStat.shootDist, gunStat.shootDmg, gunStat.model, gunStat);
+        Destroy(gameObject);
     }
 }

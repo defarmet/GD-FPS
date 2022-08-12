@@ -12,10 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81b4e9b41833d1c4385d28a3d2226c03, type: 3}
   m_Name: Gun Stats - AR
   m_EditorClassIdentifier: 
-  fireType: 0
-  hasWeapon: 0
-  shootRate: 0.11
-  shootDist: 50
-  shootDmg: 39
-  ammoCapacity: 20
-  reloadTime: 2
+  shootRate: 0.33
+  shootDist: 40
+  shootDmg: 4
+  model: {fileID: 7119148598554248763, guid: 04fbf93d0d43cff429d74181c1b09e0b, type: 3}
