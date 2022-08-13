@@ -18,7 +18,7 @@ public class gunStats : ScriptableObject
     public int shootDmg;
 
     [Header("Ammo")]
-    public int ammoCapacity = 18;
+    public int ammoCapacity;
     private int currentAmmo;
-    public float reloadTime = 2;
+    public float reloadTime;
 }

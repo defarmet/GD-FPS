@@ -8,17 +8,17 @@ public class playerController : MonoBehaviour, IDamageable
     [SerializeField] CharacterController controller;
 
     [Header("---------- Player Attributes -----------")]
-    [Range(1, 10)][SerializeField] float playerSpeed;
-    [Range(1, 4)][SerializeField] float sprintMult;
-    [Range(8, 18)][SerializeField] float jumpHeight;
-    [Range(15, 30)][SerializeField] float gravityValue;
-    [Range(1, 3)][SerializeField] int jumpMax;
-    [Range(0, 310)][SerializeField] public int hp;
+    [Range(1, 10)] [SerializeField] float playerSpeed;
+    [Range(1, 4)] [SerializeField] float sprintMult;
+    [Range(8, 18)] [SerializeField] float jumpHeight;
+    [Range(15, 30)] [SerializeField] float gravityValue;
+    [Range(1, 3)] [SerializeField] int jumpMax;
+    [Range(0, 310)] [SerializeField] public int hp;
 
     [Header("---------- Gun Stats -----------")]
-    [Range(0.1f, 5)][SerializeField] float shootRate;
-    [Range(1, 30)][SerializeField] float shootDistance;
-    [Range(1, 10)][SerializeField] int shootDmg;
+    [Range(0.1f, 5)] [SerializeField] float shootRate;
+    [Range(1, 30)] [SerializeField] float shootDistance;
+    [Range(1, 10)] [SerializeField] int shootDmg;
     [Range(0, 20)] [SerializeField] int ammoCount;
     [SerializeField] List<gunStats> gunstat = new List<gunStats>();
 
@@ -40,6 +40,7 @@ public class playerController : MonoBehaviour, IDamageable
     {
         playerSpeedOG = playerSpeed;
         hpOriginal = hp;
+        ammoCountOrig = ammoCount;
     }
 
     void Update()
@@ -100,9 +101,10 @@ public class playerController : MonoBehaviour, IDamageable
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDistance, Color.red, 0.0000001f);
         //Debug.DrawLine(Camera.main.transform.position)
 
-        if (gunstat.Count != 0 && Input.GetButton("Shoot") && isShooting == false)
+        if (gunstat.Count != 0 && Input.GetButton("Shoot") && ammoCount > 0 && isShooting == false)
         {
             isShooting = true;
+            --ammoCount;
 
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDistance)) //if it hits something
@@ -125,11 +127,13 @@ public class playerController : MonoBehaviour, IDamageable
         }
     }
 
-    public void gunPickup(float _shootRate, int _shootDistance, int _shootDmg, gunStats _gunStats)
+    public void gunPickup(float _shootRate, int _shootDistance, int _shootDmg, int _ammoCount, gunStats _gunStats)
     {
         shootRate = _shootRate;
         shootDistance = _shootDistance;
         shootDmg = _shootDmg;
+        ammoCount = _ammoCount;
+
 
         gunstat.Add(_gunStats);
     }

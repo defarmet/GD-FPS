@@ -10,7 +10,7 @@ public class gunPickup : MonoBehaviour
     {
         if (Input.GetButtonDown("Interact"))
         {
-            gameManager.instance.playerScript.gunPickup(gunStat.shootRate, gunStat.shootDist, gunStat.shootDmg, gunStat);
+            gameManager.instance.playerScript.gunPickup(gunStat.shootRate, gunStat.shootDist, gunStat.shootDmg,gunStat.ammoCapacity, gunStat);
             Destroy(gameObject);
         }
     }
