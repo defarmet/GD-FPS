@@ -136,9 +136,11 @@ public class playerController : MonoBehaviour, IDamageable
         shootDistance = _shootDistance;
         shootDmg = _shootDmg;
         ammoCount = _ammoCount;
-        gameManager.instance.currentGunHUD = _currentGunHUD;
-        
 
+        if (gameManager.instance.currentGunHUD != null)
+            gameManager.instance.currentGunHUD.SetActive(false);
+        gameManager.instance.currentGunHUD = _currentGunHUD;
+        gameManager.instance.currentGunHUD.SetActive(true);
 
         gunstat.Add(_gunStats);
     }
