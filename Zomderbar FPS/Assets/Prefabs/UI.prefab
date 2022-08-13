@@ -4101,7 +4101,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 1
+  m_FillAmount: 0.44
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -6070,6 +6070,7 @@ MonoBehaviour:
   currentMenuOpen: {fileID: 0}
   playerDamageFlash: {fileID: 7323532354655439690}
   playerDeadMenu: {fileID: 2211234427028188242}
+  currentGunHUD: {fileID: 0}
   playerSpawnPoint: {fileID: 0}
   isPaused: 0
 --- !u!1001 &1106324014034963842

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class gameManager : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class gameManager : MonoBehaviour
 	public GameObject playerDamageFlash;
 	public GameObject playerDeadMenu;
 	public GameObject currentGunHUD;
+	public Image playerHpBar;
+	public Image ammoBar;
 
 	public GameObject playerSpawnPoint;
 

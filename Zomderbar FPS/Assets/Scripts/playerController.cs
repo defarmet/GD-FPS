@@ -44,14 +44,11 @@ public class playerController : MonoBehaviour, IDamageable
         playerSpeedOG = playerSpeed;
         hpOriginal = hp;
         ammoCountOrig = ammoCount;
+        updatePlayerHp();
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.L))
-            takeDamage(1); //Debug Code to be removed later
-
-
         playerMovement();
         sprint();
         gunSwitch();
@@ -221,6 +218,7 @@ public class playerController : MonoBehaviour, IDamageable
     {
         hp -= dmg;
         StartCoroutine(damageFlash());
+        updatePlayerHp();
 
         if (hp <= 0)
         {
@@ -253,6 +251,16 @@ public class playerController : MonoBehaviour, IDamageable
     public void resetHP()
     {
         hp = hpOriginal;
+    }
+
+    public void updatePlayerHp()
+    {
+        gameManager.instance.playerHpBar.fillAmount = (float)hp / (float)hpOriginal;
+    }
+
+    public void updateAmmoBar()
+    {
+        gameManager.instance.ammoBar.fillAmount = (float)ammoCount / (float)ammoCountOrig;
     }
 
     //public void DisplayAmmoBar()
