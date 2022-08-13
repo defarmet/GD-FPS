@@ -14,6 +14,7 @@ public class gameManager : MonoBehaviour
 	public GameObject currentMenuOpen;
 	public GameObject playerDamageFlash;
 	public GameObject playerDeadMenu;
+	public GameObject currentGunHUD;
 
 	public GameObject playerSpawnPoint;
 

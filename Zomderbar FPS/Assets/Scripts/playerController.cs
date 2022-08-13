@@ -20,6 +20,7 @@ public class playerController : MonoBehaviour, IDamageable
     [Range(1, 30)] [SerializeField] float shootDistance;
     [Range(1, 10)] [SerializeField] int shootDmg;
     [Range(0, 20)] [SerializeField] int ammoCount;
+    [Range(1, 6)] [SerializeField] int selectedWeapon;
     [SerializeField] List<gunStats> gunstat = new List<gunStats>();
 
     //[SerializeField] GameObject cube;
@@ -32,6 +33,8 @@ public class playerController : MonoBehaviour, IDamageable
     bool isShooting = false;
     int hpOriginal;
     int ammoCountOrig;
+
+
 
     private int weapIndx;
     //private int prevWeapIndx;
@@ -127,12 +130,14 @@ public class playerController : MonoBehaviour, IDamageable
         }
     }
 
-    public void gunPickup(float _shootRate, int _shootDistance, int _shootDmg, int _ammoCount, gunStats _gunStats)
+    public void gunPickup(float _shootRate, int _shootDistance, int _shootDmg, int _ammoCount, GameObject _currentGunHUD, gunStats _gunStats)
     {
         shootRate = _shootRate;
         shootDistance = _shootDistance;
         shootDmg = _shootDmg;
         ammoCount = _ammoCount;
+        gameManager.instance.currentGunHUD = _currentGunHUD;
+        
 
 
         gunstat.Add(_gunStats);
@@ -208,4 +213,16 @@ public class playerController : MonoBehaviour, IDamageable
     {
         hp = hpOriginal;
     }
+
+    //public void DisplayAmmoBar()
+    //{
+    //    switch (selectedWeapon)
+    //    {
+    //        case (int)SelectedWeapon.AR:
+
+    //        default:
+    //            break;
+    //    }
+    //}
+
 }

@@ -7,6 +7,8 @@ public enum SelectFire
     Semi
 }
 
+//public enum SelectedWeapon { AR = 1, SMG, Shotgun, Sniper, Pistol, Knife };
+
 [CreateAssetMenu]
 public class gunStats : ScriptableObject
 {
@@ -16,6 +18,7 @@ public class gunStats : ScriptableObject
     public float shootRate;
     public int shootDist;
     public int shootDmg;
+    //public SelectedWeapon selectedWeapon;
 
     [Header("Ammo")]
     public int ammoCapacity;
