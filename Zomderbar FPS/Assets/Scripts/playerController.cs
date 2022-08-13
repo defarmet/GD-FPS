@@ -130,11 +130,13 @@ public class playerController : MonoBehaviour, IDamageable
         }
     }
 
-    public void gunPickup(float _shootRate, int _shootDistance, int _shootDmg, int _ammoCount, GameObject _currentGunHUD, gunStats _gunStats)
+    public void gunPickup(float _shootRate, float _shootDistance, int _shootDmg, int _ammoCount, GameObject _currentGunHUD, gunStats _gunStats)
     {
         if (gunstat.Count != 0)
+        {
+            selectedWeapon = gunstat.Count - 1;
             ++selectedWeapon;
-
+        }
         shootRate = _shootRate;
         shootDistance = _shootDistance;
         shootDmg = _shootDmg;
@@ -145,7 +147,12 @@ public class playerController : MonoBehaviour, IDamageable
         gameManager.instance.currentGunHUD = _currentGunHUD;
         gameManager.instance.currentGunHUD.SetActive(true);
 
+        _gunStats.shootDmg = shootDmg;
+        _gunStats.shootRate = shootRate;
+        _gunStats.shootDist = shootDistance;
+        _gunStats.gunHUD = gameManager.instance.currentGunHUD;
         gunstat.Add(_gunStats);
+
     }
 
     void gunSwitch()
@@ -188,8 +195,10 @@ public class playerController : MonoBehaviour, IDamageable
                 shootRate = gunstat[selectedWeapon].shootRate;
                 shootDistance = gunstat[selectedWeapon].shootDist;
                 shootDmg = gunstat[selectedWeapon].shootDmg;
-              //  gameManager.instance.currentGunHUD = 
-             
+                gameManager.instance.currentGunHUD.SetActive(false);
+                gameManager.instance.currentGunHUD = gunstat[selectedWeapon].gunHUD;
+                gameManager.instance.currentGunHUD.SetActive(true);
+
             }
 
             else if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedWeapon > 0)
@@ -198,7 +207,10 @@ public class playerController : MonoBehaviour, IDamageable
                 shootRate = gunstat[selectedWeapon].shootRate;
                 shootDistance = gunstat[selectedWeapon].shootDist;
                 shootDmg = gunstat[selectedWeapon].shootDmg;
-               
+                gameManager.instance.currentGunHUD.SetActive(false);
+                gameManager.instance.currentGunHUD = gunstat[selectedWeapon].gunHUD;
+                gameManager.instance.currentGunHUD.SetActive(true);
+
             }
         }
 
