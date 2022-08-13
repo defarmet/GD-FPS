@@ -19,6 +19,7 @@ public class playerController : MonoBehaviour, IDamageable
     [Range(0.1f, 5)][SerializeField] float shootRate;
     [Range(1, 30)][SerializeField] float shootDistance;
     [Range(1, 10)][SerializeField] int shootDmg;
+    [Range(0, 20)] [SerializeField] int ammoCount;
     [SerializeField] List<gunStats> gunstat = new List<gunStats>();
 
     //[SerializeField] GameObject cube;
@@ -30,6 +31,7 @@ public class playerController : MonoBehaviour, IDamageable
     bool isSprinting = false;
     bool isShooting = false;
     int hpOriginal;
+    int ammoCountOrig;
 
     private int weapIndx;
     //private int prevWeapIndx;
