@@ -20,7 +20,7 @@ public class playerController : MonoBehaviour, IDamageable
     [Range(1, 30)] [SerializeField] float shootDistance;
     [Range(1, 10)] [SerializeField] int shootDmg;
     [Range(0, 20)] [SerializeField] int ammoCount;
-    [Range(1, 6)] [SerializeField] int selectedWeapon;
+    [SerializeField] int selectedWeapon;
     [SerializeField] List<gunStats> gunstat = new List<gunStats>();
 
     //[SerializeField] GameObject cube;
@@ -132,6 +132,9 @@ public class playerController : MonoBehaviour, IDamageable
 
     public void gunPickup(float _shootRate, int _shootDistance, int _shootDmg, int _ammoCount, GameObject _currentGunHUD, gunStats _gunStats)
     {
+        if (gunstat.Count != 0)
+            ++selectedWeapon;
+
         shootRate = _shootRate;
         shootDistance = _shootDistance;
         shootDmg = _shootDmg;
@@ -147,35 +150,59 @@ public class playerController : MonoBehaviour, IDamageable
 
     void gunSwitch()
     {
-        if (gunstat.Count > 0) //If you have at least 1 weapon
+        //if (gunstat.Count > 0) //If you have at least 1 weapon
+        //{
+        //    if (Input.GetAxis("Mouse ScrollWheel") > 0) // forward
+        //    {
+        //        if (weapIndx >= gunstat.Count - 1) //You have your weapon on the last spot of your inventory equiped
+        //        {
+        //            weapIndx = 0; //Go back to the first (Toroid wrap)
+        //        }
+        //        else
+        //        {
+        //            weapIndx += 1; //Go to your next weapon
+        //        }
+        //    }
+        //    else if (Input.GetAxis("Mouse ScrollWheel") < 0) // backwards
+        //    {
+        //        if (weapIndx <= 0) //You have your weapon on the first spot of your inventory equiped
+        //        {
+        //            weapIndx = gunstat.Count - 1; //Go back to the last (Toroid wrap)
+        //        }
+        //        else
+        //        {
+        //            weapIndx -= 1; //Go to your previous weapon
+        //        }
+        //    }
+
+        //    shootRate = gunstat[weapIndx].shootRate;
+        //    shootDmg = gunstat[weapIndx].shootDmg;
+        //    shootDistance = gunstat[weapIndx].shootDist;
+        //}
+
+        if (gunstat.Count > 0)
         {
-            if (Input.GetAxis("Mouse ScrollWheel") > 0f) // forward
+            if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedWeapon < gunstat.Count - 1)
             {
-                if (weapIndx >= gunstat.Count - 1) //You have your weapon on the last spot of your inventory equiped
-                {
-                    weapIndx = 0; //Go back to the first (Toroid wrap)
-                }
-                else
-                {
-                    weapIndx += 1; //Go to your next weapon
-                }
-            }
-            else if (Input.GetAxis("Mouse ScrollWheel") < 0f) // backwards
-            {
-                if (weapIndx <= 0) //You have your weapon on the first spot of your inventory equiped
-                {
-                    weapIndx = gunstat.Count - 1; //Go back to the last (Toroid wrap)
-                }
-                else
-                {
-                    weapIndx -= 1; //Go to your previous weapon
-                }
+                selectedWeapon++;
+                shootRate = gunstat[selectedWeapon].shootRate;
+                shootDistance = gunstat[selectedWeapon].shootDist;
+                shootDmg = gunstat[selectedWeapon].shootDmg;
+              //  gameManager.instance.currentGunHUD = 
+             
             }
 
-            shootRate = gunstat[weapIndx].shootRate;
-            shootDmg = gunstat[weapIndx].shootDmg;
-            shootDistance = gunstat[weapIndx].shootDist;
+            else if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedWeapon > 0)
+            {
+                selectedWeapon--;
+                shootRate = gunstat[selectedWeapon].shootRate;
+                shootDistance = gunstat[selectedWeapon].shootDist;
+                shootDmg = gunstat[selectedWeapon].shootDmg;
+               
+            }
         }
+
+
     }
 
     public void takeDamage(int dmg)
