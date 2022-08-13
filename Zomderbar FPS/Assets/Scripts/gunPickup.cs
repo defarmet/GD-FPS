@@ -7,12 +7,15 @@ public class gunPickup : MonoBehaviour
     [SerializeField] gunStats gunStat;
     [SerializeField] GameObject currentGunHUD;
 
-    private void Update() // double pickup due to update
+
+    private void OnTriggerEnter(Collider other)
     {
-        if (Input.GetButtonDown("Interact"))
+        if (other.CompareTag("Player"))
         {
             gameManager.instance.playerScript.gunPickup(gunStat.shootRate, gunStat.shootDist, gunStat.shootDmg, gunStat.ammoCapacity, currentGunHUD, gunStat);
             Destroy(gameObject);
         }
     }
+
+   
 }
