@@ -9,13 +9,13 @@ public class enemyAI : MonoBehaviour, IDamageable
     [SerializeField] NavMeshAgent agent;
 
     [Header("---------- Stats -----------")]
-    [Range(0, 10)][SerializeField] int HP;
+    [Range(0, 30)][SerializeField] int HP;
     [Range(1, 10)][SerializeField] float playerFaceSpeed;
 
     [Header("---------- Weapon Stats -----------")]
     [Range(0.1f, 5)][SerializeField] float shootRate;
     [Range(1, 10)][SerializeField] int damage;
-    [Range(1, 10)][SerializeField] int bulletSpeed;
+    [Range(0, 10)][SerializeField] int bulletSpeed;
     [Range(1, 5)][SerializeField] int bulletDstryTime;
     [Range(1, 10)] [SerializeField] private float shootRange;
     [SerializeField] GameObject bullet;
@@ -27,7 +27,7 @@ public class enemyAI : MonoBehaviour, IDamageable
     // Start is called before the first frame update
     void Start()
     {
-
+        agent.stoppingDistance = shootRange;
     }
 
     // Update is called once per frame

@@ -45,6 +45,8 @@ public class playerController : MonoBehaviour, IDamageable
         hpOriginal = hp;
         ammoCountOrig = ammoCount;
         updatePlayerHp();
+
+        controller.enabled = true;
     }
 
     void Update()

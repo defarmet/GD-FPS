@@ -8,6 +8,7 @@ public class bullet : MonoBehaviour
     public int damage;
     public int speed;
     public int destroyTime;
+    [SerializeField] private bool destroyOnImpact = true;
     
     // Start is called before the first frame update
     void Start()
@@ -21,8 +22,12 @@ public class bullet : MonoBehaviour
         if(other.GetComponent<IDamageable>() != null)
         {
             other.GetComponent<IDamageable>().takeDamage(damage);
+            //damage = 0; //After the first tick of damage the particle effect will remain but cause no more damage.
         }
 
-        Destroy(gameObject);
+        if (destroyOnImpact)
+        {
+            Destroy(gameObject);
+        }
     }
 }
