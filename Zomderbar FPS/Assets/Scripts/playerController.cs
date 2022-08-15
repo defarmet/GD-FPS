@@ -192,6 +192,7 @@ public class playerController : MonoBehaviour, IDamageable
 
         if (gunstat.Count > 0)
         {
+            reload();
             if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedWeapon < gunstat.Count - 1)
             {
                 selectedWeapon++;
