@@ -22,7 +22,7 @@ public class playerController : MonoBehaviour, IDamageable
     [Range(0, 20)] [SerializeField] int ammoCount;
     [SerializeField] int selectedWeapon;
     [SerializeField] List<gunStats> gunstat = new List<gunStats>();
-    
+
 
     //[SerializeField] GameObject cube;
 
@@ -56,7 +56,7 @@ public class playerController : MonoBehaviour, IDamageable
         sprint();
         reload();
         gunSwitch();
-       
+
         StartCoroutine(shoot());
     }
 
@@ -269,6 +269,9 @@ public class playerController : MonoBehaviour, IDamageable
         if (Input.GetButtonDown("Reload"))
         {
             ammoCount = ammoCountOrig;
+            for (int i = 0; i < ammoCount; ++i)
+                gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
+
         }
     }
 
