@@ -134,6 +134,9 @@ public class playerController : MonoBehaviour, IDamageable
 
     public void gunPickup(float _shootRate, float _shootDistance, int _shootDmg, int _ammoCount, GameObject _currentGunHUD, gunStats _gunStats)
     {
+        for (int i = 0; i < ammoCountOrig; ++i)
+            gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
+
         if (gunstat.Count != 0)
         {
             selectedWeapon = gunstat.Count - 1;
@@ -192,13 +195,17 @@ public class playerController : MonoBehaviour, IDamageable
 
         if (gunstat.Count > 0)
         {
-            reload();
+
             if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedWeapon < gunstat.Count - 1)
             {
+                for (int i = 0; i < ammoCountOrig; ++i)
+                    gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
                 selectedWeapon++;
                 shootRate = gunstat[selectedWeapon].shootRate;
                 shootDistance = gunstat[selectedWeapon].shootDist;
                 shootDmg = gunstat[selectedWeapon].shootDmg;
+                ammoCountOrig = gunstat[selectedWeapon].ammoCapacity;
+                ammoCount = ammoCountOrig;
                 gameManager.instance.currentGunHUD.SetActive(false);
                 gameManager.instance.currentGunHUD = gunstat[selectedWeapon].gunHUD;
                 gameManager.instance.currentGunHUD.SetActive(true);
@@ -207,10 +214,14 @@ public class playerController : MonoBehaviour, IDamageable
 
             else if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedWeapon > 0)
             {
+                for (int i = 0; i < ammoCountOrig; ++i)
+                    gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
                 selectedWeapon--;
                 shootRate = gunstat[selectedWeapon].shootRate;
                 shootDistance = gunstat[selectedWeapon].shootDist;
                 shootDmg = gunstat[selectedWeapon].shootDmg;
+                ammoCountOrig = gunstat[selectedWeapon].ammoCapacity;
+                ammoCount = ammoCountOrig;
                 gameManager.instance.currentGunHUD.SetActive(false);
                 gameManager.instance.currentGunHUD = gunstat[selectedWeapon].gunHUD;
                 gameManager.instance.currentGunHUD.SetActive(true);
@@ -270,7 +281,7 @@ public class playerController : MonoBehaviour, IDamageable
         if (Input.GetButtonDown("Reload"))
         {
             ammoCount = ammoCountOrig;
-            for (int i = 0; i < ammoCount; ++i)
+            for (int i = 0; i < ammoCountOrig; ++i)
                 gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
 
         }
