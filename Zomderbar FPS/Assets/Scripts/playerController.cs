@@ -22,6 +22,7 @@ public class playerController : MonoBehaviour, IDamageable
     [Range(0, 20)] [SerializeField] int ammoCount;
     [SerializeField] int selectedWeapon;
     [SerializeField] List<gunStats> gunstat = new List<gunStats>();
+    
 
     //[SerializeField] GameObject cube;
 
@@ -54,7 +55,7 @@ public class playerController : MonoBehaviour, IDamageable
         playerMovement();
         sprint();
         gunSwitch();
-
+       
         StartCoroutine(shoot());
     }
 
@@ -106,6 +107,7 @@ public class playerController : MonoBehaviour, IDamageable
         if (gunstat.Count != 0 && Input.GetButton("Shoot") && ammoCount > 0 && isShooting == false)
         {
             isShooting = true;
+            gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(ammoCount - 1).gameObject.SetActive(false);
             --ammoCount;
 
             RaycastHit hit;
