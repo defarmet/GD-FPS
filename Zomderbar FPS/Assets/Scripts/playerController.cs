@@ -54,6 +54,7 @@ public class playerController : MonoBehaviour, IDamageable
     {
         playerMovement();
         sprint();
+        reload();
         gunSwitch();
        
         StartCoroutine(shoot());
@@ -262,20 +263,12 @@ public class playerController : MonoBehaviour, IDamageable
         gameManager.instance.playerHpBar.fillAmount = (float)hp / (float)hpOriginal;
     }
 
-    public void updateAmmoBar()
+    public void reload()
     {
-        gameManager.instance.ammoBar.fillAmount = (float)ammoCount / (float)ammoCountOrig;
+        if (Input.GetButtonDown("Reload"))
+        {
+            ammoCount = ammoCountOrig;
+        }
     }
-
-    //public void DisplayAmmoBar()
-    //{
-    //    switch (selectedWeapon)
-    //    {
-    //        case (int)SelectedWeapon.AR:
-
-    //        default:
-    //            break;
-    //    }
-    //}
 
 }
