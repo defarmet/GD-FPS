@@ -10,6 +10,7 @@ public class playerController : MonoBehaviour, IDamageable
     [Header("---------- Player Attributes -----------")]
     [Range(1, 10)] [SerializeField] float playerSpeed;
     [Range(1, 10)] [SerializeField] float crouchSpeed;
+    [Range (1.1f, 2)] [SerializeField] float slideMulti;
     [Range(1, 4)] [SerializeField] float sprintMult;
     [Range(8, 18)] [SerializeField] float jumpHeight;
     [Range(15, 30)] [SerializeField] float gravityValue;
@@ -294,11 +295,31 @@ public class playerController : MonoBehaviour, IDamageable
 
     void Crouching()
     {
+        //int i = 0;
+
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            isCrouching = true;
-            transform.localScale = new Vector3(1, .5f, 1);
-            playerSpeed = crouchSpeed;
+            if (isSprinting && controller.isGrounded)
+            {
+                isCrouching = true;
+                transform.localScale = new Vector3(1, .5f, 1);
+                playerSpeed *= slideMulti;
+                
+                //for (int i = 0; i <  )
+                while (playerSpeed > 0)
+                {
+                    //WaitABit();
+                    //playerSpeed *= 0.2f;
+                    Invoke("SlowDown", 1f);
+
+                }
+            }
+            else
+            {
+                isCrouching = true;
+                transform.localScale = new Vector3(1, .5f, 1);
+                playerSpeed = crouchSpeed;
+            }
         }
         else if (Input.GetKeyUp(KeyCode.LeftControl))
         {
@@ -307,5 +328,12 @@ public class playerController : MonoBehaviour, IDamageable
             playerSpeed = playerSpeedOG;
         }
     }
+
+    void SlowDown()
+    {
+        playerSpeed *= 0.2f;
+    }
+
+    
 
 }
