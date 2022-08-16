@@ -9,6 +9,7 @@ public class playerController : MonoBehaviour, IDamageable
 
     [Header("---------- Player Attributes -----------")]
     [Range(1, 10)] [SerializeField] float playerSpeed;
+    [Range(1, 10)] [SerializeField] float crouchSpeed;
     [Range(1, 4)] [SerializeField] float sprintMult;
     [Range(8, 18)] [SerializeField] float jumpHeight;
     [Range(15, 30)] [SerializeField] float gravityValue;
@@ -34,6 +35,8 @@ public class playerController : MonoBehaviour, IDamageable
     bool isShooting = false;
     int hpOriginal;
     int ammoCountOrig;
+    bool isCrouching = false;
+    float gravityValueOG;
 
 
 
@@ -43,6 +46,7 @@ public class playerController : MonoBehaviour, IDamageable
     private void Start()
     {
         playerSpeedOG = playerSpeed;
+        gravityValueOG = gravityValue;
         hpOriginal = hp;
         ammoCountOrig = ammoCount;
         updatePlayerHp();
@@ -56,6 +60,7 @@ public class playerController : MonoBehaviour, IDamageable
         sprint();
         reload();
         gunSwitch();
+        Crouching();
 
         StartCoroutine(shoot());
     }
@@ -284,6 +289,22 @@ public class playerController : MonoBehaviour, IDamageable
             for (int i = 0; i < ammoCountOrig; ++i)
                 gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
 
+        }
+    }
+
+    void Crouching()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            isCrouching = true;
+            transform.localScale = new Vector3(1, .5f, 1);
+            playerSpeed = crouchSpeed;
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            isCrouching = false;
+            transform.localScale = new Vector3(1, 1, 1);
+            playerSpeed = playerSpeedOG;
         }
     }
 
