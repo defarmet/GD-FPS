@@ -248,6 +248,8 @@ public class playerController : MonoBehaviour, IDamageable
         {
             //kill player
             death();
+            hp = hpOriginal;
+           
         }
     }
 
@@ -256,6 +258,7 @@ public class playerController : MonoBehaviour, IDamageable
         controller.enabled = false;
         transform.position = gameManager.instance.playerSpawnPoint.transform.position;
         controller.enabled = true;
+        updatePlayerHp();
     }
 
     public void death()
@@ -281,6 +284,8 @@ public class playerController : MonoBehaviour, IDamageable
     {
         gameManager.instance.playerHpBar.fillAmount = (float)hp / (float)hpOriginal;
     }
+
+    
 
     public void reload()
     {
