@@ -304,15 +304,8 @@ public class playerController : MonoBehaviour, IDamageable
                 isCrouching = true;
                 transform.localScale = new Vector3(1, .5f, 1);
                 playerSpeed *= slideMulti;
-                
-                //for (int i = 0; i <  )
-                while (playerSpeed > 0)
-                {
-                    //WaitABit();
-                    //playerSpeed *= 0.2f;
-                    Invoke("SlowDown", 1f);
 
-                }
+                StartCoroutine(StopSlide());
             }
             else
             {
@@ -329,9 +322,13 @@ public class playerController : MonoBehaviour, IDamageable
         }
     }
 
-    void SlowDown()
+    IEnumerator StopSlide()
     {
-        playerSpeed *= 0.2f;
+        //slideMulti -= 0.2f;
+        isSprinting = true;
+        yield return new WaitForSeconds(3);
+        isSprinting = false;
+        playerSpeed = crouchSpeed;
     }
 
     

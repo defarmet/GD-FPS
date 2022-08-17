@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2560
     height: 1357
   m_ShowMode: 4
-  m_Title: Project
+  m_Title: Game
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 62
+  controlID: 143
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 63
+  controlID: 79
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -166,8 +166,8 @@ MonoBehaviour:
     y: 0
     width: 324
     height: 1307
-  m_MinSize: {x: 202, y: 221}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 13}
@@ -218,8 +218,8 @@ MonoBehaviour:
     y: 0
     width: 465
     height: 1307
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 14}
@@ -364,9 +364,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: ec120000
+      m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 28faffff
+      m_ExpandedIDs: 42e8ffff38fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -485,9 +485,9 @@ MonoBehaviour:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 98660000
-    m_LastClickedID: 26264
-    m_ExpandedIDs: 0000000094660000966600009a6600009c6600009e66000000ca9a3b
+    m_SelectedIDs: 00620000
+    m_LastClickedID: 25088
+    m_ExpandedIDs: 00000000ba610000bc610000be610000c0610000c261000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -515,7 +515,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000009466000096660000986600009a6600009c6600009e660000a0660000a2660000a4660000a6660000a8660000
+    m_ExpandedIDs: 00000000ba610000bc610000be610000c0610000c2610000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -546,18 +546,18 @@ MonoBehaviour:
     m_ExpandedInstanceIDs: 
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: playerController
+      m_OriginalName: playerController
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 4832
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 8}
     m_CreateAssetUtility:
@@ -632,7 +632,7 @@ MonoBehaviour:
     m_HSlider: 0
     m_VSlider: 0
     m_IgnoreScrollWheelUntilClicked: 0
-    m_EnableMouseInput: 0
+    m_EnableMouseInput: 1
     m_EnableSliderZoomHorizontal: 0
     m_EnableSliderZoomVertical: 0
     m_UniformScale: 1
@@ -888,9 +888,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 0.8491607, y: -4.90372, z: -1.0802917}
+    m_Target: {x: 2.8686266, y: 0.940505, z: -11.521828}
     speed: 2
-    m_Value: {x: 0.8491607, y: -4.90372, z: -1.0802917}
+    m_Value: {x: 2.8686266, y: 0.940505, z: -11.521828}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -937,13 +937,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.08142256, y: 0.91478723, z: -0.31980035, w: 0.23290195}
+    m_Target: {x: -0.009134341, y: 0.9748627, z: -0.21882735, w: -0.040673025}
     speed: 2
-    m_Value: {x: 0.081423335, y: 0.91479594, z: -0.3198034, w: 0.23290417}
+    m_Value: {x: -0.00913443, y: 0.9748723, z: -0.2188295, w: -0.040673424}
   m_Size:
-    m_Target: 10
+    m_Target: 1.9125988
     speed: 2
-    m_Value: 10
+    m_Value: 1.9125988
   m_Ortho:
     m_Target: 0
     speed: 2
