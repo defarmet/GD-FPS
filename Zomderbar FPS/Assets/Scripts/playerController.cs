@@ -10,7 +10,7 @@ public class playerController : MonoBehaviour, IDamageable
     [Header("---------- Player Attributes -----------")]
     [Range(1, 10)] [SerializeField] float playerSpeed;
     [Range(1, 10)] [SerializeField] float crouchSpeed;
-    [Range (1.1f, 2)] [SerializeField] float slideMulti;
+    [Range(1.1f, 2)] [SerializeField] float slideMulti;
     [Range(1, 4)] [SerializeField] float sprintMult;
     [Range(8, 18)] [SerializeField] float jumpHeight;
     [Range(15, 30)] [SerializeField] float gravityValue;
@@ -248,8 +248,8 @@ public class playerController : MonoBehaviour, IDamageable
         {
             //kill player
             death();
-            hp = hpOriginal;
-           
+            resetHP();
+
         }
     }
 
@@ -259,6 +259,7 @@ public class playerController : MonoBehaviour, IDamageable
         transform.position = gameManager.instance.playerSpawnPoint.transform.position;
         controller.enabled = true;
         updatePlayerHp();
+        resetPlayerAmmo();
     }
 
     public void death()
@@ -279,13 +280,27 @@ public class playerController : MonoBehaviour, IDamageable
     {
         hp = hpOriginal;
     }
+    public void resetPlayerAmmo()
+    {
+        ammoCount = ammoCountOrig;
+        for (int i = 0; i < gunstat.Count; ++i)
+        {
+            for (int j = 0; j < gunstat[i].ammoCapacity; ++j)
+            {
+                gunstat[i].gunHUD.transform.GetChild(0).GetChild(j).gameObject.SetActive(true);
+
+            }
+
+        }
+    }
+
 
     public void updatePlayerHp()
     {
         gameManager.instance.playerHpBar.fillAmount = (float)hp / (float)hpOriginal;
     }
 
-    
+
 
     public void reload()
     {
@@ -336,6 +351,6 @@ public class playerController : MonoBehaviour, IDamageable
         playerSpeed = crouchSpeed;
     }
 
-    
+
 
 }
