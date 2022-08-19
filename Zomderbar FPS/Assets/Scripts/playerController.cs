@@ -8,9 +8,10 @@ public class playerController : MonoBehaviour, IDamageable
     [SerializeField] CharacterController controller;
 
     [Header("---------- Player Attributes -----------")]
-    [Range(1, 10)] [SerializeField] float playerSpeed;
-    [Range(1, 10)] [SerializeField] float crouchSpeed;
+    [Range(1, 10)] [SerializeField] public float playerSpeed;
+    [Range(1, 10)] [SerializeField] public float crouchSpeed;
     [Range(1.1f, 2)] [SerializeField] float slideMulti;
+    [SerializeField] int slideTime;
     [Range(1, 4)] [SerializeField] float sprintMult;
     [Range(8, 18)] [SerializeField] float jumpHeight;
     [Range(15, 30)] [SerializeField] float gravityValue;
@@ -31,13 +32,14 @@ public class playerController : MonoBehaviour, IDamageable
     private Vector3 playerVelocity;
     Vector3 move = Vector3.zero;
     int timesJumps;
-    float playerSpeedOG;
+    public float playerSpeedOG;
     bool isSprinting = false;
     bool isShooting = false;
     int hpOriginal;
     int ammoCountOrig;
     bool isCrouching = false;
     float gravityValueOG;
+    
 
 
 
@@ -61,7 +63,7 @@ public class playerController : MonoBehaviour, IDamageable
         sprint();
         reload();
         gunSwitch();
-        Crouching();
+        //Crouching();
 
         StartCoroutine(shoot());
     }
@@ -313,40 +315,39 @@ public class playerController : MonoBehaviour, IDamageable
         }
     }
 
-    void Crouching()
-    {
-        //int i = 0;
+    //void Crouching()
+    //{
+    //    //int i = 0;
 
-        if (Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            if (isSprinting && controller.isGrounded)
-            {
-                isCrouching = true;
-                transform.localScale = new Vector3(1, .5f, 1);
-                playerSpeed *= slideMulti;
+    //    if (Input.GetKeyDown(KeyCode.LeftControl))
+    //    {
 
-                StartCoroutine(StopSlide());
-            }
-            else
-            {
-                isCrouching = true;
-                transform.localScale = new Vector3(1, .5f, 1);
-                playerSpeed = crouchSpeed;
-            }
-        }
-        else if (Input.GetKeyUp(KeyCode.LeftControl))
-        {
-            isCrouching = false;
-            transform.localScale = new Vector3(1, 1, 1);
-            playerSpeed = playerSpeedOG;
-        }
-    }
+    //        isCrouching = true;
+    //        transform.localScale = new Vector3(1, .5f, 1);
+    //        playerSpeed = crouchSpeed;
+            
+    //    }
+    //    else if (Input.GetKeyDown(KeyCode.LeftControl) && isSprinting && isCrouching == false)
+    //    {
+    //        isCrouching = true;
+    //        transform.localScale = new Vector3(1, .5f, 1);
+    //        playerSpeed *= slideMulti;
+
+    //        StartCoroutine(StopSlide());
+    //    }
+    //    else if (Input.GetKeyUp(KeyCode.LeftControl))
+    //    {
+    //        isCrouching = false;
+    //        transform.localScale = new Vector3(1, 1, 1);
+    //        playerSpeed = playerSpeedOG;
+    //    }
+    //}
 
     IEnumerator StopSlide()
     {
         //slideMulti -= 0.2f;
         isSprinting = true;
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(slideTime);
         isSprinting = false;
         playerSpeed = crouchSpeed;
     }

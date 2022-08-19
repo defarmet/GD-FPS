@@ -191,8 +191,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 940c4bda6f342124e9bd9b1475af680b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensHori: 50
-  sensVert: 50
+  sensHori: 300
+  sensVert: 300
   lockVertMin: -75
   lockVertMax: 75
   invert: 0
@@ -206,6 +206,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4052029024476061145}
   - component: {fileID: 4052029024476061144}
+  - component: {fileID: 106514834703273366}
   - component: {fileID: 4052029024476061151}
   - component: {fileID: 4052029024476061150}
   - component: {fileID: 4052029024476061149}
@@ -248,6 +249,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 4052029024476061148}
   playerSpeed: 5
+  crouchSpeed: 2
+  slideMulti: 1.5
+  slideTime: 2
   sprintMult: 1.5
   jumpHeight: 9.08
   gravityValue: 17.5
@@ -256,7 +260,23 @@ MonoBehaviour:
   shootRate: 0
   shootDistance: 0
   shootDmg: 0
+  ammoCount: 0
+  selectedWeapon: 0
   gunstat: []
+--- !u!114 &106514834703273366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4052029024476061155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 450de0ccf2611b643babdca510f06c92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 4052029024476061148}
+  crouchSpeed: 2
 --- !u!33 &4052029024476061151
 MeshFilter:
   m_ObjectHideFlags: 0
