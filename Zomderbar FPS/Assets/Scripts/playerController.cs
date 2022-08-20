@@ -105,33 +105,32 @@ public class playerController : MonoBehaviour, IDamageable
         controller.Move(playerVelocity * Time.deltaTime);
     }
 
-     public void sprint()
-    {
-            if (Input.GetButtonDown("Sprint"))
-            {
-                isSprinting = true;
-                playerSpeed = playerSpeed * sprintMult;
-            }
+    // public void sprint()
+    //{
+    //        if (Input.GetButtonDown("Sprint"))
+    //        {
+    //            isSprinting = true;
+    //            playerSpeed = playerSpeed * sprintMult;
+    //        }
 
-            if (Input.GetButtonUp("Sprint"))
-            {
-                isSprinting = false;
-                playerSpeed = playerSpeedOG;
-            }
-    }
+    //        if (Input.GetButtonUp("Sprint"))
+    //        {
+    //            isSprinting = false;
+    //            playerSpeed = playerSpeedOG;
+    //        }
+    //}
 
     void slide()
     {
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetButtonDown("Sprint"))
         {
             transform.localScale = new Vector3(1, .5f, 1);
-            rb.AddForce(Vector3.down * 20, ForceMode.Impulse);
             playerSpeed = playerSpeed * slideMulti;
             StartCoroutine(stopSlide());
 
         }
 
-        else if(Input.GetKeyUp(KeyCode.LeftControl))
+        else if(Input.GetButtonUp("Sprint"))
         {
             transform.localScale = new Vector3(1, 1, 1);
             playerSpeed = playerSpeedOG;
@@ -141,7 +140,7 @@ public class playerController : MonoBehaviour, IDamageable
     IEnumerator stopSlide()
     {
         yield return new WaitForSeconds(slideTime);
-        transform.localScale = new Vector3(1, 1, 1);
+        //transform.localScale = new Vector3(1, 1, 1);
         playerSpeed = playerSpeedOG;
 
     }
