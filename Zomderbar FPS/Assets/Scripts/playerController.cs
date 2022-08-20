@@ -6,12 +6,14 @@ public class playerController : MonoBehaviour, IDamageable
 {
     [Header("---------- Components -----------")]
     [SerializeField] CharacterController controller;
+    [SerializeField] Rigidbody rb;
 
     [Header("---------- Player Attributes -----------")]
     [Range(1, 10)] [SerializeField] public float playerSpeed;
-    [Range(1, 10)] [SerializeField] public float crouchSpeed;
+    //[Range(1, 10)] [SerializeField] public float crouchSpeed;
     [Range(1.1f, 2)] [SerializeField] float slideMulti;
     [SerializeField] int slideTime;
+    [SerializeField] float wallRunSpeed;
     [Range(1, 4)] [SerializeField] float sprintMult;
     [Range(8, 18)] [SerializeField] float jumpHeight;
     [Range(15, 30)] [SerializeField] float gravityValue;
@@ -33,12 +35,14 @@ public class playerController : MonoBehaviour, IDamageable
     Vector3 move = Vector3.zero;
     int timesJumps;
     public float playerSpeedOG;
-    bool isSprinting = false;
+    public bool isSprinting = false;
     bool isShooting = false;
     int hpOriginal;
     int ammoCountOrig;
     bool isCrouching = false;
     float gravityValueOG;
+    public bool canSprint = true;
+    public bool isWallrun = false;
     
 
 
@@ -60,10 +64,11 @@ public class playerController : MonoBehaviour, IDamageable
     void Update()
     {
         playerMovement();
-        sprint();
+        //sprint();
         reload();
         gunSwitch();
         //Crouching();
+        slide();
 
         StartCoroutine(shoot());
     }
@@ -93,19 +98,45 @@ public class playerController : MonoBehaviour, IDamageable
         controller.Move(playerVelocity * Time.deltaTime);
     }
 
-    void sprint()
+     public void sprint()
     {
-        if (Input.GetButtonDown("Sprint"))
+            if (Input.GetButtonDown("Sprint"))
+            {
+                isSprinting = true;
+                playerSpeed = playerSpeed * sprintMult;
+            }
+
+            if (Input.GetButtonUp("Sprint"))
+            {
+                isSprinting = false;
+                playerSpeed = playerSpeedOG;
+            }
+    }
+
+    void slide()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            isSprinting = true;
-            playerSpeed = playerSpeed * sprintMult;
+            transform.localScale = new Vector3(1, .5f, 1);
+            rb.AddForce(Vector3.down * 20, ForceMode.Impulse);
+            playerSpeed = playerSpeed * slideMulti;
+            StartCoroutine(stopSlide());
+
         }
 
-        if (Input.GetButtonUp("Sprint"))
+        else if(Input.GetKeyUp(KeyCode.LeftControl))
         {
-            isSprinting = false;
+            transform.localScale = new Vector3(1, 1, 1);
             playerSpeed = playerSpeedOG;
         }
+    }
+
+    IEnumerator stopSlide()
+    {
+        yield return new WaitForSeconds(slideTime);
+        transform.localScale = new Vector3(1, 1, 1);
+        playerSpeed = playerSpeedOG;
+
     }
 
     IEnumerator shoot()
@@ -342,16 +373,5 @@ public class playerController : MonoBehaviour, IDamageable
     //        playerSpeed = playerSpeedOG;
     //    }
     //}
-
-    IEnumerator StopSlide()
-    {
-        //slideMulti -= 0.2f;
-        isSprinting = true;
-        yield return new WaitForSeconds(slideTime);
-        isSprinting = false;
-        playerSpeed = crouchSpeed;
-    }
-
-
 
 }
