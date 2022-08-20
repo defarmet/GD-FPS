@@ -39,7 +39,7 @@ public class playerController : MonoBehaviour, IDamageable
     bool isShooting = false;
     int hpOriginal;
     int ammoCountOrig;
-    bool isCrouching = false;
+    //bool isCrouching = false;
     float gravityValueOG;
     public bool canSprint = true;
     public bool isWallrun = false;
@@ -64,10 +64,10 @@ public class playerController : MonoBehaviour, IDamageable
     void Update()
     {
         playerMovement();
-        //sprint();
+        
         reload();
         gunSwitch();
-        //Crouching();
+        
         slide();
 
         StartCoroutine(shoot());
@@ -92,6 +92,13 @@ public class playerController : MonoBehaviour, IDamageable
         {
             playerVelocity.y = jumpHeight;
             timesJumps++;
+
+            if (timesJumps > 1)
+            {
+                playerVelocity.y = jumpHeight * 1.6f;
+                StartCoroutine(slowJumpMovement());
+
+            }
         }
 
         playerVelocity.y -= gravityValue * Time.deltaTime;
@@ -344,6 +351,13 @@ public class playerController : MonoBehaviour, IDamageable
                 gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
 
         }
+    }
+
+    IEnumerator slowJumpMovement()
+    {
+        playerSpeed = playerSpeed * 0.5f;
+        yield return new WaitForSeconds(1.8f);
+        playerSpeed = playerSpeedOG;
     }
 
     //void Crouching()
