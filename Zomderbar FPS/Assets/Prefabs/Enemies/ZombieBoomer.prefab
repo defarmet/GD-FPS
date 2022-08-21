@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &419965680366993295
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7928832849341398875}
+  m_Layer: 3
+  m_Name: Head
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7928832849341398875
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 419965680366993295}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.499, z: 0.293}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2915705677307990927}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2915705677307990917
 GameObject:
   m_ObjectHideFlags: 0
@@ -34,6 +65,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2915705679092756626}
+  - {fileID: 7928832849341398875}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -114,15 +146,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 2915705677307990916}
+  head: {fileID: 7928832849341398875}
+  bullet: {fileID: 8585047719546498357, guid: 9e67bbd296f70fd4fb866ee01ee61308, type: 3}
+  bulletSpawn: {fileID: 2915705679092756627}
   HP: 20
   playerFaceSpeed: 1
+  fieldOfViewShoot: 25
+  fieldOfView: 70
   shootRate: 4
   damage: 2
   bulletSpeed: 0
   bulletDstryTime: 2
   shootRange: 2
-  bullet: {fileID: 8585047719546498357, guid: 9e67bbd296f70fd4fb866ee01ee61308, type: 3}
-  bulletSpawn: {fileID: 2915705679092756627}
+  visionRange: 9
 --- !u!195 &2915705677307990916
 NavMeshAgent:
   m_ObjectHideFlags: 0

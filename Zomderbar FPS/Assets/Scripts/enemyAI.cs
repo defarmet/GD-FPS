@@ -7,10 +7,18 @@ public class enemyAI : MonoBehaviour, IDamageable
 {
     [Header("---------- Components -----------")]
     [SerializeField] NavMeshAgent agent;
+    [SerializeField] private Transform head;
+    //[SerializeField] private Animator anim;
+    //[SerializeField] private Renderer rend;
+    [SerializeField] GameObject bullet;
+    [SerializeField] GameObject bulletSpawn;
 
     [Header("---------- Stats -----------")]
     [Range(0, 30)][SerializeField] int HP;
     [Range(1, 10)][SerializeField] float playerFaceSpeed;
+    [Range(1, 30)] [SerializeField] int fieldOfViewShoot;
+    [Range(1, 180)] [SerializeField] int fieldOfView;
+    private float distanceFromPlayer;
 
     [Header("---------- Weapon Stats -----------")]
     [Range(0.1f, 5)][SerializeField] float shootRate;
@@ -18,10 +26,9 @@ public class enemyAI : MonoBehaviour, IDamageable
     [Range(0, 10)][SerializeField] int bulletSpeed;
     [Range(1, 5)][SerializeField] int bulletDstryTime;
     [Range(1, 10)] [SerializeField] private float shootRange;
-    [SerializeField] GameObject bullet;
-    [SerializeField] GameObject bulletSpawn;
+    [Range(1, 10)] [SerializeField] private float visionRange;
 
-    Vector3 playerDir;
+     Vector3 playerDir;
     bool isShooting = false;
 
     // Start is called before the first frame update
@@ -33,13 +40,18 @@ public class enemyAI : MonoBehaviour, IDamageable
     // Update is called once per frame
     void Update()
     {
-        agent.SetDestination(gameManager.instance.player.transform.position);
-        playerDir = gameManager.instance.player.transform.position - transform.position;
+        playerDir = gameManager.instance.player.transform.position - head.position;
 
-        facePlayer();
+        distanceFromPlayer = Vector3.Distance(transform.position, gameManager.instance.player.transform.position);
 
-        if (!isShooting && Vector3.Distance(transform.position, gameManager.instance.player.transform.position) <= shootRange)
-            StartCoroutine(shoot());
+        if (agent.enabled == true)
+        {
+            CanSeePlayer();
+        }
+        if (distanceFromPlayer > visionRange && agent.remainingDistance < 0.1)
+        {
+            //Roam(); For now we don't want the zombies to roam arround, but rather to stay still until they "hear" something.
+        }
 
     }
 
@@ -52,6 +64,31 @@ public class enemyAI : MonoBehaviour, IDamageable
             transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * playerFaceSpeed);
         }
     }
+    private void CanSeePlayer()
+    {
+        float angle = Vector3.Angle(playerDir, head.forward);
+        RaycastHit hit;
+        if (Physics.Raycast(head.position, playerDir, out hit))
+        {
+            Debug.DrawRay(head.position, playerDir);
+            if (hit.collider.CompareTag("Player") && !isShooting)
+            {
+                if (angle <= fieldOfView)
+                {
+                    if (distanceFromPlayer <= visionRange)
+                    {
+                        agent.stoppingDistance = shootRange;
+                        agent.SetDestination(gameManager.instance.player.transform.position);
+                        Debug.Log(angle);
+                        facePlayer(); 
+                        if (distanceFromPlayer <= shootRange && angle <= fieldOfViewShoot)
+                            StartCoroutine(shoot());
+                    }
+                }
+            }
+        }
+    }
+
 
     public void takeDamage(int dmg)
     {
