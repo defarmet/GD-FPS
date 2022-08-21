@@ -13,7 +13,7 @@ public class gunStats : ScriptableObject
     public float shootRate;
     public float shootDist;
     public int shootDmg;
-    public GameObject gunHUD;
+    public int gunHUD;
     //public SelectedWeapon selectedWeapon;
 
     [Header("Ammo")]

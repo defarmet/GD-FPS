@@ -246,7 +246,7 @@ public class playerController : MonoBehaviour, IDamageable
                 shootDmg = gunstat[selectedWeapon].shootDmg;
                 ammoCountOrig = gunstat[selectedWeapon].ammoCapacity;
                 gameManager.instance.currentGunHUD.SetActive(false);
-                gameManager.instance.currentGunHUD = gunstat[selectedWeapon].gunHUD;
+                gameManager.instance.currentGunHUD = gameManager.instance.gunHUD[gunstat[selectedWeapon].gunHUD];
                 gameManager.instance.currentGunHUD.SetActive(true);
                 for (int i = 0; i < currentAmmoCount[selectedWeapon]; ++i)
                     gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
@@ -261,7 +261,8 @@ public class playerController : MonoBehaviour, IDamageable
                 shootDmg = gunstat[selectedWeapon].shootDmg;
                 ammoCountOrig = gunstat[selectedWeapon].ammoCapacity;
                 gameManager.instance.currentGunHUD.SetActive(false);
-                gameManager.instance.currentGunHUD = gunstat[selectedWeapon].gunHUD;
+                //gameManager.instance.currentGunHUD = gunstat[selectedWeapon].gunHUD;
+                gameManager.instance.currentGunHUD = gameManager.instance.gunHUD[gunstat[selectedWeapon].gunHUD];
                 gameManager.instance.currentGunHUD.SetActive(true);
                 for (int i = 0; i < currentAmmoCount[selectedWeapon]; ++i)
                     gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
@@ -321,7 +322,7 @@ public class playerController : MonoBehaviour, IDamageable
             currentAmmoCount[selectedWeapon] = gunstat[i].ammoCapacity;
             for (int j = 0; j < gunstat[i].ammoCapacity; ++j)
             {
-                gunstat[i].gunHUD.transform.GetChild(0).GetChild(j).gameObject.SetActive(true);
+                gameManager.instance.gunHUD[gunstat[i].gunHUD].transform.GetChild(0).GetChild(j).gameObject.SetActive(true);
 
             }
 

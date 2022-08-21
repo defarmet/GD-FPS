@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 009b834d53b069d4eba861cc00b5501e, type: 3}
   m_Name: Gun Stats - Shotgun
   m_EditorClassIdentifier: 
-  fireType: 0
   shootRate: 0.5
   shootDist: 20
   shootDmg: 8
-  gunHUD: {fileID: 0}
+  gunHUD: 3
   ammoCapacity: 2
   reloadTime: 0.7

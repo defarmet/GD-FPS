@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 009b834d53b069d4eba861cc00b5501e, type: 3}
   m_Name: Gun Stats - Knife
   m_EditorClassIdentifier: 
-  fireType: 0
   shootRate: 0.33
   shootDist: 2
   shootDmg: 3
-  gunHUD: {fileID: 0}
+  gunHUD: 5
   ammoCapacity: 0
   reloadTime: 0
