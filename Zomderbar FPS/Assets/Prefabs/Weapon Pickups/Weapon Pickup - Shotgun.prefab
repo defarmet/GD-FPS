@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 6169579238073837620}
   - component: {fileID: 6169579238073837621}
   - component: {fileID: 6169579238073837622}
-  - component: {fileID: 2955726244884889067}
-  - component: {fileID: 6333887856755794806}
+  - component: {fileID: 917070177}
+  - component: {fileID: 2431108792746071589}
   m_Layer: 0
-  m_Name: Weapon Pickup - SMG
+  m_Name: Weapon Pickup - Shotgun
   m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   m_LocalRotation: {x: -0.5, y: 0.5, z: -0.5, w: 0.5}
   m_LocalPosition: {x: 20, y: 1.18, z: 15.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -42,7 +42,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6169579238073837617}
-  m_Mesh: {fileID: -6222581352149868263, guid: a957639d15248134a9be03d5ae4fed7f, type: 3}
+  m_Mesh: {fileID: 3744501094556469539, guid: f62f7dc06bd890d4aab43b8fd635fe02, type: 3}
 --- !u!23 &6169579238073837622
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3123d1e115680294fbfb5a488f9d22fb, type: 2}
+  - {fileID: 2100000, guid: fc25eb7b147a1da489b4801d863e173c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -85,7 +85,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2955726244884889067
+--- !u!65 &917070177
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,9 +96,9 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2, y: 1.49, z: 1.91}
-  m_Center: {x: 0, y: 0.21, z: 0}
---- !u!114 &6333887856755794806
+  m_Size: {x: 2, y: 2.64, z: 7.38}
+  m_Center: {x: 0, y: 0.17, z: -0.41183197}
+--- !u!114 &2431108792746071589
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -110,5 +110,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 414af3a20fc149c4ab1a2946a0a41438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunStat: {fileID: 11400000, guid: bf65cb4fcbbde0748b30a174bd67ddca, type: 2}
-  gunHUD: {fileID: 0}
+  gunStat: {fileID: 11400000, guid: 865d0709ef619054981f9667fb903d95, type: 2}
+  gunHUD: 3

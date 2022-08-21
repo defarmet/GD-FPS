@@ -177,10 +177,10 @@ public class playerController : MonoBehaviour, IDamageable
         }
     }
 
-    public void gunPickup(float _shootRate, float _shootDistance, int _shootDmg, int _ammoCount, GameObject _currentGunHUD, gunStats _gunStats)
+    public void gunPickup(float _shootRate, float _shootDistance, int _shootDmg, int _ammoCount, int _currentGunHUD, gunStats _gunStats)
     {
         for (int i = 0; i < ammoCountOrig; ++i)
-            gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
+	    gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
 
         if (gunstat.Count != 0)
         {
@@ -195,7 +195,7 @@ public class playerController : MonoBehaviour, IDamageable
 
         if (gameManager.instance.currentGunHUD != null)
             gameManager.instance.currentGunHUD.SetActive(false);
-        gameManager.instance.currentGunHUD = _currentGunHUD;
+        gameManager.instance.currentGunHUD = gameManager.instance.gunHUD[_currentGunHUD];
         gameManager.instance.currentGunHUD.SetActive(true);
 
         _gunStats.shootDmg = shootDmg;

@@ -2741,6 +2741,13 @@ MonoBehaviour:
   playerDamageFlash: {fileID: 7323532354655439690}
   playerDeadMenu: {fileID: 2211234427028188242}
   currentGunHUD: {fileID: 0}
+  gunHUD:
+  - {fileID: 1821294357}
+  - {fileID: 1721288576}
+  - {fileID: 31415593}
+  - {fileID: 1008884042}
+  - {fileID: 1862029717}
+  - {fileID: 490754484}
   playerHpBar: {fileID: 1412448662}
   ammoBar: {fileID: 0}
   playerSpawnPoint: {fileID: 0}
