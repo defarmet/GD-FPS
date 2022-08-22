@@ -143,6 +143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 1383097772}
   head: {fileID: 8592117166421926465}
+  anim: {fileID: 2999236018250586251}
   bullet: {fileID: 8086148944952882686, guid: b644199b97737eb4094ed4fccc1a498c, type: 3}
   bulletSpawn: {fileID: 2939138691281810762}
   HP: 10
@@ -214,7 +215,7 @@ Animator:
   m_GameObject: {fileID: 2939138692193324107}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cbce34de20bcfa843adb5218c268230c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

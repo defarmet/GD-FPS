@@ -8,7 +8,7 @@ public class enemyAI : MonoBehaviour, IDamageable
     [Header("---------- Components -----------")]
     [SerializeField] NavMeshAgent agent;
     [SerializeField] private Transform head;
-    //[SerializeField] private Animator anim;
+    [SerializeField] private Animator anim;
     //[SerializeField] private Renderer rend;
     [SerializeField] GameObject bullet;
     [SerializeField] GameObject bulletSpawn;
@@ -40,17 +40,21 @@ public class enemyAI : MonoBehaviour, IDamageable
     // Update is called once per frame
     void Update()
     {
-        playerDir = gameManager.instance.player.transform.position - head.position;
-
-        distanceFromPlayer = Vector3.Distance(transform.position, gameManager.instance.player.transform.position);
-
-        if (agent.enabled == true)
+        if (agent.isActiveAndEnabled && !anim.GetBool("Dead"))
         {
-            CanSeePlayer();
-        }
-        if (distanceFromPlayer > visionRange && agent.remainingDistance < 0.1)
-        {
-            //Roam(); For now we don't want the zombies to roam arround, but rather to stay still until they "hear" something.
+            
+            playerDir = gameManager.instance.player.transform.position - head.position;
+
+            distanceFromPlayer = Vector3.Distance(transform.position, gameManager.instance.player.transform.position);
+
+            if (agent.enabled == true)
+            {
+                CanSeePlayer();
+            }
+            if (distanceFromPlayer > visionRange && agent.remainingDistance < 0.1)
+            {
+                //Roam(); For now we don't want the zombies to roam arround, but rather to stay still until they "hear" something.
+            }
         }
 
     }
