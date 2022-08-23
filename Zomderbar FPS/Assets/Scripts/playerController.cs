@@ -355,7 +355,7 @@ public class playerController : MonoBehaviour, IDamageable
 
     public void reload()
     {
-        if (Input.GetButtonDown("Reload"))
+        if (Input.GetButtonDown("Reload") && gunstat.Count != 0)
         {
             if (currentAmmoCount[selectedWeapon] == ammoCountOrig && !alreadyReloadedUI)
                 StartCoroutine(alreadyReloaded());
