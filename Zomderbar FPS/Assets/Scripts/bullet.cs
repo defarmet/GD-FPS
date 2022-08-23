@@ -22,7 +22,7 @@ public class bullet : MonoBehaviour
         if(other.GetComponent<IDamageable>() != null)
         {
             other.GetComponent<IDamageable>().takeDamage(damage);
-            //damage = 0; //After the first tick of damage the particle effect will remain but cause no more damage.
+            damage = 0; //After the first tick of damage the particle effect will remain but cause no more damage.
         }
 
         if (destroyOnImpact)
