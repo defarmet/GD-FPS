@@ -28,7 +28,7 @@ public class enemyAI : MonoBehaviour, IDamageable
     [Header("---------- Weapon Stats -----------")]
     [Range(0.1f, 5)][SerializeField] float shootRate;
     [Range(1, 10)][SerializeField] int damage;
-    [Range(0, 10)][SerializeField] int bulletSpeed;
+    [Range(0, 20)][SerializeField] int bulletSpeed;
     [Range(1, 5)][SerializeField] int bulletDstryTime;
     [Range(1, 10)] [SerializeField] private float shootRange;
     [Range(1, 15)] [SerializeField] private float visionRange;
@@ -117,8 +117,8 @@ public class enemyAI : MonoBehaviour, IDamageable
         {
             //Destroy(gameObject);
             anim.SetBool("Dead", true);
-            if (isZombieFloaty)
-                StartCoroutine(shiftToFloorTimer(0.25f));
+            //if (isZombieFloaty)
+                //StartCoroutine(shiftToFloorTimer(0.25f));
             agent.enabled = false;
             
             foreach (Collider col in GetComponents<Collider>())
@@ -156,11 +156,11 @@ public class enemyAI : MonoBehaviour, IDamageable
         //rend.material.color = Color.white;
     }
 
-    IEnumerator shiftToFloorTimer(float time)
-    {
-        yield return new WaitForSeconds(time);
-        transform.position = new Vector3(transform.position.x, transform.position.y - 0.8f, transform.position.z);
-    }
+    //IEnumerator shiftToFloorTimer(float time)
+    //{
+    //    yield return new WaitForSeconds(time);
+    //    transform.position = new Vector3(transform.position.x, transform.position.y - 0.8f, transform.position.z);
+    //}
 
 
 }
