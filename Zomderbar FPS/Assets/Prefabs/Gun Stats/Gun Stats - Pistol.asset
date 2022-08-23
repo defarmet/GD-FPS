@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 009b834d53b069d4eba861cc00b5501e, type: 3}
   m_Name: Gun Stats - Pistol
   m_EditorClassIdentifier: 
-  fireType: 0
-  shootRate: 0
-  shootDist: 0
+  shootRate: 0.2
+  shootDist: 20
   shootDmg: 2
   gunHUD: {fileID: 0}
   ammoCapacity: 12
