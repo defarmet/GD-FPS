@@ -9,7 +9,7 @@ public class enemyAI : MonoBehaviour, IDamageable
     [SerializeField] NavMeshAgent agent;
     [SerializeField] private Transform head;
     [SerializeField] private Animator anim;
-    [SerializeField] Renderer rend;
+    //[SerializeField] Renderer rend;
     //[SerializeField] private Renderer rend;
     [SerializeField] GameObject bullet;
     [SerializeField] GameObject bulletSpawn;
@@ -21,6 +21,8 @@ public class enemyAI : MonoBehaviour, IDamageable
     [Range(1, 180)] [SerializeField] int fieldOfView;
     [Range(1, 5)][SerializeField] int speedRoam;
     [Range(1, 5)][SerializeField] int speedChase;
+    [SerializeField] bool isZombieFloaty;
+    
     private float distanceFromPlayer;
 
     [Header("---------- Weapon Stats -----------")]
@@ -115,8 +117,10 @@ public class enemyAI : MonoBehaviour, IDamageable
         {
             //Destroy(gameObject);
             anim.SetBool("Dead", true);
+            if (isZombieFloaty)
+                StartCoroutine(shiftToFloorTimer(0.25f));
             agent.enabled = false;
-
+            
             foreach (Collider col in GetComponents<Collider>())
             {
                 col.enabled = false;
@@ -139,7 +143,7 @@ public class enemyAI : MonoBehaviour, IDamageable
 
     IEnumerator flashColor()
     {
-        rend.material.color = Color.red;
+        //rend.material.color = Color.red;
         //agent.enabled = false;
         agent.speed = 0;
         yield return new WaitForSeconds(0.1f);
@@ -147,7 +151,13 @@ public class enemyAI : MonoBehaviour, IDamageable
         agent.speed = speedChase;
         agent.stoppingDistance = 0;
         agent.SetDestination(gameManager.instance.player.transform.position);
-        rend.material.color = Color.white;
+        //rend.material.color = Color.white;
+    }
+
+    IEnumerator shiftToFloorTimer(float time)
+    {
+        yield return new WaitForSeconds(time);
+        transform.position = new Vector3(transform.position.x, transform.position.y - 0.8f, transform.position.z);
     }
 
 
