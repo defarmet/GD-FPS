@@ -109,7 +109,14 @@ public class enemyAI : MonoBehaviour, IDamageable
 
         else
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            anim.SetBool("Dead", true);
+            agent.enabled = false;
+
+            foreach (Collider col in GetComponents<Collider>())
+            {
+                col.enabled = false;
+            }
         }
     }
 
