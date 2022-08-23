@@ -152,7 +152,7 @@ public class playerController : MonoBehaviour, IDamageable
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDistance, Color.red, 0.0000001f);
         //Debug.DrawLine(Camera.main.transform.position)
 
-        if (gunstat.Count != 0 && Input.GetButton("Shoot") && currentAmmoCount[selectedWeapon] > 0 && isShooting == false)
+        if (gunstat.Count != 0 && Input.GetButton("Shoot") && currentAmmoCount[selectedWeapon] > 0 && isShooting == false && !gameManager.instance.isPaused)
         {
             isShooting = true;
             gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(currentAmmoCount[selectedWeapon] - 1).gameObject.SetActive(false);
@@ -241,7 +241,7 @@ public class playerController : MonoBehaviour, IDamageable
         //    shootDistance = gunstat[weapIndx].shootDist;
         //}
 
-        if (gunstat.Count > 0)
+        if (gunstat.Count > 0 && !gameManager.instance.isPaused)
         {
 
             if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedWeapon < gunstat.Count - 1)
@@ -276,10 +276,10 @@ public class playerController : MonoBehaviour, IDamageable
                 shootDistance = gunstat[selectedWeapon].shootDist;
                 shootDmg = gunstat[selectedWeapon].shootDmg;
                 ammoCountOrig = gunstat[selectedWeapon].ammoCapacity;
-                gameManager.instance.currentGunHUD.SetActive(false);
-                //gameManager.instance.currentGunHUD = gunstat[selectedWeapon].gunHUD;
+                gameManager.instance.currentGunHUD.SetActive(false);        
                 gameManager.instance.currentGunHUD = gameManager.instance.gunHUD[gunstat[selectedWeapon].gunHUD];
                 gameManager.instance.currentGunHUD.SetActive(true);
+
                 for (int i = 0; i < currentAmmoCount[selectedWeapon]; ++i)
                     gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
 
@@ -359,7 +359,7 @@ public class playerController : MonoBehaviour, IDamageable
         {
             if (currentAmmoCount[selectedWeapon] == ammoCountOrig && !alreadyReloadedUI)
                 StartCoroutine(alreadyReloaded());
-            else if(currentAmmoCount[selectedWeapon] != ammoCountOrig)
+            else if (currentAmmoCount[selectedWeapon] != ammoCountOrig)
             {
                 currentAmmoCount[selectedWeapon] = ammoCountOrig;
                 for (int i = 0; i < currentAmmoCount[selectedWeapon]; ++i)
