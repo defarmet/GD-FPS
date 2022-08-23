@@ -42,9 +42,10 @@ public class playerController : MonoBehaviour, IDamageable
     float gravityValueOG;
     public bool canSprint = true;
     public bool isWallrun = false;
+    public bool alreadyReloadedUI = false;
 
     public int[] currentAmmoCount = new int[6];
-    
+
 
 
 
@@ -65,10 +66,10 @@ public class playerController : MonoBehaviour, IDamageable
     void Update()
     {
         playerMovement();
-        
+
         reload();
         gunSwitch();
-        
+
         slide();
 
         StartCoroutine(shoot());
@@ -131,7 +132,7 @@ public class playerController : MonoBehaviour, IDamageable
 
         }
 
-        else if(Input.GetButtonUp("Sprint"))
+        else if (Input.GetButtonUp("Sprint"))
         {
             transform.localScale = new Vector3(1, 1, 1);
             playerSpeed = playerSpeedOG;
@@ -154,7 +155,7 @@ public class playerController : MonoBehaviour, IDamageable
         if (gunstat.Count != 0 && Input.GetButton("Shoot") && currentAmmoCount[selectedWeapon] > 0 && isShooting == false)
         {
             isShooting = true;
-			gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(currentAmmoCount[selectedWeapon] - 1).gameObject.SetActive(false);
+            gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(currentAmmoCount[selectedWeapon] - 1).gameObject.SetActive(false);
             currentAmmoCount[selectedWeapon]--;
 
             RaycastHit hit;
@@ -180,8 +181,13 @@ public class playerController : MonoBehaviour, IDamageable
 
     public void gunPickup(gunStats _gunStat, int _currentGunHUD)
     {
+        if (alreadyReloadedUI)
+        {
+            gameManager.instance.currentGunHUD.transform.GetChild(3).gameObject.SetActive(false);
+            alreadyReloadedUI = false;
+        }
         gunstat.Add(_gunStat);
-        
+
         if (gunstat.Count != 0)
         {
             selectedWeapon = gunstat.Count - 1;
@@ -189,16 +195,16 @@ public class playerController : MonoBehaviour, IDamageable
         shootRate = _gunStat.shootRate;
         shootDistance = _gunStat.shootDist;
         shootDmg = _gunStat.shootDmg;
-	currentAmmoCount[selectedWeapon] = _gunStat.ammoCapacity;
+        currentAmmoCount[selectedWeapon] = _gunStat.ammoCapacity;
         ammoCountOrig = _gunStat.ammoCapacity;
 
         if (gameManager.instance.currentGunHUD != null)
             gameManager.instance.currentGunHUD.SetActive(false);
         gameManager.instance.currentGunHUD = gameManager.instance.gunHUD[_currentGunHUD];
         gameManager.instance.currentGunHUD.SetActive(true);
-        
+
         for (int i = 0; i < currentAmmoCount[selectedWeapon]; ++i)
-	    gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
+            gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
 
 
     }
@@ -240,6 +246,11 @@ public class playerController : MonoBehaviour, IDamageable
 
             if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedWeapon < gunstat.Count - 1)
             {
+                if (alreadyReloadedUI)
+                {
+                    gameManager.instance.currentGunHUD.transform.GetChild(3).gameObject.SetActive(false);
+                    alreadyReloadedUI = false;
+                }
                 selectedWeapon++;
                 shootRate = gunstat[selectedWeapon].shootRate;
                 shootDistance = gunstat[selectedWeapon].shootDist;
@@ -255,6 +266,11 @@ public class playerController : MonoBehaviour, IDamageable
 
             else if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedWeapon > 0)
             {
+                if (alreadyReloadedUI)
+                {
+                    gameManager.instance.currentGunHUD.transform.GetChild(3).gameObject.SetActive(false);
+                    alreadyReloadedUI = false;
+                }
                 selectedWeapon--;
                 shootRate = gunstat[selectedWeapon].shootRate;
                 shootDistance = gunstat[selectedWeapon].shootDist;
@@ -341,12 +357,27 @@ public class playerController : MonoBehaviour, IDamageable
     {
         if (Input.GetButtonDown("Reload"))
         {
-            currentAmmoCount[selectedWeapon] = ammoCountOrig;
-            for (int i = 0; i < currentAmmoCount[selectedWeapon]; ++i)
-                gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
+            if (currentAmmoCount[selectedWeapon] == ammoCountOrig && !alreadyReloadedUI)
+                StartCoroutine(alreadyReloaded());
+            else if(currentAmmoCount[selectedWeapon] != ammoCountOrig)
+            {
+                currentAmmoCount[selectedWeapon] = ammoCountOrig;
+                for (int i = 0; i < currentAmmoCount[selectedWeapon]; ++i)
+                    gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
+            }
 
         }
     }
+
+    IEnumerator alreadyReloaded()
+    {
+        alreadyReloadedUI = true;
+        gameManager.instance.currentGunHUD.transform.GetChild(3).gameObject.SetActive(true);
+        yield return new WaitForSeconds(2);
+        gameManager.instance.currentGunHUD.transform.GetChild(3).gameObject.SetActive(false);
+        alreadyReloadedUI = false;
+    }
+
 
     IEnumerator slowJumpMovement()
     {
@@ -365,7 +396,7 @@ public class playerController : MonoBehaviour, IDamageable
     //        isCrouching = true;
     //        transform.localScale = new Vector3(1, .5f, 1);
     //        playerSpeed = crouchSpeed;
-            
+
     //    }
     //    else if (Input.GetKeyDown(KeyCode.LeftControl) && isSprinting && isCrouching == false)
     //    {
