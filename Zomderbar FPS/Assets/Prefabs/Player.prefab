@@ -258,16 +258,19 @@ MonoBehaviour:
   gravityValue: 17.75
   jumpMax: 2
   hp: 5
+  hitEffect: {fileID: 8710450972521545467, guid: 7a6f1946870f4114784b1bcd7c1c178c, type: 3}
   shootRate: 0
   shootDistance: 0
   shootDmg: 0
-  ammoCount: 0
   selectedWeapon: 0
   gunstat: []
   playerSpeedOG: 0
   isSprinting: 0
+  isShooting: 0
   canSprint: 1
   isWallrun: 0
+  alreadyReloadedUI: 0
+  currentAmmoCount: 000000000000000000000000000000000000000000000000
 --- !u!33 &4052029024476061151
 MeshFilter:
   m_ObjectHideFlags: 0
