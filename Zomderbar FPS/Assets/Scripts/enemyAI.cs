@@ -40,6 +40,7 @@ public class enemyAI : MonoBehaviour, IDamageable
     void Start()
     {
         agent.stoppingDistance = shootRange;
+        anim.SetBool("Dead", false);
     }
 
     // Update is called once per frame
@@ -131,6 +132,7 @@ public class enemyAI : MonoBehaviour, IDamageable
     IEnumerator shoot()
     {
         isShooting = true;
+        anim.SetTrigger("Shoot");
         GameObject bulletClone = Instantiate(bullet, bulletSpawn.transform.position, bullet.transform.rotation);
         bulletClone.GetComponent<bullet>().damage = damage;
         bulletClone.GetComponent<bullet>().speed = bulletSpeed;
@@ -146,6 +148,7 @@ public class enemyAI : MonoBehaviour, IDamageable
         //rend.material.color = Color.red;
         //agent.enabled = false;
         agent.speed = 0;
+        anim.SetTrigger("Damage");
         yield return new WaitForSeconds(0.1f);
         //agent.enabled = true;
         agent.speed = speedChase;
