@@ -2643,11 +2643,11 @@ GameObject:
   m_Component:
   - component: {fileID: 7868335517991384255}
   - component: {fileID: 4310470013305417409}
+  - component: {fileID: 4310470013305417412}
   - component: {fileID: 4310470013305417413}
   - component: {fileID: 3128857005414515662}
   - component: {fileID: 4310470013305417410}
   - component: {fileID: 4310470013305417411}
-  - component: {fileID: 4310470013305417412}
   m_Layer: 3
   m_Name: range zombie
   m_TagString: Untagged
@@ -2700,13 +2700,35 @@ MonoBehaviour:
   HP: 8
   playerFaceSpeed: 1.5
   fieldOfViewShoot: 15
-  fieldOfView: 70
+  fieldOfView: 90
   shootRate: 2
   damage: 2
   bulletSpeed: 5
   bulletDstryTime: 5
   shootRange: 6
-  visionRange: 10
+  visionRange: 13
+--- !u!195 &4310470013305417412
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7384251766625758725}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 8
+  m_Acceleration: 16
+  avoidancePriority: 50
+  m_AngularSpeed: 300
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 0
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!95 &4310470013305417413
 Animator:
   serializedVersion: 4
@@ -2761,7 +2783,7 @@ LODGroup:
     renderers:
     - renderer: {fileID: 8830530207301860650}
     - renderer: {fileID: 7011544140886737260}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!136 &4310470013305417410
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2789,28 +2811,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.43993568
   m_Center: {x: 0.07999992, y: 2.811102, z: 0.18000007}
---- !u!195 &4310470013305417412
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7384251766625758725}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 0
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!1 &7510706278509650476
 GameObject:
   m_ObjectHideFlags: 0

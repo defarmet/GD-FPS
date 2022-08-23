@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 2752799969451689423}
   - component: {fileID: 518492604225114834}
   - component: {fileID: 4310089295278021653}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bullet
-  m_TagString: Untagged
+  m_TagString: EnemyBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -103,6 +103,7 @@ MonoBehaviour:
   damage: 0
   speed: 0
   destroyTime: 3
+  destroyOnImpact: 1
 --- !u!135 &2752799969451689423
 SphereCollider:
   m_ObjectHideFlags: 0

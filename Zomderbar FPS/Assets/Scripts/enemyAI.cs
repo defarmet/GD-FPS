@@ -29,7 +29,7 @@ public class enemyAI : MonoBehaviour, IDamageable
     [Range(0, 10)][SerializeField] int bulletSpeed;
     [Range(1, 5)][SerializeField] int bulletDstryTime;
     [Range(1, 10)] [SerializeField] private float shootRange;
-    [Range(1, 10)] [SerializeField] private float visionRange;
+    [Range(1, 15)] [SerializeField] private float visionRange;
 
      Vector3 playerDir;
     bool isShooting = false;
@@ -48,7 +48,8 @@ public class enemyAI : MonoBehaviour, IDamageable
             anim.SetFloat("Speed", Mathf.Lerp(anim.GetFloat("Speed"), agent.velocity.normalized.magnitude, Time.deltaTime * 5));
             playerDir = gameManager.instance.player.transform.position - head.position;
 
-            distanceFromPlayer = Vector3.Distance(transform.position, gameManager.instance.player.transform.position);
+        distanceFromPlayer = Vector3.Distance(transform.position, gameManager.instance.player.transform.position);
+        Debug.Log(distanceFromPlayer);
 
             if (agent.enabled == true)
             {
@@ -86,10 +87,13 @@ public class enemyAI : MonoBehaviour, IDamageable
                     {
                         agent.stoppingDistance = shootRange;
                         agent.SetDestination(gameManager.instance.player.transform.position);
-                        Debug.Log(angle);
                         facePlayer(); 
                         if (distanceFromPlayer <= shootRange && angle <= fieldOfViewShoot)
                             StartCoroutine(shoot());
+                    }
+                    else
+                    {
+                        agent.stoppingDistance = 0.1f;
                     }
                 }
             }
@@ -129,6 +133,7 @@ public class enemyAI : MonoBehaviour, IDamageable
         bulletClone.GetComponent<bullet>().destroyTime = bulletDstryTime;
 
         yield return new WaitForSeconds(shootRate);
+
         isShooting = false;
     }
 
