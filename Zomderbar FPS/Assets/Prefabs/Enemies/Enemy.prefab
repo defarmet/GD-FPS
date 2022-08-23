@@ -74,9 +74,9 @@ GameObject:
   - component: {fileID: 2939138692193554539}
   - component: {fileID: 2939138692186559515}
   - component: {fileID: 2939138692186559513}
+  - component: {fileID: 1383097772}
   - component: {fileID: 1383097776}
   - component: {fileID: 1383097777}
-  - component: {fileID: 1383097772}
   - component: {fileID: 2999236018250586251}
   m_Layer: 3
   m_Name: Enemy
@@ -148,13 +148,35 @@ MonoBehaviour:
   HP: 10
   playerFaceSpeed: 1.82
   fieldOfViewShoot: 15
-  fieldOfView: 70
+  fieldOfView: 90
   shootRate: 1
   damage: 1
   bulletSpeed: 10
   bulletDstryTime: 3
-  shootRange: 2
-  visionRange: 10
+  shootRange: 2.5
+  visionRange: 12
+--- !u!195 &1383097772
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2939138692193324107}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 6
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 180
+  m_StoppingDistance: 2
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!136 &1383097776
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -182,28 +204,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 2.91, z: 0.66}
---- !u!195 &1383097772
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2939138692193324107}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 2
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!95 &2999236018250586251
 Animator:
   serializedVersion: 4
