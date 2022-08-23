@@ -346,6 +346,7 @@ public class playerController : MonoBehaviour, IDamageable
     }
     public void resetPlayerAmmo()
     {
+        int temp = selectedWeapon;
         selectedWeapon = 0;
         for (int i = 0; i < gunstat.Count; ++i)
         {
@@ -359,6 +360,7 @@ public class playerController : MonoBehaviour, IDamageable
             }
 
         }
+        selectedWeapon = temp;
     }
 
 
