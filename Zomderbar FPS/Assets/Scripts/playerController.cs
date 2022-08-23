@@ -65,6 +65,10 @@ public class playerController : MonoBehaviour, IDamageable
 
     void Update()
     {
+
+        if (playerVelocity.y < -30)
+            respawn();
+
         playerMovement();
 
         reload();
