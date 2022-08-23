@@ -9,6 +9,7 @@ public class enemyAI : MonoBehaviour, IDamageable
     [SerializeField] NavMeshAgent agent;
     [SerializeField] private Transform head;
     [SerializeField] private Animator anim;
+    [SerializeField] Renderer rend;
     //[SerializeField] private Renderer rend;
     [SerializeField] GameObject bullet;
     [SerializeField] GameObject bulletSpawn;
@@ -18,6 +19,8 @@ public class enemyAI : MonoBehaviour, IDamageable
     [Range(1, 10)][SerializeField] float playerFaceSpeed;
     [Range(1, 30)] [SerializeField] int fieldOfViewShoot;
     [Range(1, 180)] [SerializeField] int fieldOfView;
+    [Range(1, 5)][SerializeField] int speedRoam;
+    [Range(1, 5)][SerializeField] int speedChase;
     private float distanceFromPlayer;
 
     [Header("---------- Weapon Stats -----------")]
@@ -42,7 +45,7 @@ public class enemyAI : MonoBehaviour, IDamageable
     {
         if (agent.isActiveAndEnabled && !anim.GetBool("Dead"))
         {
-            
+            anim.SetFloat("Speed", Mathf.Lerp(anim.GetFloat("Speed"), agent.velocity.normalized.magnitude, Time.deltaTime * 5));
             playerDir = gameManager.instance.player.transform.position - head.position;
 
             distanceFromPlayer = Vector3.Distance(transform.position, gameManager.instance.player.transform.position);
@@ -96,9 +99,15 @@ public class enemyAI : MonoBehaviour, IDamageable
 
     public void takeDamage(int dmg)
     {
+        anim.SetTrigger("Damage");
         HP -= dmg;
 
-        if (HP <= 0)
+        if (HP > 0)
+        {
+            StartCoroutine(flashColor());
+        }
+
+        else
         {
             Destroy(gameObject);
         }
@@ -114,6 +123,19 @@ public class enemyAI : MonoBehaviour, IDamageable
 
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
+    }
+
+    IEnumerator flashColor()
+    {
+        rend.material.color = Color.red;
+        //agent.enabled = false;
+        agent.speed = 0;
+        yield return new WaitForSeconds(0.1f);
+        //agent.enabled = true;
+        agent.speed = speedChase;
+        agent.stoppingDistance = 0;
+        agent.SetDestination(gameManager.instance.player.transform.position);
+        rend.material.color = Color.white;
     }
 
 
