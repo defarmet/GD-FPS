@@ -2696,7 +2696,7 @@ MonoBehaviour:
   agent: {fileID: 4310470013305417412}
   head: {fileID: 1648145584162222662}
   anim: {fileID: 4310470013305417413}
-  bullet: {fileID: 8086148944952882686, guid: b644199b97737eb4094ed4fccc1a498c, type: 3}
+  bullet: {fileID: 8086148944952882686, guid: 08b6f855d8e90d640946820ce97d7b47, type: 3}
   bulletSpawn: {fileID: 7510706278509650476}
   HP: 8
   playerFaceSpeed: 1.5
@@ -2705,7 +2705,7 @@ MonoBehaviour:
   speedRoam: 0
   speedChase: 0
   isZombieFloaty: 0
-  atackBuffer: 0.2
+  animationBuffer: 0.2
   shootRate: 2
   damage: 2
   bulletSpeed: 5
