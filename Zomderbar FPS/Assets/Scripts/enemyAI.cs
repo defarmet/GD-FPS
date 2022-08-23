@@ -20,7 +20,7 @@ public class enemyAI : MonoBehaviour, IDamageable
     [Range(1, 30)] [SerializeField] int fieldOfViewShoot;
     [Range(1, 180)] [SerializeField] int fieldOfView;
     [Range(1, 5)][SerializeField] int speedRoam;
-    [Range(1, 5)][SerializeField] int speedChase;
+    [Range(1, 5)][SerializeField] int speedChase = 4;
     [SerializeField] bool isZombieFloaty;
     
     private float distanceFromPlayer;
@@ -52,7 +52,6 @@ public class enemyAI : MonoBehaviour, IDamageable
             playerDir = gameManager.instance.player.transform.position - head.position;
 
             distanceFromPlayer = Vector3.Distance(transform.position, gameManager.instance.player.transform.position);
-            Debug.Log(distanceFromPlayer);
 
             if (agent.enabled == true)
             {
