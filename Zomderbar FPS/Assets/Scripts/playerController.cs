@@ -19,6 +19,7 @@ public class playerController : MonoBehaviour, IDamageable
     [Range(15, 30)] [SerializeField] float gravityValue;
     [Range(1, 3)] [SerializeField] int jumpMax;
     [Range(0, 310)] [SerializeField] public int hp;
+    [SerializeField] GameObject hitEffect;
 
     [Header("---------- Gun Stats -----------")]
     [Range(0.1f, 5)] [SerializeField] float shootRate;
@@ -165,7 +166,7 @@ public class playerController : MonoBehaviour, IDamageable
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDistance)) //if it hits something
             {
-
+                Instantiate(hitEffect, hit.point, hitEffect.transform.rotation);
                 if (hit.collider.GetComponent<IDamageable>() != null)
                 {
                     IDamageable isDamageable = hit.collider.GetComponent<IDamageable>();
