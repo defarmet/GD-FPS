@@ -276,7 +276,7 @@ public class playerController : MonoBehaviour, IDamageable
                 shootDistance = gunstat[selectedWeapon].shootDist;
                 shootDmg = gunstat[selectedWeapon].shootDmg;
                 ammoCountOrig = gunstat[selectedWeapon].ammoCapacity;
-                gameManager.instance.currentGunHUD.SetActive(false);        
+                gameManager.instance.currentGunHUD.SetActive(false);
                 gameManager.instance.currentGunHUD = gameManager.instance.gunHUD[gunstat[selectedWeapon].gunHUD];
                 gameManager.instance.currentGunHUD.SetActive(true);
 
@@ -306,10 +306,10 @@ public class playerController : MonoBehaviour, IDamageable
 
     public void respawn()
     {
-        gameManager.instance.isPaused = false;
         controller.enabled = false;
         transform.position = gameManager.instance.playerSpawnPoint.transform.position;
         controller.enabled = true;
+        gameManager.instance.isPaused = false;
         updatePlayerHp();
         resetPlayerAmmo();
     }
@@ -338,7 +338,8 @@ public class playerController : MonoBehaviour, IDamageable
         for (int i = 0; i < gunstat.Count; ++i)
         {
             currentAmmoCount[selectedWeapon] = gunstat[i].ammoCapacity;
-            ++selectedWeapon;
+            if (selectedWeapon < gunstat.Count - 1)
+                ++selectedWeapon;
             for (int j = 0; j < gunstat[i].ammoCapacity; ++j)
             {
                 gameManager.instance.gunHUD[gunstat[i].gunHUD].transform.GetChild(0).GetChild(j).gameObject.SetActive(true);
