@@ -15,13 +15,14 @@ public class enemyAI : MonoBehaviour, IDamageable
     [SerializeField] GameObject bulletSpawn;
 
     [Header("---------- Stats -----------")]
-    [Range(0, 30)][SerializeField] int HP;
+    [Range(0, 150)][SerializeField] int HP;
     [Range(1, 10)][SerializeField] float playerFaceSpeed;
     [Range(1, 30)] [SerializeField] int fieldOfViewShoot;
     [Range(1, 180)] [SerializeField] int fieldOfView;
     [Range(1, 5)][SerializeField] int speedRoam;
     [Range(1, 5)][SerializeField] int speedChase = 4;
     [SerializeField] bool isZombieFloaty;
+    [SerializeField] float animationBuffer = 0.2f;
     
     private float distanceFromPlayer;
 
@@ -132,6 +133,7 @@ public class enemyAI : MonoBehaviour, IDamageable
     {
         isShooting = true;
         anim.SetTrigger("Shoot");
+        yield return new WaitForSeconds(animationBuffer);
         GameObject bulletClone = Instantiate(bullet, bulletSpawn.transform.position, bullet.transform.rotation);
         bulletClone.GetComponent<bullet>().damage = damage;
         bulletClone.GetComponent<bullet>().speed = bulletSpeed;

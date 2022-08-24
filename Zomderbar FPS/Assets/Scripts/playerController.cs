@@ -22,6 +22,7 @@ public class playerController : MonoBehaviour, IDamageable
     [SerializeField] GameObject hitEffect;
 
     [Header("---------- Gun Stats -----------")]
+    [SerializeField] GameObject gunModel;
     [Range(0.1f, 5)] [SerializeField] float shootRate;
     [Range(1, 30)] [SerializeField] float shootDistance;
     [Range(1, 10)] [SerializeField] int shootDmg;
@@ -44,6 +45,7 @@ public class playerController : MonoBehaviour, IDamageable
     public bool canSprint = true;
     public bool isWallrun = false;
     public bool alreadyReloadedUI = false;
+    public AudioSource gunfire;
 
     public int[] currentAmmoCount = new int[6];
 
@@ -60,7 +62,7 @@ public class playerController : MonoBehaviour, IDamageable
         hpOriginal = hp;
         ammoCountOrig = 0;
         updatePlayerHp();
-
+        gunfire = GetComponent<AudioSource>();
         controller.enabled = true;
     }
 
@@ -160,6 +162,7 @@ public class playerController : MonoBehaviour, IDamageable
         if (gunstat.Count != 0 && Input.GetButton("Shoot") && currentAmmoCount[selectedWeapon] > 0 && isShooting == false && !gameManager.instance.isPaused)
         {
             isShooting = true;
+            gunfire.Play();
             gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(currentAmmoCount[selectedWeapon] - 1).gameObject.SetActive(false);
             currentAmmoCount[selectedWeapon]--;
 
@@ -202,6 +205,8 @@ public class playerController : MonoBehaviour, IDamageable
         shootDmg = _gunStat.shootDmg;
         currentAmmoCount[selectedWeapon] = _gunStat.ammoCapacity;
         ammoCountOrig = _gunStat.ammoCapacity;
+        gunModel.GetComponent<MeshFilter>().sharedMesh = _gunStat.model.GetComponent<MeshFilter>().sharedMesh;
+        gunModel.GetComponent<MeshRenderer>().sharedMaterial = _gunStat.model.GetComponent<MeshRenderer>().sharedMaterial;
 
         if (gameManager.instance.currentGunHUD != null)
             gameManager.instance.currentGunHUD.SetActive(false);
@@ -261,6 +266,8 @@ public class playerController : MonoBehaviour, IDamageable
                 shootDistance = gunstat[selectedWeapon].shootDist;
                 shootDmg = gunstat[selectedWeapon].shootDmg;
                 ammoCountOrig = gunstat[selectedWeapon].ammoCapacity;
+                gunModel.GetComponent<MeshFilter>().sharedMesh = gunstat[selectedWeapon].model.GetComponent<MeshFilter>().sharedMesh;
+                gunModel.GetComponent<MeshRenderer>().sharedMaterial = gunstat[selectedWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;
                 gameManager.instance.currentGunHUD.SetActive(false);
                 gameManager.instance.currentGunHUD = gameManager.instance.gunHUD[gunstat[selectedWeapon].gunHUD];
                 gameManager.instance.currentGunHUD.SetActive(true);
@@ -281,6 +288,8 @@ public class playerController : MonoBehaviour, IDamageable
                 shootDistance = gunstat[selectedWeapon].shootDist;
                 shootDmg = gunstat[selectedWeapon].shootDmg;
                 ammoCountOrig = gunstat[selectedWeapon].ammoCapacity;
+                gunModel.GetComponent<MeshFilter>().sharedMesh = gunstat[selectedWeapon].model.GetComponent<MeshFilter>().sharedMesh;
+                gunModel.GetComponent<MeshRenderer>().sharedMaterial = gunstat[selectedWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;
                 gameManager.instance.currentGunHUD.SetActive(false);
                 gameManager.instance.currentGunHUD = gameManager.instance.gunHUD[gunstat[selectedWeapon].gunHUD];
                 gameManager.instance.currentGunHUD.SetActive(true);
@@ -339,6 +348,7 @@ public class playerController : MonoBehaviour, IDamageable
     }
     public void resetPlayerAmmo()
     {
+        int temp = selectedWeapon;
         selectedWeapon = 0;
         for (int i = 0; i < gunstat.Count; ++i)
         {
@@ -352,6 +362,7 @@ public class playerController : MonoBehaviour, IDamageable
             }
 
         }
+        selectedWeapon = temp;
     }
 
 
