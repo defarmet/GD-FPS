@@ -117,6 +117,7 @@ public class enemyAI : MonoBehaviour, IDamageable
         else
         {
             //Destroy(gameObject);
+            gameManager.instance.enemyKilled++;
             anim.SetBool("Dead", true);
             //if (isZombieFloaty)
                 //StartCoroutine(shiftToFloorTimer(0.25f));
