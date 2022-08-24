@@ -45,6 +45,7 @@ public class playerController : MonoBehaviour, IDamageable
     public bool canSprint = true;
     public bool isWallrun = false;
     public bool alreadyReloadedUI = false;
+    public AudioSource gunfire;
 
     public int[] currentAmmoCount = new int[6];
 
@@ -61,7 +62,7 @@ public class playerController : MonoBehaviour, IDamageable
         hpOriginal = hp;
         ammoCountOrig = 0;
         updatePlayerHp();
-
+        gunfire = GetComponent<AudioSource>();
         controller.enabled = true;
     }
 
@@ -161,6 +162,7 @@ public class playerController : MonoBehaviour, IDamageable
         if (gunstat.Count != 0 && Input.GetButton("Shoot") && currentAmmoCount[selectedWeapon] > 0 && isShooting == false && !gameManager.instance.isPaused)
         {
             isShooting = true;
+            gunfire.Play();
             gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(currentAmmoCount[selectedWeapon] - 1).gameObject.SetActive(false);
             currentAmmoCount[selectedWeapon]--;
 
