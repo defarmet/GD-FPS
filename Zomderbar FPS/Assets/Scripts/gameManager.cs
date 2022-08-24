@@ -10,11 +10,14 @@ public class gameManager : MonoBehaviour
 
     public GameObject player;
     public playerController playerScript;
+    public EnemySpawners spawnerScript;
 
     public GameObject pauseMenu;
     public GameObject currentMenuOpen;
     public GameObject playerDamageFlash;
     public GameObject playerDeadMenu;
+    public GameObject winMenu;
+
 
     public GameObject currentGunHUD;
     public GameObject[] gunHUD;
@@ -23,6 +26,9 @@ public class gameManager : MonoBehaviour
     public Image ammoBar;
 
     public GameObject playerSpawnPoint;
+
+    public int enemyCount;
+    public int enemyKilled;
 
     public bool isPaused = false;
 
@@ -51,6 +57,11 @@ public class gameManager : MonoBehaviour
                 cursorUnlockUnpause();
 
         }
+
+        if(enemyCount > 0)
+        {
+
+        }
     }
 
     public void cursorLockPause()
@@ -74,6 +85,19 @@ public class gameManager : MonoBehaviour
         currentMenuOpen.SetActive(isPaused);
         currentMenuOpen = null;
     }
+
+    //public IEnumerator checkEnemyTotal()
+    //{
+    //    enemyCount--;
+
+    //    if (enemyCount <= 0)
+    //    {
+    //        yield return new WaitForSeconds(2);
+    //        winMenu.SetActive(true);
+    //        currentMenuOpen = winMenu;
+    //        cursorLockPause();
+    //    }
+    //}
 
     //public void pause_game(bool p)
     //{

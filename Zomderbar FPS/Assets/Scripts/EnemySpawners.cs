@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class EnemySpawners : MonoBehaviour
 {
-    [SerializeField] private GameObject[] spawners;
-    [SerializeField] private GameObject[] enemies;
-    [SerializeField] private int enemiesToSpawn;
-    [SerializeField] private float spawnInterval;
-    private int enemiesSpawned;
+    [SerializeField]  GameObject[] spawners;
+    [SerializeField]  GameObject[] enemies;
+    [SerializeField] public int enemiesToSpawn;
+    [SerializeField]  float spawnInterval;
+    public int enemiesSpawned;
 
     private void OnTriggerEnter(Collider other)
     {
