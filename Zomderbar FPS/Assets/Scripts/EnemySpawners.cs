@@ -6,9 +6,9 @@ public class EnemySpawners : MonoBehaviour
 {
     [SerializeField]  GameObject[] spawners;
     [SerializeField]  GameObject[] enemies;
-    [SerializeField]  int enemiesToSpawn;
+    [SerializeField] public int enemiesToSpawn;
     [SerializeField]  float spawnInterval;
-    private int enemiesSpawned;
+    public int enemiesSpawned;
 
     private void OnTriggerEnter(Collider other)
     {
