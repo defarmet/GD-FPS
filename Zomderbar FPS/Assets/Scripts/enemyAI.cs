@@ -17,7 +17,7 @@ public class enemyAI : MonoBehaviour, IDamageable
     [Header("---------- Stats -----------")]
     [Range(0, 150)][SerializeField] int HP;
     [Range(1, 10)][SerializeField] float playerFaceSpeed;
-    [Range(1, 30)] [SerializeField] int fieldOfViewShoot;
+    [Range(1, 90)] [SerializeField] int fieldOfViewShoot;
     [Range(1, 180)] [SerializeField] int fieldOfView;
     [Range(1, 5)][SerializeField] int speedRoam;
     [Range(1, 5)][SerializeField] int speedChase = 4;
@@ -31,8 +31,8 @@ public class enemyAI : MonoBehaviour, IDamageable
     [Range(1, 10)][SerializeField] int damage;
     [Range(0, 20)][SerializeField] int bulletSpeed;
     [Range(1, 5)][SerializeField] int bulletDstryTime;
-    [Range(1, 10)] [SerializeField] private float shootRange;
-    [Range(1, 15)] [SerializeField] private float visionRange;
+    [Range(1, 50)] [SerializeField] private float shootRange;
+    [Range(1, 50)] [SerializeField] private float visionRange;
 
      Vector3 playerDir;
     bool isShooting = false;
