@@ -69,7 +69,7 @@ public class playerController : MonoBehaviour, IDamageable
     void Update()
     {
 
-        if (playerVelocity.y < -30)
+        if (transform.position.y < -30)
             respawn();
 
         playerMovement();

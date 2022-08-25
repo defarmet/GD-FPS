@@ -2742,10 +2742,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   playerScript: {fileID: 0}
+  spawnerScript: {fileID: 0}
   pauseMenu: {fileID: 2022027329694435108}
   currentMenuOpen: {fileID: 0}
   playerDamageFlash: {fileID: 7323532354655439690}
   playerDeadMenu: {fileID: 2211234427028188242}
+  winMenu: {fileID: 4882587068180262678}
   currentGunHUD: {fileID: 0}
   gunHUD:
   - {fileID: 1821294357}
@@ -2757,6 +2759,8 @@ MonoBehaviour:
   playerHpBar: {fileID: 1412448662}
   ammoBar: {fileID: 0}
   playerSpawnPoint: {fileID: 0}
+  enemyCount: 0
+  enemyKilled: 0
   isPaused: 0
 --- !u!1 &1198111160389297338
 GameObject:
