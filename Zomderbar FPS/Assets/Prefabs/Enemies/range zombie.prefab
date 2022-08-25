@@ -2698,10 +2698,10 @@ MonoBehaviour:
   anim: {fileID: 4310470013305417413}
   bullet: {fileID: 8086148944952882686, guid: 08b6f855d8e90d640946820ce97d7b47, type: 3}
   bulletSpawn: {fileID: 7510706278509650476}
-  HP: 8
+  HP: 10
   playerFaceSpeed: 1.5
-  fieldOfViewShoot: 15
-  fieldOfView: 90
+  fieldOfViewShoot: 45
+  fieldOfView: 180
   speedRoam: 0
   speedChase: 0
   isZombieFloaty: 0
@@ -2710,7 +2710,7 @@ MonoBehaviour:
   damage: 2
   bulletSpeed: 5
   bulletDstryTime: 5
-  shootRange: 6
+  shootRange: 25
   visionRange: 13
 --- !u!195 &4310470013305417412
 NavMeshAgent:

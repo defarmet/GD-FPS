@@ -1845,13 +1845,14 @@ MonoBehaviour:
   anim: {fileID: 7389507112651452681}
   bullet: {fileID: 8086148944952882686, guid: b644199b97737eb4094ed4fccc1a498c, type: 3}
   bulletSpawn: {fileID: 1369544535}
-  HP: 10
+  HP: 8
   playerFaceSpeed: 4.28
-  fieldOfViewShoot: 30
-  fieldOfView: 120
+  fieldOfViewShoot: 45
+  fieldOfView: 180
   speedRoam: 4
   speedChase: 5
   isZombieFloaty: 1
+  animationBuffer: 0.2
   shootRate: 1
   damage: 1
   bulletSpeed: 10
