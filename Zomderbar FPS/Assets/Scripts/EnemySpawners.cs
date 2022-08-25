@@ -10,6 +10,7 @@ public class EnemySpawners : MonoBehaviour
     [SerializeField]  float spawnInterval;
     public int enemiesSpawned;
 
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")

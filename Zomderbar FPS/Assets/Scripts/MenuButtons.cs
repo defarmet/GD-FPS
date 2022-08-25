@@ -5,9 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class MenuButtons : MonoBehaviour
 {
-    [SerializeField] private int sceneToLoad;
+    [SerializeField] private string sceneToLoad;
     public void LoadScene()
     {
+        //SceneManager.LoadScene(sceneToLoad);
         SceneManager.LoadScene(sceneToLoad);
     }
 }
