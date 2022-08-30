@@ -9,137 +9,116 @@ public class enemyAI : MonoBehaviour, IDamageable
     [SerializeField] NavMeshAgent agent;
     [SerializeField] private Transform head;
     [SerializeField] private Animator anim;
-    //[SerializeField] Renderer rend;
-    //[SerializeField] private Renderer rend;
     [SerializeField] GameObject bullet;
     [SerializeField] GameObject bulletSpawn;
 
     [Header("---------- Stats -----------")]
-    [Range(0, 150)][SerializeField] int HP;
-    [Range(1, 10)][SerializeField] float playerFaceSpeed;
-    [Range(1, 90)] [SerializeField] int fieldOfViewShoot;
-    [Range(1, 180)] [SerializeField] int fieldOfView;
-    [Range(1, 5)][SerializeField] int speedRoam;
-    [Range(1, 5)][SerializeField] int speedChase = 4;
-    [SerializeField] bool isZombieFloaty;
-    [SerializeField] float animationBuffer = 0.2f;
-    
-    private float distanceFromPlayer;
+    [Range(0, 150)] [SerializeField] int   HP;
+    [Range(1, 180)] [SerializeField] int   fieldOfView;
+    [Range(1, 90)]  [SerializeField] int   fieldOfViewShoot;
+    [Range(1, 10)]  [SerializeField] float playerFaceSpeed;
+    [Range(1, 5)]   [SerializeField] int   speedRoam;
+    [Range(1, 5)]   [SerializeField] int   speedChase;
+    [SerializeField]                 float animationBuffer;
 
     [Header("---------- Weapon Stats -----------")]
-    [Range(0.1f, 5)][SerializeField] float shootRate;
-    [Range(1, 10)][SerializeField] int damage;
-    [Range(0, 20)][SerializeField] int bulletSpeed;
-    [Range(1, 5)][SerializeField] int bulletDstryTime;
-    [Range(1, 50)] [SerializeField] private float shootRange;
-    [Range(1, 50)] [SerializeField] private float visionRange;
+    [Range(0.1f, 5)] [SerializeField] float         shootRate;
+    [Range(1, 10)]   [SerializeField] int           damage;
+    [Range(0, 20)]   [SerializeField] int           bulletSpeed;
+    [Range(1, 5)]    [SerializeField] int           bulletDestroyTime;
+    [Range(1, 50)]   [SerializeField] private float shootRange;
+    [Range(1, 50)]   [SerializeField] private float visionRange;
 
-     Vector3 playerDir;
-    bool isShooting = false;
+    Vector3       playerDir;
+    private float distanceFromPlayer;
+    bool          isShooting = false;
 
-    // Start is called before the first frame update
     void Start()
     {
         agent.stoppingDistance = shootRange;
         anim.SetBool("Dead", false);
     }
 
-    // Update is called once per frame
+    /*
+     * Lets the enemy know where the player is at all times.
+     * However, the enemy doesn't always act on that knowledge.
+     */
     void Update()
     {
-        if (agent.isActiveAndEnabled && !anim.GetBool("Dead"))
-        {
+        if (agent.isActiveAndEnabled) {
             anim.SetFloat("Speed", Mathf.Lerp(anim.GetFloat("Speed"), agent.velocity.normalized.magnitude, Time.deltaTime * 5));
             playerDir = gameManager.instance.player.transform.position - head.position;
-
             distanceFromPlayer = Vector3.Distance(transform.position, gameManager.instance.player.transform.position);
 
-            if (agent.enabled == true)
-            {
+            if (agent.enabled)
                 CanSeePlayer();
-            }
-            if (distanceFromPlayer > visionRange && agent.remainingDistance < 0.1)
-            {
-                //Roam(); For now we don't want the zombies to roam arround, but rather to stay still until they "hear" something.
-            }
-        }
-
-    }
-
-    void facePlayer()
-    {
-        if (agent.remainingDistance <= agent.stoppingDistance)
-        {
-            playerDir.y = 0;
-            Quaternion rotation = Quaternion.LookRotation(playerDir);
-            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * playerFaceSpeed);
         }
     }
+
+    /*
+     * The enemy acts on the knowledge of where the player is and attacks when within range.
+     */
     private void CanSeePlayer()
     {
         float angle = Vector3.Angle(playerDir, head.forward);
-        RaycastHit hit;
-        if (Physics.Raycast(head.position, playerDir, out hit))
-        {
+        if (Physics.Raycast(head.position, playerDir, out RaycastHit hit)) {
             Debug.DrawRay(head.position, playerDir);
-            if (hit.collider.CompareTag("Player") && !isShooting)
-            {
-                if (angle <= fieldOfView)
-                {
-                    if (distanceFromPlayer <= visionRange)
-                    {
-                        agent.stoppingDistance = shootRange;
-                        agent.SetDestination(gameManager.instance.player.transform.position);
-                        facePlayer(); 
-                        if (distanceFromPlayer <= shootRange && angle <= fieldOfViewShoot)
-                            StartCoroutine(shoot());
-                    }
-                    else
-                    {
-                        agent.stoppingDistance = 0.1f;
-                    }
+            
+            if (hit.collider.CompareTag("Player") && !isShooting && angle <= fieldOfView) {
+                if (distanceFromPlayer <= visionRange) {
+                    agent.stoppingDistance = shootRange;
+                    agent.SetDestination(gameManager.instance.player.transform.position);
+                    facePlayer(); 
+                    
+                    if (distanceFromPlayer <= shootRange && angle <= fieldOfViewShoot)
+                        StartCoroutine(shoot());
+                } else {
+                    agent.stoppingDistance = 0.1f;
                 }
             }
         }
     }
 
-
-    public void takeDamage(int dmg)
+    void facePlayer()
     {
-        anim.SetTrigger("Damage");
-        HP -= dmg;
-
-        if (HP > 0)
-        {
-            StartCoroutine(flashColor());
-        }
-
-        else
-        {
-            //Destroy(gameObject);
-            gameManager.instance.enemyKilled++;
-            anim.SetBool("Dead", true);
-            //if (isZombieFloaty)
-                //StartCoroutine(shiftToFloorTimer(0.25f));
-            agent.enabled = false;
-            
-            foreach (Collider col in GetComponents<Collider>())
-            {
-                col.enabled = false;
-            }
+        if (agent.remainingDistance <= agent.stoppingDistance) {
+            playerDir.y = 0;
+            Quaternion rotation = Quaternion.LookRotation(playerDir);
+            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * playerFaceSpeed);
         }
     }
 
+    public void takeDamage(int dmg)
+    {
+        if (dmg > 0)
+            anim.SetTrigger("Damage");
+
+        HP -= dmg;
+        if (HP > 0) {
+            StartCoroutine(flashColor());
+        } else {
+            gameManager.instance.enemyKilled++;
+            anim.SetBool("Dead", true);
+            agent.enabled = false;
+            
+            foreach (Collider col in GetComponents<Collider>())
+                col.enabled = false;
+        }
+    }
+
+    /*
+     * The enemy needs to shoot/attack when the animation reaches the correct point.
+     */
     IEnumerator shoot()
     {
         isShooting = true;
         anim.SetTrigger("Shoot");
         yield return new WaitForSeconds(animationBuffer);
+
         GameObject bulletClone = Instantiate(bullet, bulletSpawn.transform.position, bullet.transform.rotation);
         bulletClone.GetComponent<bullet>().damage = damage;
         bulletClone.GetComponent<bullet>().speed = bulletSpeed;
-        bulletClone.GetComponent<bullet>().destroyTime = bulletDstryTime;
-
+        bulletClone.GetComponent<bullet>().destroyTime = bulletDestroyTime;
         yield return new WaitForSeconds(shootRate);
 
         isShooting = false;
@@ -147,23 +126,12 @@ public class enemyAI : MonoBehaviour, IDamageable
 
     IEnumerator flashColor()
     {
-        //rend.material.color = Color.red;
-        //agent.enabled = false;
         agent.speed = 0;
         anim.SetTrigger("Damage");
         yield return new WaitForSeconds(0.1f);
-        //agent.enabled = true;
+
         agent.speed = speedChase;
         agent.stoppingDistance = 0;
         agent.SetDestination(gameManager.instance.player.transform.position);
-        //rend.material.color = Color.white;
     }
-
-    //IEnumerator shiftToFloorTimer(float time)
-    //{
-    //    yield return new WaitForSeconds(time);
-    //    transform.position = new Vector3(transform.position.x, transform.position.y - 0.8f, transform.position.z);
-    //}
-
-
 }
