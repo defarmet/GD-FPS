@@ -60,14 +60,13 @@ public class enemyAI : MonoBehaviour, IDamageable
      */
     private void CanSeePlayer()
     {
-        float angle = Vector3.Angle(playerDir, head.forward);
+        float angle = Vector3.Angle(new Vector3(playerDir.x, head.forward.y, playerDir.z), head.forward);
         if (Physics.Raycast(head.position, playerDir, out RaycastHit hit)) {
             Debug.DrawRay(head.position, playerDir);
-            
+            agent.SetDestination(gameManager.instance.player.transform.position);
             if (hit.collider.CompareTag("Player") && !isShooting && angle <= fieldOfView) {
                 if (distanceFromPlayer <= visionRange) {
                     agent.stoppingDistance = shootRange;
-                    agent.SetDestination(gameManager.instance.player.transform.position);
                     facePlayer(); 
                     
                     if (distanceFromPlayer <= shootRange && angle <= fieldOfViewShoot)

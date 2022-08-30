@@ -1363,17 +1363,16 @@ MonoBehaviour:
   bullet: {fileID: 8585047719546498357, guid: 9e67bbd296f70fd4fb866ee01ee61308, type: 3}
   bulletSpawn: {fileID: 5507165332826819189}
   HP: 150
-  playerFaceSpeed: 7
-  fieldOfViewShoot: 90
   fieldOfView: 180
+  fieldOfViewShoot: 90
+  playerFaceSpeed: 7
   speedRoam: 3
   speedChase: 4
-  isZombieFloaty: 0
   animationBuffer: 1
   shootRate: 2.5
   damage: 3
   bulletSpeed: 0
-  bulletDstryTime: 1
+  bulletDestroyTime: 4
   shootRange: 25
   visionRange: 7
 --- !u!195 &688097817671727203
