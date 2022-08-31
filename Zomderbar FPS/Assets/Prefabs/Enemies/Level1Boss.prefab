@@ -1370,10 +1370,10 @@ MonoBehaviour:
   speedChase: 4
   animationBuffer: 1
   shootRate: 2.5
-  damage: 3
+  damage: 8
   bulletSpeed: 0
   bulletDestroyTime: 4
-  shootRange: 25
+  shootRange: 50
   visionRange: 7
 --- !u!195 &688097817671727203
 NavMeshAgent:
