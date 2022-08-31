@@ -17,6 +17,7 @@ public class gameManager : MonoBehaviour
     public GameObject playerDamageFlash;
     public GameObject playerDeadMenu;
     public GameObject winMenu;
+    public GameObject d_arrow;
 
 
     public GameObject currentGunHUD;

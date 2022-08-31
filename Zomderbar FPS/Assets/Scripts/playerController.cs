@@ -49,6 +49,9 @@ public class playerController : MonoBehaviour, IDamageable
 	bool canSlide = true;
 	bool isSliding = false;
 
+	//terry added
+	GameObject bullet;
+
 	private void Start()
 	{
 		playerSpeedOG = playerSpeed;
@@ -256,8 +259,11 @@ public class playerController : MonoBehaviour, IDamageable
 	public void takeDamage(int dmg)
 	{
 		if (dmg > 0)
+		{
 			StartCoroutine(damageFlash());
-		
+			//terry added
+			StartCoroutine(damageArrow());
+		}
 		hp -= dmg;
 		updatePlayerHp();
 		if (hp < 1) {
@@ -343,4 +349,36 @@ public class playerController : MonoBehaviour, IDamageable
 		yield return new WaitForSeconds(1.8f);
 		playerSpeed = playerSpeedOG;
 	}
+
+	//terry changes
+    #region TerryAdded
+    IEnumerator damageArrow()
+    {
+        float angle = HitAngle((transform.position - bullet.transform.position).normalized);
+        gameManager.instance.d_arrow.transform.rotation = Quaternion.Euler(0, 0, -angle);
+        gameManager.instance.d_arrow.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        gameManager.instance.d_arrow.SetActive(false);
+    }
+
+    public float HitAngle(Vector3 incomingDir)
+    {
+        // Flatten to plane
+        var otherDir = new Vector3(-incomingDir.x, 0f, -incomingDir.z);
+        var playerFwd = Vector3.ProjectOnPlane(transform.forward, Vector3.up);
+
+        // Direction between player fwd and incoming object
+        var angle = Vector3.SignedAngle(playerFwd, otherDir, Vector3.up);
+
+        return angle;
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        GameObject detect = collision.gameObject;
+        if (detect.CompareTag("EnemyBullet"))
+        {
+            bullet = detect;
+        }
+    } 
+    #endregion
 }
