@@ -46,6 +46,8 @@ public class playerController : MonoBehaviour, IDamageable
 	int   hpOriginal;
 	int   ammoCountOrig;
 	float gravityValueOG;
+	bool canSlide = true;
+	bool isSliding = false;
 
 	private void Start()
 	{
@@ -84,13 +86,13 @@ public class playerController : MonoBehaviour, IDamageable
 
 		move = ((transform.right * Input.GetAxis("Horizontal")) + (transform.forward * Input.GetAxis("Vertical")));
 		controller.Move(move * Time.deltaTime * playerSpeed);
+
 		if (Input.GetButtonDown("Jump") && timesJumps < jumpMax) {
 			playerVelocity.y = jumpHeight;
 			timesJumps++;
 
 			if (timesJumps > 1) {
 				playerVelocity.y = jumpHeight * doubleJumpHeightMult;
-				StartCoroutine(slowJumpMovement());
 			}
 		}
 
@@ -103,20 +105,54 @@ public class playerController : MonoBehaviour, IDamageable
 	 */
 	void slide()
 	{
-		if (Input.GetButtonDown("Sprint")) {
-			transform.localScale = new Vector3(1, .5f, 1);
-			playerSpeed = playerSpeed * slideMult;
-			StartCoroutine(stopSlide());
-		} else if (Input.GetButtonUp("Sprint")) {
-			transform.localScale = new Vector3(1, 1, 1);
-			playerSpeed = playerSpeedOG;
+		if (canSlide)
+		{
+			if (Input.GetButtonDown("Sprint"))
+			{
+				isSliding = true;
+				StartCoroutine(slowSlide());
+
+			}
+			else if (Input.GetButtonUp("Sprint"))
+			{
+				isSliding = false;
+				transform.localScale = new Vector3(1, 1, 1);
+				playerSpeed = playerSpeedOG;
+				StartCoroutine(standUp());
+			}
 		}
 	}
 
-	IEnumerator stopSlide()
+	IEnumerator slowSlide()
 	{
-		yield return new WaitForSeconds(slideTime);
-		playerSpeed = playerSpeedOG;
+
+		transform.localScale = new Vector3(1, .5f, 1);
+
+		if (timesJumps > 0)
+		{
+			playerSpeed = playerSpeed * slideMult + 0.5f;
+		}
+		else
+		{
+			playerSpeed = playerSpeed * slideMult;
+		}
+		while (isSliding)
+		{
+			yield return new WaitForSeconds(0.2f);
+			playerSpeed -= 0.3f;
+
+			if (playerSpeed <= playerSpeedOG / 1.5)
+			{
+				break;
+			}
+		}
+	}
+
+	IEnumerator standUp()
+	{
+		canSlide = false;
+		yield return new WaitForSeconds(0.07f);
+		canSlide = true;
 	}
 
 	IEnumerator shoot()
