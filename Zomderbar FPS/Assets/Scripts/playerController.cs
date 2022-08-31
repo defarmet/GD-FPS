@@ -40,7 +40,8 @@ public class playerController : MonoBehaviour, IDamageable
     public bool isShooting = false;
     int hpOriginal;
     int ammoCountOrig;
-    //bool isCrouching = false;
+    bool canSlide = true;
+    bool isSliding = false;
     float gravityValueOG;
     public bool canSprint = true;
     public bool isWallrun = false;
@@ -104,9 +105,8 @@ public class playerController : MonoBehaviour, IDamageable
 
             if (timesJumps > 1)
             {
-                playerVelocity.y = jumpHeight * 1.6f;
-                StartCoroutine(slowJumpMovement());
-
+                playerVelocity.y = jumpHeight * 1.2f;
+                //StartCoroutine(slowJumpMovement());
             }
         }
 
@@ -114,44 +114,61 @@ public class playerController : MonoBehaviour, IDamageable
         controller.Move(playerVelocity * Time.deltaTime);
     }
 
-    // public void sprint()
-    //{
-    //        if (Input.GetButtonDown("Sprint"))
-    //        {
-    //            isSprinting = true;
-    //            playerSpeed = playerSpeed * sprintMult;
-    //        }
-
-    //        if (Input.GetButtonUp("Sprint"))
-    //        {
-    //            isSprinting = false;
-    //            playerSpeed = playerSpeedOG;
-    //        }
-    //}
-
     void slide()
     {
-        if (Input.GetButtonDown("Sprint"))
-        {
-            transform.localScale = new Vector3(1, .5f, 1);
-            playerSpeed = playerSpeed * slideMulti;
-            StartCoroutine(stopSlide());
 
-        }
-
-        else if (Input.GetButtonUp("Sprint"))
+        if (canSlide)
         {
-            transform.localScale = new Vector3(1, 1, 1);
-            playerSpeed = playerSpeedOG;
+            if (Input.GetButtonDown("Sprint"))
+            {
+                isSliding = true;
+                StartCoroutine(slowSlide());
+
+
+            }
+
+            else if (Input.GetButtonUp("Sprint"))
+            {
+                isSliding = false;
+                transform.localScale = new Vector3(1, 1, 1);
+                playerSpeed = playerSpeedOG;
+                StartCoroutine(standUp());
+            }
         }
     }
 
-    IEnumerator stopSlide()
+    IEnumerator slowSlide()
     {
-        yield return new WaitForSeconds(slideTime);
-        //transform.localScale = new Vector3(1, 1, 1);
-        playerSpeed = playerSpeedOG;
 
+        transform.localScale = new Vector3(1, .5f, 1);
+
+        if(timesJumps > 0)
+        {
+            playerSpeed = playerSpeed * slideMulti + 0.5f;
+        }
+        else
+        {
+            playerSpeed = playerSpeed * slideMulti;
+        }
+
+        while (isSliding)
+        {
+            yield return new WaitForSeconds(0.2f);
+            playerSpeed -= 0.3f;
+
+            if (playerSpeed <= playerSpeedOG/1.5)
+            {
+                break;
+            }
+        }
+
+    }
+
+    IEnumerator standUp()
+    {
+        canSlide = false;
+        yield return new WaitForSeconds(0.07f);
+        canSlide = true;
     }
 
     IEnumerator shoot()
@@ -401,7 +418,7 @@ public class playerController : MonoBehaviour, IDamageable
 
     IEnumerator slowJumpMovement()
     {
-        playerSpeed = playerSpeed * 0.5f;
+        playerSpeed = playerSpeed * 0.99f;
         yield return new WaitForSeconds(1.8f);
         playerSpeed = playerSpeedOG;
     }
