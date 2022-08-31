@@ -5,86 +5,104 @@ using UnityEngine.UI;
 
 public class gameManager : MonoBehaviour
 {
-    [Header("---------- Instance -----------")]
+
     public static gameManager instance;
 
-    [Header("---------- Player Components -----------")]
-    public GameObject       player;
+    public GameObject player;
     public playerController playerScript;
-    public GameObject       playerSpawnPoint;
-    
-    [Header("---------- Enemy Components -----------")]
     public EnemySpawners spawnerScript;
-    public int           enemyKilled;
 
-    [Header("---------- Menus -----------")]
     public GameObject pauseMenu;
     public GameObject currentMenuOpen;
     public GameObject playerDamageFlash;
     public GameObject playerDeadMenu;
     public GameObject winMenu;
 
-    [Header("---------- HUD -----------")]
-    public GameObject   currentGunHUD;
+    public GameObject currentGunHUD;
     public GameObject[] gunHUD;
-    public Image        playerHpBar;
 
-    [Header("---------- Booleans -----------")]
+    public Image playerHpBar;
+    public Image ammoBar;
+
+    public GameObject playerSpawnPoint;
+
+    public int enemyCount;
+    public int enemyKilled;
+
     public bool isPaused = false;
 
-    /*
-     * Some variables are set at start for easy development in the Unity editor.
-     */
     void Awake()
     {
         instance = this;
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<playerController>();
+
         playerSpawnPoint = GameObject.FindGameObjectWithTag("Player Spawn Point");
         playerScript.respawn();
-
     }
 
     void Update()
     {
-        if (Input.GetButtonDown("Cancel") && (!currentMenuOpen || currentMenuOpen == pauseMenu)) {
-                currentMenuOpen = pauseMenu;
-                currentMenuOpen.SetActive(!isPaused);
-                pause_game(!isPaused);
+        if (Input.GetButtonDown("Cancel") && playerScript.hp > 0)
+        {
+            currentMenuOpen = pauseMenu;
+			pause_game(!isPaused);
         }
     }
 
-    /*
-     * Functions kept for compatibility with existing code
-     */
     public void cursorLockPause()
     {
-        pause_game(true);
+		/*if (currentGunHUD != null)
+		    currentGunHUD.SetActive(false);
+
+		Cursor.visible = true;
+		Cursor.lockState = CursorLockMode.Confined;
+		Time.timeScale = 0;*/
+		pause_game(true);
     }
 
     public void cursorUnlockUnpause()
     {
-        pause_game(false);
+		/*if (currentGunHUD != null)
+		    currentGunHUD.SetActive(true);
+
+		Cursor.visible = false;
+		Cursor.lockState = CursorLockMode.Locked;
+		Time.timeScale = 1;
+		currentMenuOpen.SetActive(isPaused);
+		currentMenuOpen = null;*/
+		pause_game(false);
     }
 
-    /*
-     * All pausing and unpausing code goes here.
-     */
+    //public IEnumerator checkEnemyTotal()
+    //{
+    //    enemyCount--;
+
+    //    if (enemyCount <= 0)
+    //    {
+    //        yield return new WaitForSeconds(2);
+    //        winMenu.SetActive(true);
+    //        currentMenuOpen = winMenu;
+    //        cursorLockPause();
+    //    }
+    //}
+
     public void pause_game(bool p)
     {
-        if (currentGunHUD)
-            currentGunHUD.SetActive(!p);
+		if (currentGunHUD != null)
+			currentGunHUD.SetActive(!p);
 
+		Debug.Log(p);
         Cursor.visible = p;
+        currentMenuOpen.SetActive(p);
         isPaused = p;
         if (p) {
             Cursor.lockState = CursorLockMode.Confined;
             Time.timeScale = 0;
         } else {
-            currentMenuOpen.SetActive(false);
-            currentMenuOpen = null;
             Cursor.lockState = CursorLockMode.Locked;
             Time.timeScale = 1;
+            currentMenuOpen = null;
         }
     }
 }
