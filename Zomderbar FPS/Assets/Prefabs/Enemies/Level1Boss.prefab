@@ -1360,7 +1360,7 @@ MonoBehaviour:
   agent: {fileID: 688097817671727203}
   head: {fileID: 5507165332762802179}
   anim: {fileID: 2663642645359679679}
-  bullet: {fileID: 8585047719546498357, guid: 9e67bbd296f70fd4fb866ee01ee61308, type: 3}
+  bullet: {fileID: 8585047719546498357, guid: 5cbae0886876130479ce3133b574aefd, type: 3}
   bulletSpawn: {fileID: 5507165332826819189}
   HP: 150
   fieldOfView: 180
@@ -1373,7 +1373,7 @@ MonoBehaviour:
   damage: 8
   bulletSpeed: 0
   bulletDestroyTime: 4
-  shootRange: 50
+  shootRange: 30.5
   visionRange: 7
 --- !u!195 &688097817671727203
 NavMeshAgent:
