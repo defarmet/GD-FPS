@@ -15,6 +15,7 @@ public class gunStats : ScriptableObject
     public int shootDmg;
     public int gunHUD;
     public GameObject model;
+    //public float reloadTimer;
     //public SelectedWeapon selectedWeapon;
 
     [Header("Ammo")]

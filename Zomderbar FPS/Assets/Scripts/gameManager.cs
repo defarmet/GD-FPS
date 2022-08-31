@@ -11,6 +11,7 @@ public class gameManager : MonoBehaviour
     public GameObject player;
     public playerController playerScript;
     public EnemySpawners spawnerScript;
+    public gunStats gunStatsScript;
 
     public GameObject pauseMenu;
     public GameObject currentMenuOpen;

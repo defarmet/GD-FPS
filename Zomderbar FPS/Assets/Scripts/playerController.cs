@@ -30,6 +30,7 @@ public class playerController : MonoBehaviour, IDamageable
 	public                            AudioSource gunfire;
 	public                            int[]       currentAmmoCount = new int[6];
 	                                  int         selectedWeapon;
+					 [SerializeField] float       reloadTimer;
 
 	bool isShooting = false;
 	bool alreadyReloadedUI = false;
@@ -68,7 +69,7 @@ public class playerController : MonoBehaviour, IDamageable
 		playerMovement();
 		slide();
 
-		reload();
+		StartCoroutine(reload());
 
 		StartCoroutine(gunSwitch());
 		StartCoroutine(shoot());
@@ -151,7 +152,7 @@ public class playerController : MonoBehaviour, IDamageable
 	IEnumerator standUp()
 	{
 		canSlide = false;
-		yield return new WaitForSeconds(0.07f);
+		yield return new WaitForSeconds(0.5f);
 		canSlide = true;
 	}
 
@@ -228,18 +229,21 @@ public class playerController : MonoBehaviour, IDamageable
 					alreadyReloadedUI = false;
 				}
 				selectedWeapon++;
+				
 			} else if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedWeapon > 0) {
 				if (alreadyReloadedUI) {
 					gameManager.instance.currentGunHUD.transform.GetChild(3).gameObject.SetActive(false);
 					alreadyReloadedUI = false;
 				}
 				selectedWeapon--;
+				
 			}
 				
 			shootRate = gunstat[selectedWeapon].shootRate;
 			shootDistance = gunstat[selectedWeapon].shootDist;
 			shootDmg = gunstat[selectedWeapon].shootDmg;
 			ammoCountOrig = gunstat[selectedWeapon].ammoCapacity;
+			reloadTimer = gunstat[selectedWeapon].reloadTime;
 			gunModel.GetComponent<MeshFilter>().sharedMesh = gunstat[selectedWeapon].model.GetComponent<MeshFilter>().sharedMesh;
 			gunModel.GetComponent<MeshRenderer>().sharedMaterial = gunstat[selectedWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;
 
@@ -250,6 +254,8 @@ public class playerController : MonoBehaviour, IDamageable
 				gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
 
 			yield return new WaitForSeconds(switchTime);
+
+
 		}
 	}
 
@@ -312,15 +318,18 @@ public class playerController : MonoBehaviour, IDamageable
 		gameManager.instance.playerHpBar.fillAmount = (float)hp / (float)hpOriginal;
 	}
 
-	public void reload()
+	public IEnumerator reload()
 	{
 		if (Input.GetButtonDown("Reload") && gunstat.Count != 0) {
 			if (currentAmmoCount[selectedWeapon] == ammoCountOrig && !alreadyReloadedUI) {
 				StartCoroutine(alreadyReloaded());
 			} else if (currentAmmoCount[selectedWeapon] != ammoCountOrig) {
+				//yield return new WaitForSeconds(gameManager.instance.gunStatsScript.reloadTime);
+				yield return new WaitForSeconds(reloadTimer);
 				currentAmmoCount[selectedWeapon] = ammoCountOrig;
 				for (int i = 0; i < currentAmmoCount[selectedWeapon]; ++i)
 					gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
+				
 			}
 		}
 	}
