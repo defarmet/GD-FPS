@@ -334,28 +334,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 4052029024476061148}
   rb: {fileID: 1862878468}
+  hitEffect: {fileID: 8710450972521545467, guid: 7a6f1946870f4114784b1bcd7c1c178c, type: 3}
   playerSpeed: 7.5
-  slideMulti: 1.5
+  slideMult: 0
   slideTime: 2
   wallRunSpeed: 9
-  sprintMult: 1.5
   jumpHeight: 9.08
   gravityValue: 17.75
   jumpMax: 2
   hp: 5
-  hitEffect: {fileID: 8710450972521545467, guid: 7a6f1946870f4114784b1bcd7c1c178c, type: 3}
+  switchTime: 0
+  doubleJumpHeightMult: 1.6
+  doubleJumpSpeedMult: 0.5
   gunModel: {fileID: 1150401932}
   shootRate: 0
   shootDistance: 0
   shootDmg: 0
-  selectedWeapon: 0
-  gunstat: []
-  playerSpeedOG: 0
-  isSprinting: 0
-  isShooting: 0
-  canSprint: 1
-  isWallrun: 0
-  alreadyReloadedUI: 0
   gunfire: {fileID: 0}
   currentAmmoCount: 000000000000000000000000000000000000000000000000
 --- !u!33 &4052029024476061151
