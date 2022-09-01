@@ -18,8 +18,10 @@ public class gameManager : MonoBehaviour
     public GameObject playerDeadMenu;
     public GameObject winMenu;
 
-    public GameObject currentGunHUD;
+    public GameObject   currentGunHUD;
     public GameObject[] gunHUD;
+	
+    public GameObject checkpointHUD;
 
     public Image playerHpBar;
     public Image ammoBar;
