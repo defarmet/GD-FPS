@@ -52,6 +52,7 @@ public class playerController : MonoBehaviour, IDamageable
     bool isOnAir = false;
     bool canWallRun = true;
     public bool isSameWall = false;
+    bool canShoot = true;
 
     private void Start()
     {
@@ -170,30 +171,37 @@ public class playerController : MonoBehaviour, IDamageable
 
     IEnumerator shoot()
     {
-        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDistance, Color.red, 0.0000001f);
 
-        if (gunstat.Count != 0 && Input.GetButton("Shoot") && currentAmmoCount[selectedWeapon] > 0 && isShooting == false && !gameManager.instance.isPaused) {
-            isShooting = true;
-            gunfire.Play();
-            gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(currentAmmoCount[selectedWeapon] - 1).gameObject.SetActive(false);
-            currentAmmoCount[selectedWeapon]--;
+        if (canShoot)
+        {
+            Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDistance, Color.red, 0.0000001f);
 
-            if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out RaycastHit hit, shootDistance)) {
-                Instantiate(hitEffect, hit.point, hitEffect.transform.rotation);
-                
-                if (hit.collider.GetComponent<IDamageable>() != null) {
-                    IDamageable isDamageable = hit.collider.GetComponent<IDamageable>();
-                    
-                    /* Headshot handler */
-                    if (hit.collider is SphereCollider)
-                        isDamageable.takeDamage(shootDmg * 2);
-                    else
-                        isDamageable.takeDamage(shootDmg);
+            if (gunstat.Count != 0 && Input.GetButton("Shoot") && currentAmmoCount[selectedWeapon] > 0 && isShooting == false && !gameManager.instance.isPaused)
+            {
+                isShooting = true;
+                gunfire.Play();
+                gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(currentAmmoCount[selectedWeapon] - 1).gameObject.SetActive(false);
+                currentAmmoCount[selectedWeapon]--;
+
+                if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out RaycastHit hit, shootDistance))
+                {
+                    Instantiate(hitEffect, hit.point, hitEffect.transform.rotation);
+
+                    if (hit.collider.GetComponent<IDamageable>() != null)
+                    {
+                        IDamageable isDamageable = hit.collider.GetComponent<IDamageable>();
+
+                        /* Headshot handler */
+                        if (hit.collider is SphereCollider)
+                            isDamageable.takeDamage(shootDmg * 2);
+                        else
+                            isDamageable.takeDamage(shootDmg);
+                    }
                 }
-            }
 
-            yield return new WaitForSeconds(shootRate);
-            isShooting = false;
+                yield return new WaitForSeconds(shootRate);
+                isShooting = false;
+            }
         }
     }
 
@@ -337,10 +345,12 @@ public class playerController : MonoBehaviour, IDamageable
                 StartCoroutine(alreadyReloaded());
             } else if (currentAmmoCount[selectedWeapon] != ammoCountOrig) {
                 //yield return new WaitForSeconds(gameManager.instance.gunStatsScript.reloadTime);
+                canShoot = false;
                 yield return new WaitForSeconds(reloadTimer);
                 currentAmmoCount[selectedWeapon] = ammoCountOrig;
                 for (int i = 0; i < currentAmmoCount[selectedWeapon]; ++i)
                     gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
+                canShoot=true;
                 
             }
         }
