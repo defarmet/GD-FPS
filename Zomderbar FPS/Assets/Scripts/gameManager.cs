@@ -5,58 +5,53 @@ using UnityEngine.UI;
 
 public class gameManager : MonoBehaviour
 {
-    [Header("---------- Instance -----------")]
+
     public static gameManager instance;
 
-    [Header("---------- Player Components -----------")]
-    public GameObject       player;
+    public GameObject player;
     public playerController playerScript;
-    public GameObject       playerSpawnPoint;
-    
-    [Header("---------- Enemy Components -----------")]
     public EnemySpawners spawnerScript;
-    public int           enemyKilled;
 
-    [Header("---------- Menus -----------")]
     public GameObject pauseMenu;
     public GameObject currentMenuOpen;
     public GameObject playerDamageFlash;
     public GameObject playerDeadMenu;
     public GameObject winMenu;
 
-    [Header("---------- HUD -----------")]
     public GameObject   currentGunHUD;
     public GameObject[] gunHUD;
-    public Image        playerHpBar;
+	
+    public GameObject checkpointHUD;
 
-    [Header("---------- Booleans -----------")]
+    public Image playerHpBar;
+    public Image ammoBar;
+
+    public GameObject playerSpawnPoint;
+
+    public int enemyCount;
+    public int enemyKilled;
+
     public bool isPaused = false;
 
-    /*
-     * Some variables are set at start for easy development in the Unity editor.
-     */
     void Awake()
     {
         instance = this;
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<playerController>();
+
         playerSpawnPoint = GameObject.FindGameObjectWithTag("Player Spawn Point");
         playerScript.respawn();
-
     }
 
     void Update()
     {
         if (Input.GetButtonDown("Cancel") && (!currentMenuOpen || currentMenuOpen == pauseMenu)) {
-                currentMenuOpen = pauseMenu;
-                currentMenuOpen.SetActive(!isPaused);
-                pause_game(!isPaused);
+            currentMenuOpen = pauseMenu;
+            currentMenuOpen.SetActive(true);
+            pause_game(!isPaused);
         }
     }
 
-    /*
-     * Functions kept for compatibility with existing code
-     */
     public void cursorLockPause()
     {
         pause_game(true);
@@ -67,12 +62,9 @@ public class gameManager : MonoBehaviour
         pause_game(false);
     }
 
-    /*
-     * All pausing and unpausing code goes here.
-     */
     public void pause_game(bool p)
     {
-        if (currentGunHUD)
+        if (currentGunHUD != null)
             currentGunHUD.SetActive(!p);
 
         Cursor.visible = p;
@@ -81,10 +73,10 @@ public class gameManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.Confined;
             Time.timeScale = 0;
         } else {
-            currentMenuOpen.SetActive(false);
-            currentMenuOpen = null;
             Cursor.lockState = CursorLockMode.Locked;
             Time.timeScale = 1;
+            currentMenuOpen.SetActive(false);
+            currentMenuOpen = null;
         }
     }
 }
