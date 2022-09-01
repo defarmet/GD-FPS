@@ -175,6 +175,7 @@ public class playerController : MonoBehaviour, IDamageable
 		if (gunstat.Count != 0 && Input.GetButton("Shoot") && currentAmmoCount[selectedWeapon] > 0 && isShooting == false && !gameManager.instance.isPaused) {
 			isShooting = true;
 			gunfire.Play();
+			CameraShake.Instance.ShakeCamera(5f, 0.1f);
 			gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(currentAmmoCount[selectedWeapon] - 1).gameObject.SetActive(false);
 			currentAmmoCount[selectedWeapon]--;
 
