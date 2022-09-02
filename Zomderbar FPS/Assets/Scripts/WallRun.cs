@@ -11,7 +11,8 @@ public class WallRun : MonoBehaviour
             if (other.CompareTag("Player"))
             {
                 gameManager.instance.playerScript.isSameWall = true;
-                gameManager.instance.playerScript.gravityValue /= 2;
+                //gameManager.instance.playerScript.gravityValue /= 2.6f;
+                StartCoroutine(wallRunGrav());
                 gameManager.instance.playerScript.timesJumps = 1;
             }
         }
@@ -19,14 +20,22 @@ public class WallRun : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        gameManager.instance.playerScript.isSameWall = false;
         StartCoroutine(resetGravity());
+    }
+
+    IEnumerator wallRunGrav()
+    {
+        gameManager.instance.playerScript.gravityValue *= 2.6f;
+        yield return new WaitForSeconds(0.02f);
+        gameManager.instance.playerScript.gravityValue = gameManager.instance.playerScript.gravityValueOG;
+        gameManager.instance.playerScript.gravityValue /= 2f;
     }
 
     IEnumerator resetGravity()
     {
-        gameManager.instance.playerScript.gravityValue *=2;
+        gameManager.instance.playerScript.gravityValue *=2f;
         yield return new WaitForSeconds(0.03f);
         gameManager.instance.playerScript.gravityValue = gameManager.instance.playerScript.gravityValueOG;
+        gameManager.instance.playerScript.isSameWall = false;
     }
 }
