@@ -53,8 +53,6 @@ public class playerController : MonoBehaviour, IDamageable
 	bool canWallRun = true;
 	public bool isSameWall = false;
 
-	//terry added
-	GameObject bullet;
 
 	private void Start()
 	{
@@ -280,7 +278,7 @@ public class playerController : MonoBehaviour, IDamageable
 		{
 			StartCoroutine(damageFlash());
 			//terry added
-			StartCoroutine(damageArrow());
+			damageArrow();
 		}
 		hp -= dmg;
 		updatePlayerHp();
@@ -373,33 +371,23 @@ public class playerController : MonoBehaviour, IDamageable
 
 	//terry changes
     #region TerryAdded
-    IEnumerator damageArrow()
+    private void damageArrow()
     {
-        float angle = HitAngle((transform.position - bullet.transform.position).normalized);
-        gameManager.instance.d_arrow.transform.rotation = Quaternion.Euler(0, 0, -angle);
-        gameManager.instance.d_arrow.SetActive(true);
-        yield return new WaitForSeconds(0.1f);
-        gameManager.instance.d_arrow.SetActive(false);
-    }
+		//      gameManager.instance.d_arrow.SetActive(true);
+		float angle = HitAngle(gameManager.instance.d_angle.normalized);
+		//gameManager.instance.d_arrow.transform.rotation = Quaternion.Euler(0, 0, -angle);
+		//      gameManager.instance.d_arrow.SetActive(false);
+		GameObject d_indicator = Instantiate(gameManager.instance.d_arrow, Vector3.zero, Quaternion.Euler(0,0,-angle));
+	}
 
-    public float HitAngle(Vector3 incomingDir)
+    public float HitAngle(Vector3 direction)
     {
-        // Flatten to plane
-        var otherDir = new Vector3(-incomingDir.x, 0f, -incomingDir.z);
+        var otherDir = new Vector3(-direction.x, 0f, -direction.z);
         var playerFwd = Vector3.ProjectOnPlane(transform.forward, Vector3.up);
 
-        // Direction between player fwd and incoming object
         var angle = Vector3.SignedAngle(playerFwd, otherDir, Vector3.up);
 
         return angle;
     }
-    private void OnCollisionEnter(Collision collision)
-    {
-        GameObject detect = collision.gameObject;
-        if (detect.CompareTag("EnemyBullet"))
-        {
-            bullet = detect;
-        }
-    } 
     #endregion
 }

@@ -24,6 +24,7 @@ public class gameManager : MonoBehaviour
     public GameObject playerDeadMenu;
     public GameObject winMenu;
     public GameObject d_arrow;
+    public Vector3 d_angle;
 
     [Header("---------- HUD -----------")]
     public GameObject   currentGunHUD;

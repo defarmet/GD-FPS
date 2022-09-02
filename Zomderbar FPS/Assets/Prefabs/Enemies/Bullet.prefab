@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 8086148944952882686}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.0280523, y: 4.0906563, z: 9.0009575}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -101,8 +101,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 518492604225114834}
   damage: 0
-  speed: 0
-  destroyTime: 3
+  speed: 2
+  destroyTime: 10
   destroyOnImpact: 1
 --- !u!135 &2752799969451689423
 SphereCollider:
