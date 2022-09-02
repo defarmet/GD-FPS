@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class gameManager : MonoBehaviour
@@ -32,6 +33,8 @@ public class gameManager : MonoBehaviour
 
     public int enemyCount;
     public int enemyKilled;
+
+    public AudioMixer masterAudio;
     
     public bool isPaused = false;
     int firstCount = 3;
@@ -45,6 +48,12 @@ public class gameManager : MonoBehaviour
 
         playerSpawnPoint = GameObject.FindGameObjectWithTag("Player Spawn Point");
         playerScript.respawn();
+    }
+
+    void Start()
+    {
+        masterAudio.SetFloat("Music Slider", Mathf.Log10(PlayerPrefs.GetFloat("musicVol", 0.5f)) * 20);
+        masterAudio.SetFloat("SFX Slider", Mathf.Log10(PlayerPrefs.GetFloat("sfxVol", 0.5f)) * 20);
     }
 
     void Update()
@@ -106,6 +115,12 @@ public class gameManager : MonoBehaviour
 
     public void close_settings()
     {
+        masterAudio.GetFloat("Music Slider", out float vol);
+        PlayerPrefs.SetFloat("musicVol", Mathf.Pow(10, vol / 20));
+        masterAudio.GetFloat("SFX Slider", out vol);
+        PlayerPrefs.SetFloat("sfxVol", Mathf.Pow(10, vol / 20));
+        PlayerPrefs.Save();
+
         currentMenuOpen.SetActive(false);
         currentMenuOpen = oldMenu;
         oldMenu = null;
