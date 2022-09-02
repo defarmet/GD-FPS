@@ -16,7 +16,7 @@ public class playerController : MonoBehaviour, IDamageable
     [SerializeField]                  float        wallRunSpeed;
     [Range(8, 18)]   [SerializeField] float        jumpHeight;
     [Range(15, 30)]  [SerializeField] public float gravityValue;
-    [Range(1, 3)]    [SerializeField] int          jumpMax;
+    [Range(1, 3)]    [SerializeField] public int   jumpMax;
     [Range(0, 310)]  [SerializeField] public int   hp;
     [Range(0.1f, 2)] [SerializeField] float        switchTime;
     [Range(1, 2)]    [SerializeField] float        doubleJumpHeightMult;
@@ -32,6 +32,11 @@ public class playerController : MonoBehaviour, IDamageable
                                       int         selectedWeapon;
     [SerializeField]                  float       reloadTimer;
 
+    [Header("--------- Audio ----------")]
+
+    [SerializeField] AudioClip[] footfalls;
+    [Range(0, 1)][SerializeField] float footfallsVol;
+
     bool isShooting = false;
     bool alreadyReloadedUI = false;
     
@@ -42,7 +47,8 @@ public class playerController : MonoBehaviour, IDamageable
     int            weapIndx;
     
     public int timesJumps;
-    
+    public int timesJumpsAudio;
+
     float playerSpeedOG;
     int   hpOriginal;
     int   ammoCountOrig;
@@ -88,6 +94,7 @@ public class playerController : MonoBehaviour, IDamageable
             isOnAir = false;
             playerVelocity.y = 0f;
             timesJumps = 0;
+            timesJumpsAudio = 0;
         }
 
         move = ((transform.right * Input.GetAxis("Horizontal")) + (transform.forward * Input.GetAxis("Vertical")));
@@ -97,9 +104,11 @@ public class playerController : MonoBehaviour, IDamageable
         //{
             if (Input.GetButtonDown("Jump") && timesJumps < jumpMax)
             {
+            gunfire.PlayOneShot(footfalls[Random.Range(0, footfalls.Length)], footfallsVol);
                 isOnAir = true;
                 playerVelocity.y = jumpHeight;
                 timesJumps++;
+                //timesJumpsAudio++;
 
                 if (timesJumps > 1)
                 {

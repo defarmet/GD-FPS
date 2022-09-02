@@ -7,15 +7,9 @@ public class WallRun : MonoBehaviour
 
     [SerializeField] AudioSource playerAudio;
 
-    [SerializeField] AudioClip[] footfalls;
+    [SerializeField] AudioClip notif;
 
-    [SerializeField] int footfallsVol;
-
-
-    private void Start()
-    {
-        
-    }
+    [Range(0, 1)][SerializeField] float notifVol;
 
 
     private void OnTriggerEnter(Collider other)
@@ -24,6 +18,7 @@ public class WallRun : MonoBehaviour
         {
             if (other.CompareTag("Player"))
             {
+                playerAudio.PlayOneShot(notif, notifVol);
                 gameManager.instance.playerScript.isSameWall = true;
                 //gameManager.instance.playerScript.gravityValue /= 2.6f;
                 StartCoroutine(wallRunGrav());
