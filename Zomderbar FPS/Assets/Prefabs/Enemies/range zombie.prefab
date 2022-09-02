@@ -2706,8 +2706,8 @@ MonoBehaviour:
   speedRoam: 0
   speedChase: 0
   animationBuffer: 0.2
-  shootRate: 2
-  damage: 2
+  shootRate: 2.5
+  damage: 5
   bulletSpeed: 5
   bulletDestroyTime: 3
   shootRange: 25
@@ -2825,7 +2825,7 @@ AudioSource:
   m_GameObject: {fileID: 7384251766625758725}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 1999225964781732724, guid: d77e4e2b3decfd64690f5ae345a51321, type: 2}
   m_audioClip: {fileID: 8300000, guid: bdb798b20d5ac2f438f3a562f4150019, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
