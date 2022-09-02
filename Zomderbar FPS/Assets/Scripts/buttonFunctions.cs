@@ -11,9 +11,7 @@ public class buttonFunctions : MonoBehaviour
         {
 			gameManager.instance.isPaused = !gameManager.instance.isPaused;
 			gameManager.instance.cursorUnlockUnpause();
-			
 		}
-		
 	}
 
 	public void restart()
