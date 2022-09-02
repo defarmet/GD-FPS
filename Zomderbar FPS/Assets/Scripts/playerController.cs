@@ -50,7 +50,7 @@ public class playerController : MonoBehaviour, IDamageable
     bool canSlide = true;
     bool isSliding = false;
     bool isOnAir = false;
-    bool canWallRun = true;
+    public bool isWallRun = true;
     public bool isSameWall = false;
     bool canShoot = true;
 
@@ -180,6 +180,7 @@ public class playerController : MonoBehaviour, IDamageable
             {
                 isShooting = true;
                 gunfire.Play();
+                //gunfire.PlayOneShot(gunstat[selectedWeapon].audioClip);
                 gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(currentAmmoCount[selectedWeapon] - 1).gameObject.SetActive(false);
                 currentAmmoCount[selectedWeapon]--;
 
@@ -264,6 +265,7 @@ public class playerController : MonoBehaviour, IDamageable
             shootDmg = gunstat[selectedWeapon].shootDmg;
             ammoCountOrig = gunstat[selectedWeapon].ammoCapacity;
             reloadTimer = gunstat[selectedWeapon].reloadTime;
+            // audio clip ihigsn = gunstat[selectedWeapon].shootSound;
             gunModel.GetComponent<MeshFilter>().sharedMesh = gunstat[selectedWeapon].model.GetComponent<MeshFilter>().sharedMesh;
             gunModel.GetComponent<MeshRenderer>().sharedMaterial = gunstat[selectedWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;
 

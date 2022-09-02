@@ -5,7 +5,17 @@ using UnityEngine;
 public class WallRun : MonoBehaviour
 {
 
-    [SerializeField] AudioSource wallRunSound;
+    [SerializeField] AudioSource playerAudio;
+
+    [SerializeField] AudioClip[] footfalls;
+
+    [SerializeField] int footfallsVol;
+
+
+    private void Start()
+    {
+        
+    }
 
 
     private void OnTriggerEnter(Collider other)
