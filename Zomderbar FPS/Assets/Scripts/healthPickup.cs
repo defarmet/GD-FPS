@@ -10,16 +10,21 @@ public class healthPickup : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (gameManager.instance.playerScript.hp + gainHealth > gameManager.instance.playerScript.hpOriginal)
+            if (gameManager.instance.playerScript.hp < gameManager.instance.playerScript.hpOriginal)
             {
-                gameManager.instance.playerScript.hp = gameManager.instance.playerScript.hpOriginal;
+                if (gameManager.instance.playerScript.hp + gainHealth > gameManager.instance.playerScript.hpOriginal)
+                {
+                    gameManager.instance.playerScript.hp = gameManager.instance.playerScript.hpOriginal;
+                }
+                else
+                {
+                    gameManager.instance.playerScript.hp += gainHealth;
+                }
+
+                gameManager.instance.playerScript.updatePlayerHp();
+
+                Destroy(gameObject);
             }
-            else
-            {
-                gameManager.instance.playerScript.hp += gainHealth;
-            }
-  
-            Destroy(gameObject);
         }
     }
 }
