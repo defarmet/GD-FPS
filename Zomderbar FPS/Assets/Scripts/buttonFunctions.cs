@@ -37,4 +37,14 @@ public class buttonFunctions : MonoBehaviour
 	{
 		Application.Quit();
 	}
+
+	public void save()
+	{
+		gameManager.instance.close_settings();
+	}
+
+	public void settings()
+	{
+		gameManager.instance.open_settings();
+	}
 }
