@@ -71,5 +71,14 @@ output_log.txt
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Builds
+*.apk
+*.unitypackage
+
+# Crashlytics generated file
+crashlytics-build.properties
+
 Zomderbar FPS/Packages/packages-lock.json
 Zomderbar FPS/UserSettings/Layouts/default-2021.dwlt
+UserSettings
