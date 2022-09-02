@@ -44,7 +44,7 @@ public class playerController : MonoBehaviour, IDamageable
     public int timesJumps;
     
     float playerSpeedOG;
-    int   hpOriginal;
+    public int   hpOriginal;
     int   ammoCountOrig;
     public float gravityValueOG;
     bool canSlide = true;
