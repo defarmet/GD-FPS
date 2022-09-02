@@ -12,15 +12,17 @@ public class gameManager : MonoBehaviour
     public playerController playerScript;
     public EnemySpawners spawnerScript;
 
-    public GameObject pauseMenu;
     public GameObject currentMenuOpen;
+    public GameObject oldMenu;
+    public GameObject pauseMenu;
     public GameObject playerDamageFlash;
     public GameObject playerDeadMenu;
+    public GameObject settingsMenu;
     public GameObject winMenu;
 
     public GameObject   currentGunHUD;
     public GameObject[] gunHUD;
-	
+    
     public GameObject checkpointHUD;
 
     public Image playerHpBar;
@@ -30,8 +32,10 @@ public class gameManager : MonoBehaviour
 
     public int enemyCount;
     public int enemyKilled;
-
+    
     public bool isPaused = false;
+    int firstCount = 3;
+    bool openSettings = false;
 
     void Awake()
     {
@@ -49,6 +53,16 @@ public class gameManager : MonoBehaviour
             currentMenuOpen = pauseMenu;
             currentMenuOpen.SetActive(true);
             pause_game(!isPaused);
+        }
+
+        /*
+         * MAGIC
+         * DO NOT TOUCH
+         * Required for the settings menu to open the first time.
+         */
+        if (firstCount > 0 && openSettings) {
+            open_settings();
+            firstCount--;
         }
     }
 
@@ -78,5 +92,24 @@ public class gameManager : MonoBehaviour
             currentMenuOpen.SetActive(false);
             currentMenuOpen = null;
         }
+    }
+
+    public void open_settings()
+    {
+        currentMenuOpen.SetActive(false);
+        if (!oldMenu)
+            oldMenu = currentMenuOpen;
+        currentMenuOpen = settingsMenu;
+        currentMenuOpen.SetActive(true);
+        openSettings = true;
+    }
+
+    public void close_settings()
+    {
+        currentMenuOpen.SetActive(false);
+        currentMenuOpen = oldMenu;
+        oldMenu = null;
+        currentMenuOpen.SetActive(true);
+        openSettings = false;
     }
 }
