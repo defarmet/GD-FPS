@@ -18,8 +18,10 @@ public class gameManager : MonoBehaviour
     public GameObject playerDeadMenu;
     public GameObject winMenu;
 
-    public GameObject currentGunHUD;
+    public GameObject   currentGunHUD;
     public GameObject[] gunHUD;
+	
+    public GameObject checkpointHUD;
 
     public Image playerHpBar;
     public Image ammoBar;
@@ -43,58 +45,29 @@ public class gameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Cancel") && playerScript.hp > 0)
-        {
+        if (Input.GetButtonDown("Cancel") && (!currentMenuOpen || currentMenuOpen == pauseMenu)) {
             currentMenuOpen = pauseMenu;
-			pause_game(!isPaused);
+            currentMenuOpen.SetActive(true);
+            pause_game(!isPaused);
         }
     }
 
     public void cursorLockPause()
     {
-		/*if (currentGunHUD != null)
-		    currentGunHUD.SetActive(false);
-
-		Cursor.visible = true;
-		Cursor.lockState = CursorLockMode.Confined;
-		Time.timeScale = 0;*/
-		pause_game(true);
+        pause_game(true);
     }
 
     public void cursorUnlockUnpause()
     {
-		/*if (currentGunHUD != null)
-		    currentGunHUD.SetActive(true);
-
-		Cursor.visible = false;
-		Cursor.lockState = CursorLockMode.Locked;
-		Time.timeScale = 1;
-		currentMenuOpen.SetActive(isPaused);
-		currentMenuOpen = null;*/
-		pause_game(false);
+        pause_game(false);
     }
-
-    //public IEnumerator checkEnemyTotal()
-    //{
-    //    enemyCount--;
-
-    //    if (enemyCount <= 0)
-    //    {
-    //        yield return new WaitForSeconds(2);
-    //        winMenu.SetActive(true);
-    //        currentMenuOpen = winMenu;
-    //        cursorLockPause();
-    //    }
-    //}
 
     public void pause_game(bool p)
     {
-		if (currentGunHUD != null)
-			currentGunHUD.SetActive(!p);
+        if (currentGunHUD != null)
+            currentGunHUD.SetActive(!p);
 
-		Debug.Log(p);
         Cursor.visible = p;
-        currentMenuOpen.SetActive(p);
         isPaused = p;
         if (p) {
             Cursor.lockState = CursorLockMode.Confined;
@@ -102,6 +75,7 @@ public class gameManager : MonoBehaviour
         } else {
             Cursor.lockState = CursorLockMode.Locked;
             Time.timeScale = 1;
+            currentMenuOpen.SetActive(false);
             currentMenuOpen = null;
         }
     }
