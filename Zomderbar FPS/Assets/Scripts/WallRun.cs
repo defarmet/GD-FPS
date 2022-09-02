@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class WallRun : MonoBehaviour
 {
+
+    [SerializeField] AudioSource wallRunSound;
+
+
     private void OnTriggerEnter(Collider other)
     {
         if (gameManager.instance.playerScript.isSameWall == false && !gameManager.instance.playerScript.controller.isGrounded)

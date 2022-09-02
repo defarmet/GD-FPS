@@ -286,7 +286,7 @@ public class playerController : MonoBehaviour, IDamageable
         
         hp -= dmg;
         updatePlayerHp();
-        if (hp < 1) {
+        if (hp <= 0) {
             death();
             resetHP();
         }
