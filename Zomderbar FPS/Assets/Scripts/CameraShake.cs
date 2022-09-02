@@ -11,28 +11,23 @@ public class CameraShake : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        cinemachineVirtualCamera = GetComponent<CinemachineVirtualCamera>();
     }
 
-    public void ShakeCamera(float intensity, float time)
+    public IEnumerator ShakeCamera(float duration, float intensity)
     {
-        CinemachineBasicMultiChannelPerlin cinemachineBasicMultiChannelPerlin = cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-        cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = intensity;
-        shakerTime = time;
-    }
-
-    private void Update()
-    {
-        if (shakerTime > 0)
+        Vector3 originalPos = transform.localPosition;
+        float elapsed = 0.0f;
+        while (elapsed<duration)
         {
-            shakerTime -= Time.deltaTime;
-            if (shakerTime <= 0f)
-            {
-                CinemachineBasicMultiChannelPerlin cinemachineBasicMultiChannelPerlin = cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-                cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = 0f;
-            }
+            float x = Random.Range(-1f, 1f) * intensity;
+            float y = Random.Range(-1f, 1f) * intensity;
+
+            transform.localPosition = new Vector3(x, y, originalPos.z);
+            elapsed += Time.deltaTime;
+            yield return null;
         }
 
-
+        transform.localPosition = originalPos;
     }
+
 }
