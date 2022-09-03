@@ -11,9 +11,7 @@ public class buttonFunctions : MonoBehaviour
         {
 			gameManager.instance.isPaused = !gameManager.instance.isPaused;
 			gameManager.instance.cursorUnlockUnpause();
-			
 		}
-		
 	}
 
 	public void restart()
@@ -37,4 +35,23 @@ public class buttonFunctions : MonoBehaviour
 	{
 		Application.Quit();
 	}
+
+	public void save()
+	{
+		gameManager.instance.close_settings();
+	}
+
+	public void settings()
+	{
+		gameManager.instance.open_settings();
+	}
+	public void play()
+	{
+		Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Time.timeScale = 1;
+        gameManager.instance.currentMenuOpen.SetActive(false);
+        gameManager.instance.currentMenuOpen = null;
+
+    }
 }
