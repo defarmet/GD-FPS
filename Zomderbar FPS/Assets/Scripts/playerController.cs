@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class playerController : MonoBehaviour, IDamageable
 {
@@ -320,6 +321,13 @@ public class playerController : MonoBehaviour, IDamageable
         gameManager.instance.cursorLockPause();
         gameManager.instance.currentMenuOpen = gameManager.instance.playerDeadMenu;
         gameManager.instance.currentMenuOpen.SetActive(true);
+
+        //Menu Navigation
+        //clear selected object first
+        EventSystem.current.SetSelectedGameObject(null);
+
+        //set new selected object
+        EventSystem.current.SetSelectedGameObject(gameManager.instance.deadFirstButton);
     }
 
     IEnumerator damageFlash()

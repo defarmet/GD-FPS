@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class gameManager : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class gameManager : MonoBehaviour
     public GameObject playerDeadMenu;
     public GameObject settingsMenu;
     public GameObject winMenu;
-
+    
     public GameObject   currentGunHUD;
     public GameObject[] gunHUD;
     
@@ -40,6 +41,12 @@ public class gameManager : MonoBehaviour
     int firstCount = 3;
     bool openSettings = false;
 
+    [Header("-----Menu Navigation-----")]
+    public GameObject pauseFirstButton;
+    public GameObject settingsFirstButton;
+    public GameObject settingsClosedButton;
+    public GameObject deadFirstButton;
+    public GameObject winFirstButton;
     void Awake()
     {
         instance = this;
@@ -95,6 +102,14 @@ public class gameManager : MonoBehaviour
         if (p) {
             Cursor.lockState = CursorLockMode.Confined;
             Time.timeScale = 0;
+
+            //Menu Navigation
+            //clear selected object first
+            EventSystem.current.SetSelectedGameObject(null);
+            
+            //set new selected object
+            EventSystem.current.SetSelectedGameObject(pauseFirstButton);
+
         } else {
             Cursor.lockState = CursorLockMode.Locked;
             Time.timeScale = 1;
@@ -111,6 +126,13 @@ public class gameManager : MonoBehaviour
         currentMenuOpen = settingsMenu;
         currentMenuOpen.SetActive(true);
         openSettings = true;
+
+        //Menu Navigation
+        //clear selected object first
+        EventSystem.current.SetSelectedGameObject(null);
+
+        //set new selected object
+        EventSystem.current.SetSelectedGameObject(settingsFirstButton);
     }
 
     public void close_settings()
@@ -126,5 +148,12 @@ public class gameManager : MonoBehaviour
         oldMenu = null;
         currentMenuOpen.SetActive(true);
         openSettings = false;
+
+        //Menu Navigation
+        //clear selected object first
+        EventSystem.current.SetSelectedGameObject(null);
+
+        //set new selected object
+        EventSystem.current.SetSelectedGameObject(settingsClosedButton);
     }
 }
