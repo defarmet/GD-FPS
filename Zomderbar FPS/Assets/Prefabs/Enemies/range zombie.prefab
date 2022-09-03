@@ -450,7 +450,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 630d5fe4576ea1f4199d39040eaf741c, type: 2}
+  - {fileID: 2100000, guid: 1e2c15c331761db459d421f338eab5af, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2764,7 +2764,7 @@ LODGroup:
   serializedVersion: 2
   m_LocalReferencePoint: {x: -0.0011093915, y: 0.90601546, z: 0.022543907}
   m_Size: 1.9749426
-  m_FadeMode: 0
+  m_FadeMode: 2
   m_AnimateCrossFading: 0
   m_LastLODIsBillboard: 0
   m_LODs:
@@ -3341,7 +3341,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1445e19a1842dd04ea4d953fd3731014, type: 2}
+  - {fileID: 2100000, guid: 1e2c15c331761db459d421f338eab5af, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
