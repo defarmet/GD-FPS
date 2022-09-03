@@ -3777,6 +3777,10 @@ PrefabInstance:
       value: 7.88
       objectReference: {fileID: 0}
     - target: {fileID: 608831107, guid: ad90aafd907a0d746a6ea2e80c266671, type: 3}
+      propertyPath: waves
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 608831107, guid: ad90aafd907a0d746a6ea2e80c266671, type: 3}
       propertyPath: enemiesToSpawn
       value: 7
       objectReference: {fileID: 0}
@@ -4498,6 +4502,10 @@ PrefabInstance:
     - target: {fileID: 608831103, guid: ad90aafd907a0d746a6ea2e80c266671, type: 3}
       propertyPath: m_LocalPosition.z
       value: 3.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 608831107, guid: ad90aafd907a0d746a6ea2e80c266671, type: 3}
+      propertyPath: waves
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 608831107, guid: ad90aafd907a0d746a6ea2e80c266671, type: 3}
       propertyPath: enemiesToSpawn
@@ -11440,6 +11448,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 231418661e4995540ab51bc8fbe6d39d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Door: {fileID: 0}
   spawners:
   - {fileID: 2749778254607515993}
   - {fileID: 2749778253026987400}
@@ -11450,7 +11459,10 @@ MonoBehaviour:
   - {fileID: 7384251766625758725, guid: fd24c1e04552f2c4fbaf5673f90d6fef, type: 3}
   enemiesToSpawn: 10
   spawnInterval: 3.25
+  bossToSpawn: 0
+  waves: 1
   enemiesSpawned: 0
+  spawnerActivated: 0
 --- !u!135 &2749778253005760082
 SphereCollider:
   m_ObjectHideFlags: 0

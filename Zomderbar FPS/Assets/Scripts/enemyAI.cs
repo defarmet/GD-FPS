@@ -13,7 +13,7 @@ public class enemyAI : MonoBehaviour, IDamageable
     [SerializeField] GameObject bulletSpawn;
 
     [Header("---------- Stats -----------")]
-    [Range(0, 150)] [SerializeField] int   HP;
+    [Range(0, 150)] [SerializeField] public int   HP;
     [Range(1, 180)] [SerializeField] int   fieldOfView;
     [Range(1, 90)]  [SerializeField] int   fieldOfViewShoot;
     [Range(1, 10)]  [SerializeField] float playerFaceSpeed;

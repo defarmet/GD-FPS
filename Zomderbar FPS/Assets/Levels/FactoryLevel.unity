@@ -2444,7 +2444,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &202251115
 GameObject:
@@ -2964,7 +2964,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &226929804
 PrefabInstance:
@@ -14703,7 +14703,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1106324013810332867, guid: c885e96b6e66df44f9c8459daed5b5a6, type: 3}
       propertyPath: m_RootOrder
-      value: 22
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 1106324013810332867, guid: c885e96b6e66df44f9c8459daed5b5a6, type: 3}
       propertyPath: m_AnchorMax.x
@@ -19366,6 +19366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 231418661e4995540ab51bc8fbe6d39d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Door: {fileID: 0}
   spawners:
   - {fileID: 1627659824}
   - {fileID: 146344543}
@@ -19377,7 +19378,10 @@ MonoBehaviour:
   - {fileID: 272806662335539770, guid: 1895415fb0081e741b2393be79600f90, type: 3}
   enemiesToSpawn: 6
   spawnInterval: 5
+  bossToSpawn: 0
+  waves: 1
   enemiesSpawned: 0
+  spawnerActivated: 0
 --- !u!65 &1918499804
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19812,7 +19816,7 @@ Transform:
   - {fileID: 790490236}
   - {fileID: 1700251300}
   m_Father: {fileID: 0}
-  m_RootOrder: 21
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1979048879 stripped
 Transform:
@@ -22845,6 +22849,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 231418661e4995540ab51bc8fbe6d39d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Door: {fileID: 0}
   spawners:
   - {fileID: 631937990648855230}
   - {fileID: 631937991921666322}
@@ -22856,7 +22861,10 @@ MonoBehaviour:
   - {fileID: 4493914613880827488, guid: 6dc4cf4496348884d8ee27743ae38562, type: 3}
   enemiesToSpawn: 8
   spawnInterval: 5
+  bossToSpawn: 0
+  waves: 1
   enemiesSpawned: 0
+  spawnerActivated: 0
 --- !u!1 &631937991892560301
 GameObject:
   m_ObjectHideFlags: 0
@@ -44023,6 +44031,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 231418661e4995540ab51bc8fbe6d39d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Door: {fileID: 0}
   spawners:
   - {fileID: 2694251364015821871}
   - {fileID: 2694251364219103107}
@@ -44033,7 +44042,10 @@ MonoBehaviour:
   - {fileID: 4493914613880827488, guid: 6dc4cf4496348884d8ee27743ae38562, type: 3}
   enemiesToSpawn: 6
   spawnInterval: 2
+  bossToSpawn: 0
+  waves: 1
   enemiesSpawned: 0
+  spawnerActivated: 0
 --- !u!1 &2694251363089633005
 GameObject:
   m_ObjectHideFlags: 0
@@ -48060,7 +48072,7 @@ Transform:
   - {fileID: 1827142666}
   - {fileID: 773726249}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -0.194}
 --- !u!33 &7157251385314492767
 MeshFilter:
