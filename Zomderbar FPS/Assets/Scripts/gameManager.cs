@@ -21,10 +21,11 @@ public class gameManager : MonoBehaviour
     public GameObject playerDeadMenu;
     public GameObject settingsMenu;
     public GameObject winMenu;
-    
-    public GameObject   currentGunHUD;
+    public GameObject mainMenu;
+
+    public GameObject currentGunHUD;
     public GameObject[] gunHUD;
-    
+
     public GameObject checkpointHUD;
 
     public Image playerHpBar;
@@ -36,7 +37,7 @@ public class gameManager : MonoBehaviour
     public int enemyKilled;
 
     public AudioMixer masterAudio;
-    
+
     public bool isPaused = false;
     int firstCount = 3;
     bool openSettings = false;
@@ -47,6 +48,8 @@ public class gameManager : MonoBehaviour
     public GameObject settingsClosedButton;
     public GameObject deadFirstButton;
     public GameObject winFirstButton;
+    public GameObject mainFirstButton;
+    public GameObject mainSettingsClosedButton;
     void Awake()
     {
         instance = this;
@@ -59,13 +62,15 @@ public class gameManager : MonoBehaviour
 
     void Start()
     {
+        main_menu();
         masterAudio.SetFloat("Music Slider", Mathf.Log10(PlayerPrefs.GetFloat("musicVol", 0.5f)) * 20);
         masterAudio.SetFloat("SFX Slider", Mathf.Log10(PlayerPrefs.GetFloat("sfxVol", 0.5f)) * 20);
     }
 
     void Update()
     {
-        if (Input.GetButtonDown("Cancel") && (!currentMenuOpen || currentMenuOpen == pauseMenu)) {
+        if (Input.GetButtonDown("Cancel") && (!currentMenuOpen || currentMenuOpen == pauseMenu))
+        {
             currentMenuOpen = pauseMenu;
             currentMenuOpen.SetActive(true);
             pause_game(!isPaused);
@@ -76,7 +81,8 @@ public class gameManager : MonoBehaviour
          * DO NOT TOUCH
          * Required for the settings menu to open the first time.
          */
-        if (firstCount > 0 && openSettings) {
+        if (firstCount > 0 && openSettings)
+        {
             open_settings();
             firstCount--;
         }
@@ -99,18 +105,21 @@ public class gameManager : MonoBehaviour
 
         Cursor.visible = p;
         isPaused = p;
-        if (p) {
+        if (p)
+        {
             Cursor.lockState = CursorLockMode.Confined;
             Time.timeScale = 0;
 
             //Menu Navigation
             //clear selected object first
             EventSystem.current.SetSelectedGameObject(null);
-            
+
             //set new selected object
             EventSystem.current.SetSelectedGameObject(pauseFirstButton);
 
-        } else {
+        }
+        else
+        {
             Cursor.lockState = CursorLockMode.Locked;
             Time.timeScale = 1;
             currentMenuOpen.SetActive(false);
@@ -153,7 +162,32 @@ public class gameManager : MonoBehaviour
         //clear selected object first
         EventSystem.current.SetSelectedGameObject(null);
 
-        //set new selected object
-        EventSystem.current.SetSelectedGameObject(settingsClosedButton);
+        if (oldMenu != null)
+        {
+            //set new selected object
+            //when settings menu closed goes back to pause menu
+            EventSystem.current.SetSelectedGameObject(settingsClosedButton);
+        }
+        else if (oldMenu == null)
+        {
+            //set new selected object
+            //when settings menu closed goes back to main menu
+            EventSystem.current.SetSelectedGameObject(mainSettingsClosedButton);
+        }
     }
+    public void main_menu()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
+        currentMenuOpen = mainMenu;
+        Time.timeScale = 0;
+
+        //Menu Navigation
+        //clear selected object first
+        EventSystem.current.SetSelectedGameObject(null);
+
+        //set new selected object
+        EventSystem.current.SetSelectedGameObject(mainFirstButton);
+    }
+
 }

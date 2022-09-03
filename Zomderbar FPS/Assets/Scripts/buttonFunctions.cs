@@ -45,4 +45,13 @@ public class buttonFunctions : MonoBehaviour
 	{
 		gameManager.instance.open_settings();
 	}
+	public void play()
+	{
+		Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Time.timeScale = 1;
+        gameManager.instance.currentMenuOpen.SetActive(false);
+        gameManager.instance.currentMenuOpen = null;
+
+    }
 }
