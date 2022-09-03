@@ -5,19 +5,18 @@ using Cinemachine;
 
 public class CameraShake : MonoBehaviour
 {
-    public static CameraShake Instance { get; private set; }
-    private CinemachineVirtualCamera cinemachineVirtualCamera;
-    private float shakerTime;
-    private void Awake()
-    {
-        Instance = this;
-    }
+    //SINGLETON
+//    public static CameraShake Instance { get; private set; }
+//    private void Awake()
+//    {
+//        Instance = this;
+//    }
 
     public IEnumerator ShakeCamera(float duration, float intensity)
     {
         Vector3 originalPos = transform.localPosition;
         float elapsed = 0.0f;
-        while (elapsed<duration)
+        while (elapsed < duration)
         {
             float x = Random.Range(-1f, 1f) * intensity;
             float y = Random.Range(-1f, 1f) * intensity;
@@ -26,8 +25,8 @@ public class CameraShake : MonoBehaviour
             elapsed += Time.deltaTime;
             yield return null;
         }
-
         transform.localPosition = originalPos;
+        
     }
 
 }
