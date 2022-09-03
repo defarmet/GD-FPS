@@ -23,7 +23,6 @@ public class bullet : MonoBehaviour
         {
             other.GetComponent<IDamageable>().takeDamage(damage);
             damage = 0; //After the first tick of damage the particle effect will remain but cause no more damage.
-            gameManager.instance.d_angle = transform.position - other.transform.position;
         }
 
         if (destroyOnImpact)
