@@ -21,7 +21,6 @@ public class gameManager : MonoBehaviour
     public GameObject playerDeadMenu;
     public GameObject settingsMenu;
     public GameObject winMenu;
-    public GameObject mainMenu;
 
     public GameObject currentGunHUD;
     public GameObject[] gunHUD;
@@ -62,7 +61,6 @@ public class gameManager : MonoBehaviour
 
     void Start()
     {
-        main_menu();
         masterAudio.SetFloat("Music Slider", Mathf.Log10(PlayerPrefs.GetFloat("musicVol", 0.5f)) * 20);
         masterAudio.SetFloat("SFX Slider", Mathf.Log10(PlayerPrefs.GetFloat("sfxVol", 0.5f)) * 20);
     }
@@ -175,19 +173,5 @@ public class gameManager : MonoBehaviour
             EventSystem.current.SetSelectedGameObject(mainSettingsClosedButton);
         }
     }
-    public void main_menu()
-    {
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.Confined;
-        currentMenuOpen = mainMenu;
-        Time.timeScale = 0;
-
-        //Menu Navigation
-        //clear selected object first
-        EventSystem.current.SetSelectedGameObject(null);
-
-        //set new selected object
-        EventSystem.current.SetSelectedGameObject(mainFirstButton);
-    }
-
+  
 }

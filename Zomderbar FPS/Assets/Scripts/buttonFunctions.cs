@@ -45,13 +45,8 @@ public class buttonFunctions : MonoBehaviour
 	{
 		gameManager.instance.open_settings();
 	}
-	public void play()
+	public void playGame()
 	{
-		Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        Time.timeScale = 1;
-        gameManager.instance.currentMenuOpen.SetActive(false);
-        gameManager.instance.currentMenuOpen = null;
-
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
