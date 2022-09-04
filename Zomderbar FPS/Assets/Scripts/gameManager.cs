@@ -47,8 +47,6 @@ public class gameManager : MonoBehaviour
     public GameObject settingsClosedButton;
     public GameObject deadFirstButton;
     public GameObject winFirstButton;
-    public GameObject mainFirstButton;
-    public GameObject mainSettingsClosedButton;
     void Awake()
     {
         instance = this;
@@ -156,22 +154,13 @@ public class gameManager : MonoBehaviour
         currentMenuOpen.SetActive(true);
         openSettings = false;
 
+
         //Menu Navigation
         //clear selected object first
         EventSystem.current.SetSelectedGameObject(null);
 
-        if (oldMenu != null)
-        {
-            //set new selected object
-            //when settings menu closed goes back to pause menu
-            EventSystem.current.SetSelectedGameObject(settingsClosedButton);
-        }
-        else if (oldMenu == null)
-        {
-            //set new selected object
-            //when settings menu closed goes back to main menu
-            EventSystem.current.SetSelectedGameObject(mainSettingsClosedButton);
-        }
+        //set new selected object
+        EventSystem.current.SetSelectedGameObject(settingsClosedButton);
     }
   
 }
