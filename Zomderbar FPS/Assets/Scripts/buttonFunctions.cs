@@ -54,4 +54,8 @@ public class buttonFunctions : MonoBehaviour
     {
         SceneManager.LoadScene("ShowcaseScene");
     }
+    public void quitToMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
 }
