@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 6169579238073837617}
   m_LocalRotation: {x: -0.5, y: 0.5, z: -0.5, w: 0.5}
   m_LocalPosition: {x: 20, y: 1.18, z: 15.2}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2409276, y: 0.011400381, z: 0.020243598}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -96,8 +96,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2, y: 1.21, z: 3.03}
-  m_Center: {x: 0, y: 0.12981212, z: 0.27705184}
+  m_Size: {x: 2, y: 2.9134116, z: 3.03}
+  m_Center: {x: -0.000000044872618, y: 0.13690804, z: 0.27706504}
 --- !u!114 &8304154389469632798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,4 +111,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunStat: {fileID: 11400000, guid: db4f8a8bcf15ef445b6ad7bd0c250bd6, type: 2}
-  gunHUD: {fileID: 5734915512341105146, guid: 4009c76da08c52d4d8b388fb378e365d, type: 3}
+  gunHUD: 0
