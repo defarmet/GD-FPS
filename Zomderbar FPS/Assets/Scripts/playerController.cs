@@ -9,7 +9,7 @@ public class playerController : MonoBehaviour, IDamageable
     public           CharacterController controller;
     [SerializeField] Rigidbody           rb;
     [SerializeField] GameObject          hitEffect;
-    [SerializeField] CameraShake cameraShake;
+    //[SerializeField] CameraShake cameraShake;
 
     [Header("---------- Player Attributes -----------")]
     [Range(1, 10)]   [SerializeField] public float playerSpeed;
@@ -192,7 +192,7 @@ public class playerController : MonoBehaviour, IDamageable
                 isShooting = true;
                 gunfire.Play();
                 //gunfire.PlayOneShot(gunstat[selectedWeapon].audioClip);
-                StartCoroutine(cameraShake.ShakeCamera(0.15f, .08f));
+                StartCoroutine(CameraShake.Instance.ShakeCamera(0.15f, .08f));
                 gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(currentAmmoCount[selectedWeapon] - 1).gameObject.SetActive(false);
                 currentAmmoCount[selectedWeapon]--;
 
