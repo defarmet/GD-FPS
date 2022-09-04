@@ -57,7 +57,7 @@ public class playerController : MonoBehaviour, IDamageable
     public float gravityValueOG;
     bool canSlide = true;
     bool isSliding = false;
-    bool isOnAir = false;
+    //bool isOnAir = false;
     public bool isWallRun = true;
     public bool isSameWall = false;
     bool canShoot = true;
@@ -93,7 +93,7 @@ public class playerController : MonoBehaviour, IDamageable
     void playerMovement()
     {
         if (controller.isGrounded && playerVelocity.y < 0) {
-            isOnAir = false;
+            //isOnAir = false;
             playerVelocity.y = 0f;
             timesJumps = 0;
             timesJumpsAudio = 0;
@@ -106,8 +106,8 @@ public class playerController : MonoBehaviour, IDamageable
         //{
             if (Input.GetButtonDown("Jump") && timesJumps < jumpMax)
             {
-            gunfire.PlayOneShot(footfalls[Random.Range(0, footfalls.Length)], footfallsVol);
-                isOnAir = true;
+                gunfire.PlayOneShot(footfalls[Random.Range(0, footfalls.Length)], footfallsVol);
+                //isOnAir = true;
                 playerVelocity.y = jumpHeight;
                 timesJumps++;
                 //timesJumpsAudio++;
