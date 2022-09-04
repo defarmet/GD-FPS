@@ -5,12 +5,11 @@ using Cinemachine;
 
 public class CameraShake : MonoBehaviour
 {
-    //SINGLETON
-//    public static CameraShake Instance { get; private set; }
-//    private void Awake()
-//    {
-//        Instance = this;
-//    }
+    public static CameraShake Instance { get; private set; }
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     public IEnumerator ShakeCamera(float duration, float intensity)
     {

@@ -99,10 +99,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 2807037923801598991}
+  slowEffect: 0
+  hasShake: 1
   damage: 3
   speed: 0
   destroyTime: 1
-  destroyOnImpact: 1
+  destroyOnImpact: 0
+  slowFactor: 1
+  slowTime: 0
 --- !u!65 &422627725706306975
 BoxCollider:
   m_ObjectHideFlags: 0

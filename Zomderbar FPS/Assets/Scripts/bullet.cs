@@ -6,6 +6,7 @@ public class bullet : MonoBehaviour
 {
     [SerializeField] Rigidbody rb;
     [SerializeField] bool slowEffect;
+    [SerializeField] bool hasShake = false;
     public int damage;
     public int speed;
     public int destroyTime;
@@ -18,6 +19,10 @@ public class bullet : MonoBehaviour
     void Start()
     {
         rb.velocity = (gameManager.instance.player.transform.position - transform.position).normalized * speed;
+        if(hasShake)
+        {
+            StartCoroutine(CameraShake.Instance.ShakeCamera(0.65f, .45f));
+        }
         Destroy(gameObject, destroyTime);
     }
 
