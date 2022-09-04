@@ -106,7 +106,7 @@ public class playerController : MonoBehaviour, IDamageable
         //{
             if (Input.GetButtonDown("Jump") && timesJumps < jumpMax)
             {
-            gunfire.PlayOneShot(footfalls[Random.Range(0, footfalls.Length)], footfallsVol);
+            //gunfire.PlayOneShot(footfalls[Random.Range(0, footfalls.Length)], footfallsVol);
                 isOnAir = true;
                 playerVelocity.y = jumpHeight;
                 timesJumps++;
