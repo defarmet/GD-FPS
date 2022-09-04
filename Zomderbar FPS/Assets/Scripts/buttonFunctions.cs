@@ -50,4 +50,8 @@ public class buttonFunctions : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         gameManager.instance.cursorUnlockUnpause();
     }
+    public void playShowcase()
+    {
+        SceneManager.LoadScene("ShowcaseScene");
+    }
 }
