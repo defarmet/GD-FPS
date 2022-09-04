@@ -306,6 +306,13 @@ public class playerController : MonoBehaviour, IDamageable
         }
     }
 
+    public IEnumerator SlowPlayer(float slowFactor, float slowDuration) //slow factor of 2, will half player speed.
+    {
+        playerSpeed = playerSpeed / slowFactor;
+        yield return new WaitForSecondsRealtime(slowDuration);
+        playerSpeed = playerSpeedOG;
+    }
+
     public void respawn()
     {
         controller.enabled = false;
