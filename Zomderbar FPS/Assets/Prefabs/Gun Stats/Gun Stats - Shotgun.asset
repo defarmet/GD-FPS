@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 009b834d53b069d4eba861cc00b5501e, type: 3}
   m_Name: Gun Stats - Shotgun
   m_EditorClassIdentifier: 
-  shootRate: 0.5
+  shootRate: 0.9
   shootDist: 20
   shootDmg: 8
   gunHUD: 3
   model: {fileID: 6139801218873382915, guid: 81283f21d782f3842b31ecd615155078, type: 3}
+  shootSound: {fileID: 8300000, guid: b345bf78f91a6784a8ea5cdd895fc5a3, type: 3}
+  reloadSound: {fileID: 8300000, guid: a66f889b8ff9f8841a5fec88980192a1, type: 3}
   ammoCapacity: 2
-  reloadTime: 1.7
+  reloadTime: 1

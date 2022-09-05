@@ -7,6 +7,7 @@ public class playerController : MonoBehaviour, IDamageable
 {
     [Header("---------- Components -----------")]
     public           CharacterController controller;
+    public                            AudioSource audioSource;
     [SerializeField] Rigidbody           rb;
     [SerializeField] GameObject          hitEffect;
     //[SerializeField] CameraShake cameraShake;
@@ -29,7 +30,6 @@ public class playerController : MonoBehaviour, IDamageable
     [Range(0.1f, 5)] [SerializeField] float       shootRate;
     [Range(1, 30)]   [SerializeField] float       shootDistance;
     [Range(1, 10)]   [SerializeField] int         shootDmg;
-    public                            AudioSource gunfire;
     public                            int[]       currentAmmoCount = new int[6];
                                       int         selectedWeapon;
     [SerializeField]                  float       reloadTimer;
@@ -68,7 +68,7 @@ public class playerController : MonoBehaviour, IDamageable
         gravityValueOG = gravityValue;
         hpOriginal = hp;
         ammoCountOrig = 0;
-        gunfire = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
         controller.enabled = true;
         updatePlayerHp();
     }
@@ -190,7 +190,7 @@ public class playerController : MonoBehaviour, IDamageable
             if (gunstat.Count != 0 && Input.GetButton("Shoot") && currentAmmoCount[selectedWeapon] > 0 && isShooting == false && !gameManager.instance.isPaused)
             {
                 isShooting = true;
-                gunfire.PlayOneShot(gunstat[selectedWeapon].shootSound);
+                audioSource.PlayOneShot(gunstat[selectedWeapon].shootSound);
                 StartCoroutine(CameraShake.Instance.ShakeCamera(0.15f, .08f));
                 gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(currentAmmoCount[selectedWeapon] - 1).gameObject.SetActive(false);
                 currentAmmoCount[selectedWeapon]--;
@@ -236,7 +236,6 @@ public class playerController : MonoBehaviour, IDamageable
         shootDmg = _gunStat.shootDmg;
         currentAmmoCount[selectedWeapon] = _gunStat.ammoCapacity;
         ammoCountOrig = _gunStat.ammoCapacity;
-        gunfire.clip = _gunStat.shootSound;
         gunModel.GetComponent<MeshFilter>().sharedMesh = _gunStat.model.GetComponent<MeshFilter>().sharedMesh;
         gunModel.GetComponent<MeshRenderer>().sharedMaterial = _gunStat.model.GetComponent<MeshRenderer>().sharedMaterial;
 
@@ -277,7 +276,6 @@ public class playerController : MonoBehaviour, IDamageable
             shootDmg = gunstat[selectedWeapon].shootDmg;
             ammoCountOrig = gunstat[selectedWeapon].ammoCapacity;
             reloadTimer = gunstat[selectedWeapon].reloadTime;
-            gunfire.clip = gunstat[selectedWeapon].shootSound;
             gunModel.GetComponent<MeshFilter>().sharedMesh = gunstat[selectedWeapon].model.GetComponent<MeshFilter>().sharedMesh;
             gunModel.GetComponent<MeshRenderer>().sharedMaterial = gunstat[selectedWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;
 
@@ -373,6 +371,8 @@ public class playerController : MonoBehaviour, IDamageable
                 StartCoroutine(alreadyReloaded());
             } else if (currentAmmoCount[selectedWeapon] != ammoCountOrig) {
                 //yield return new WaitForSeconds(gameManager.instance.gunStatsScript.reloadTime);
+                audioSource.PlayOneShot(gunstat[selectedWeapon].reloadSound);
+                
                 canShoot = false;
                 yield return new WaitForSeconds(reloadTimer);
                 currentAmmoCount[selectedWeapon] = ammoCountOrig;
