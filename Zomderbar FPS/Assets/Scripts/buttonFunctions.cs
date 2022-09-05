@@ -5,46 +5,57 @@ using UnityEngine.SceneManagement;
 
 public class buttonFunctions : MonoBehaviour
 {
-	public void resume()
-	{
-		if (gameManager.instance.isPaused)
+    public void resume()
+    {
+        if (gameManager.instance.isPaused)
         {
-			gameManager.instance.isPaused = !gameManager.instance.isPaused;
-			gameManager.instance.cursorUnlockUnpause();
-			
-		}
-		
-	}
+            gameManager.instance.isPaused = !gameManager.instance.isPaused;
+            gameManager.instance.cursorUnlockUnpause();
+        }
+    }
 
-	public void restart()
-	{
-		//resume();
-		gameManager.instance.cursorUnlockUnpause();
-		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-		
+    public void restart()
+    {
+        //resume();
+        gameManager.instance.cursorUnlockUnpause();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
-	}
 
-	public void Respawn()
-	{
-		gameManager.instance.playerScript.resetHP();
-		gameManager.instance.playerScript.respawn();
-		gameManager.instance.cursorUnlockUnpause();
-		
-	}
+    }
 
-	public void quit()
-	{
-		Application.Quit();
-	}
+    public void Respawn()
+    {
+        gameManager.instance.playerScript.resetHP();
+        gameManager.instance.playerScript.respawn();
+        gameManager.instance.cursorUnlockUnpause();
 
-	public void save()
-	{
-		gameManager.instance.close_settings();
-	}
+    }
 
-	public void settings()
-	{
-		gameManager.instance.open_settings();
-	}
+    public void quit()
+    {
+        Application.Quit();
+    }
+
+    public void save()
+    {
+        gameManager.instance.close_settings();
+    }
+
+    public void settings()
+    {
+        gameManager.instance.open_settings();
+    }
+    public void playGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        gameManager.instance.cursorUnlockUnpause();
+    }
+    public void playShowcase()
+    {
+        SceneManager.LoadScene("ShowcaseScene");
+    }
+    public void quitToMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
 }

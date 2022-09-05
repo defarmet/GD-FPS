@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class WinCondition : MonoBehaviour
 {
@@ -21,5 +22,12 @@ public class WinCondition : MonoBehaviour
         gameManager.instance.winMenu.SetActive(true);
         gameManager.instance.currentMenuOpen = gameManager.instance.winMenu;
         gameManager.instance.cursorLockPause();
+
+        //Menu Navigation
+        //clear selected object first
+        EventSystem.current.SetSelectedGameObject(null);
+
+        //set new selected object
+        EventSystem.current.SetSelectedGameObject(gameManager.instance.winFirstButton);
     }
 }

@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 1150401933}
   - component: {fileID: 1150401934}
   - component: {fileID: 1150401935}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WeaponHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -320,6 +320,7 @@ GameObject:
   - component: {fileID: 4052029023626572550}
   - component: {fileID: 4052029023626572544}
   - component: {fileID: 2046111044}
+  - component: {fileID: 2870030080688321195}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -446,6 +447,18 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &2870030080688321195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4052029023626572548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 392d1b020db5ba540b4521bff0c00cc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4052029024476061155
 GameObject:
   m_ObjectHideFlags: 0
@@ -519,8 +532,12 @@ MonoBehaviour:
   gunfire: {fileID: 0}
   currentAmmoCount: 000000000000000000000000000000000000000000000000
   reloadTimer: 0
+  footfalls: []
+  footfallsVol: 0
   timesJumps: 0
+  timesJumpsAudio: 0
   gravityValueOG: 0
+  isWallRun: 1
   isSameWall: 0
 --- !u!33 &4052029024476061151
 MeshFilter:
@@ -631,7 +648,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 1999225964781732724, guid: d77e4e2b3decfd64690f5ae345a51321, type: 2}
   m_audioClip: {fileID: 8300000, guid: 48497e81bfdd3e54c95ceb82ffc34d24, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.28
   m_Pitch: 1
   Loop: 0

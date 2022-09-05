@@ -15,6 +15,7 @@ public class gunStats : ScriptableObject
     public int shootDmg;
     public int gunHUD;
     public GameObject model;
+    public AudioClip shootSound;
     //public float reloadTimer;
     //public SelectedWeapon selectedWeapon;
 

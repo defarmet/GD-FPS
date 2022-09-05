@@ -13,6 +13,7 @@ public class toggleEnemy : MonoBehaviour
             foreach (var x in enemies)
                 x.SetActive(true);
         }
+        Destroy(gameObject);
     }
 
     

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class playerController : MonoBehaviour, IDamageable
 {
@@ -8,6 +9,7 @@ public class playerController : MonoBehaviour, IDamageable
     public           CharacterController controller;
     [SerializeField] Rigidbody           rb;
     [SerializeField] GameObject          hitEffect;
+    //[SerializeField] CameraShake cameraShake;
 
     [Header("---------- Player Attributes -----------")]
     [Range(1, 10)]   [SerializeField] public float playerSpeed;
@@ -16,7 +18,7 @@ public class playerController : MonoBehaviour, IDamageable
     [SerializeField]                  float        wallRunSpeed;
     [Range(8, 18)]   [SerializeField] float        jumpHeight;
     [Range(15, 30)]  [SerializeField] public float gravityValue;
-    [Range(1, 3)]    [SerializeField] int          jumpMax;
+    [Range(1, 3)]    [SerializeField] public int   jumpMax;
     [Range(0, 310)]  [SerializeField] public int   hp;
     [Range(0.1f, 2)] [SerializeField] float        switchTime;
     [Range(1, 2)]    [SerializeField] float        doubleJumpHeightMult;
@@ -32,6 +34,11 @@ public class playerController : MonoBehaviour, IDamageable
                                       int         selectedWeapon;
     [SerializeField]                  float       reloadTimer;
 
+    [Header("--------- Audio ----------")]
+
+    [SerializeField] AudioClip[] footfalls;
+    [Range(0, 1)][SerializeField] float footfallsVol;
+
     bool isShooting = false;
     bool alreadyReloadedUI = false;
     
@@ -42,7 +49,8 @@ public class playerController : MonoBehaviour, IDamageable
     int            weapIndx;
     
     public int timesJumps;
-    
+    public int timesJumpsAudio;
+
     float playerSpeedOG;
     public int   hpOriginal;
     int   ammoCountOrig;
@@ -50,7 +58,7 @@ public class playerController : MonoBehaviour, IDamageable
     bool canSlide = true;
     bool isSliding = false;
     bool isOnAir = false;
-    bool canWallRun = true;
+    public bool isWallRun = true;
     public bool isSameWall = false;
     bool canShoot = true;
 
@@ -88,6 +96,7 @@ public class playerController : MonoBehaviour, IDamageable
             isOnAir = false;
             playerVelocity.y = 0f;
             timesJumps = 0;
+            timesJumpsAudio = 0;
         }
 
         move = ((transform.right * Input.GetAxis("Horizontal")) + (transform.forward * Input.GetAxis("Vertical")));
@@ -97,9 +106,11 @@ public class playerController : MonoBehaviour, IDamageable
         //{
             if (Input.GetButtonDown("Jump") && timesJumps < jumpMax)
             {
+            //gunfire.PlayOneShot(footfalls[Random.Range(0, footfalls.Length)], footfallsVol);
                 isOnAir = true;
                 playerVelocity.y = jumpHeight;
                 timesJumps++;
+                //timesJumpsAudio++;
 
                 if (timesJumps > 1)
                 {
@@ -179,7 +190,8 @@ public class playerController : MonoBehaviour, IDamageable
             if (gunstat.Count != 0 && Input.GetButton("Shoot") && currentAmmoCount[selectedWeapon] > 0 && isShooting == false && !gameManager.instance.isPaused)
             {
                 isShooting = true;
-                gunfire.Play();
+                gunfire.PlayOneShot(gunstat[selectedWeapon].shootSound);
+                StartCoroutine(CameraShake.Instance.ShakeCamera(0.15f, .08f));
                 gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(currentAmmoCount[selectedWeapon] - 1).gameObject.SetActive(false);
                 currentAmmoCount[selectedWeapon]--;
 
@@ -224,6 +236,7 @@ public class playerController : MonoBehaviour, IDamageable
         shootDmg = _gunStat.shootDmg;
         currentAmmoCount[selectedWeapon] = _gunStat.ammoCapacity;
         ammoCountOrig = _gunStat.ammoCapacity;
+        gunfire.clip = _gunStat.shootSound;
         gunModel.GetComponent<MeshFilter>().sharedMesh = _gunStat.model.GetComponent<MeshFilter>().sharedMesh;
         gunModel.GetComponent<MeshRenderer>().sharedMaterial = _gunStat.model.GetComponent<MeshRenderer>().sharedMaterial;
 
@@ -264,6 +277,7 @@ public class playerController : MonoBehaviour, IDamageable
             shootDmg = gunstat[selectedWeapon].shootDmg;
             ammoCountOrig = gunstat[selectedWeapon].ammoCapacity;
             reloadTimer = gunstat[selectedWeapon].reloadTime;
+            gunfire.clip = gunstat[selectedWeapon].shootSound;
             gunModel.GetComponent<MeshFilter>().sharedMesh = gunstat[selectedWeapon].model.GetComponent<MeshFilter>().sharedMesh;
             gunModel.GetComponent<MeshRenderer>().sharedMaterial = gunstat[selectedWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;
 
@@ -286,10 +300,17 @@ public class playerController : MonoBehaviour, IDamageable
         
         hp -= dmg;
         updatePlayerHp();
-        if (hp < 1) {
+        if (hp <= 0) {
             death();
             resetHP();
         }
+    }
+
+    public IEnumerator SlowPlayer(float slowFactor, float slowDuration) //slow factor of 2, will half player speed.
+    {
+        playerSpeed = playerSpeed / slowFactor;
+        yield return new WaitForSecondsRealtime(slowDuration);
+        playerSpeed = playerSpeedOG;
     }
 
     public void respawn()
@@ -307,6 +328,13 @@ public class playerController : MonoBehaviour, IDamageable
         gameManager.instance.cursorLockPause();
         gameManager.instance.currentMenuOpen = gameManager.instance.playerDeadMenu;
         gameManager.instance.currentMenuOpen.SetActive(true);
+
+        //Menu Navigation
+        //clear selected object first
+        EventSystem.current.SetSelectedGameObject(null);
+
+        //set new selected object
+        EventSystem.current.SetSelectedGameObject(gameManager.instance.deadFirstButton);
     }
 
     IEnumerator damageFlash()
