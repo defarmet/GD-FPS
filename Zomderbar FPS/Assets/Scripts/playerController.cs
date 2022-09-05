@@ -190,8 +190,7 @@ public class playerController : MonoBehaviour, IDamageable
             if (gunstat.Count != 0 && Input.GetButton("Shoot") && currentAmmoCount[selectedWeapon] > 0 && isShooting == false && !gameManager.instance.isPaused)
             {
                 isShooting = true;
-                gunfire.Play();
-                //gunfire.PlayOneShot(gunstat[selectedWeapon].audioClip);
+                gunfire.PlayOneShot(gunstat[selectedWeapon].shootSound);
                 StartCoroutine(CameraShake.Instance.ShakeCamera(0.15f, .08f));
                 gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(currentAmmoCount[selectedWeapon] - 1).gameObject.SetActive(false);
                 currentAmmoCount[selectedWeapon]--;
@@ -237,6 +236,7 @@ public class playerController : MonoBehaviour, IDamageable
         shootDmg = _gunStat.shootDmg;
         currentAmmoCount[selectedWeapon] = _gunStat.ammoCapacity;
         ammoCountOrig = _gunStat.ammoCapacity;
+        gunfire.clip = _gunStat.shootSound;
         gunModel.GetComponent<MeshFilter>().sharedMesh = _gunStat.model.GetComponent<MeshFilter>().sharedMesh;
         gunModel.GetComponent<MeshRenderer>().sharedMaterial = _gunStat.model.GetComponent<MeshRenderer>().sharedMaterial;
 
@@ -277,7 +277,7 @@ public class playerController : MonoBehaviour, IDamageable
             shootDmg = gunstat[selectedWeapon].shootDmg;
             ammoCountOrig = gunstat[selectedWeapon].ammoCapacity;
             reloadTimer = gunstat[selectedWeapon].reloadTime;
-            // audio clip ihigsn = gunstat[selectedWeapon].shootSound;
+            gunfire.clip = gunstat[selectedWeapon].shootSound;
             gunModel.GetComponent<MeshFilter>().sharedMesh = gunstat[selectedWeapon].model.GetComponent<MeshFilter>().sharedMesh;
             gunModel.GetComponent<MeshRenderer>().sharedMaterial = gunstat[selectedWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;
 
