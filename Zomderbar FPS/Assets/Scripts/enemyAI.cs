@@ -32,10 +32,10 @@ public class enemyAI : MonoBehaviour, IDamageable
     Vector3       playerDir;
     private float distanceFromPlayer;
     bool          isShooting = false;
-
+    
     void Start()
     {
-        agent.stoppingDistance = shootRange;
+        agent.stoppingDistance = shootRange * 0.8f;
         anim.SetBool("Dead", false);
     }
 
