@@ -14,8 +14,7 @@ public class checkpoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {
+        if (other.CompareTag("Player")) {
             gameManager.instance.playerSpawnPoint.transform.position = transform.position;
             StartCoroutine(show_text());
         }

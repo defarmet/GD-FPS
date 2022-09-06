@@ -4,38 +4,46 @@ using UnityEngine;
 
 public class doorTriggerController : MonoBehaviour
 {
-    public Animator animObject; //a specific animation to follow on an object
+    /*
+     * a specific animation to follow on an object
+     */
+    public Animator animObject;
 
     public bool openTrigger;
     public bool closeTrigger;
 
-    public bool Block = false; //lock away trigger to open
-    public Collider theDoor; // to temporarily deactivate collision;
+    /*
+     * lock away trigger to open
+     */
+    public bool Block = false;
+    /*
+     * to temporarily deactivate collision;
+     */
+    public Collider theDoor;
 
     public string openObject;
     public string closeObject;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {
-            
-            if (openTrigger)
-            {
+        if (other.CompareTag("Player")) {
+            if (openTrigger) {
                 theDoor.enabled = false;
                 animObject.Play(openObject, 0, 0.0f);
+                /*
+                 * lock away the trigger to open door
+                 */
                 if (Block)
-                    gameObject.SetActive(false); //lock away the trigger to open door
-            }
-            else if (closeTrigger)
-            {
+                    gameObject.SetActive(false);
+            } else if (closeTrigger) {
                 theDoor.enabled = true;
                 animObject.Play(closeObject, 0, 0.0f);
+                /*
+                 * lock away the trigger to open door
+                 */
                 if (Block)
-                    gameObject.SetActive(false); //lock away the trigger to open door
+                    gameObject.SetActive(false);
             }
         }
     }
-
-
 }
