@@ -57,5 +57,6 @@ public class buttonFunctions : MonoBehaviour
     public void quitToMenu()
     {
         SceneManager.LoadScene("MainMenu");
+        Time.timeScale = 1.0f;
     }
 }
