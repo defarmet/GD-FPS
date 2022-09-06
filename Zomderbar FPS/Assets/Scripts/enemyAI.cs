@@ -66,7 +66,7 @@ public class enemyAI : MonoBehaviour, IDamageable
             agent.SetDestination(gameManager.instance.player.transform.position);
             if (hit.collider.CompareTag("Player") && !isShooting && angle <= fieldOfView) {
                 if (distanceFromPlayer <= visionRange) {
-                    agent.stoppingDistance = shootRange;
+                    agent.stoppingDistance = shootRange * 0.8f;
                     facePlayer(); 
                     
                     if (distanceFromPlayer <= shootRange && angle <= fieldOfViewShoot)
