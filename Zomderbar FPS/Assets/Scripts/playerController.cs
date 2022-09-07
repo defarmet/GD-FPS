@@ -191,7 +191,6 @@ public class playerController : MonoBehaviour, IDamageable
             {
                 isShooting = true;
                 audioSource.PlayOneShot(gunstat[selectedWeapon].shootSound);
-                StartCoroutine(CameraShake.Instance.ShakeCamera(0.15f, .08f));
                 gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(currentAmmoCount[selectedWeapon] - 1).gameObject.SetActive(false);
                 currentAmmoCount[selectedWeapon]--;
 
@@ -210,6 +209,8 @@ public class playerController : MonoBehaviour, IDamageable
                             isDamageable.takeDamage(shootDmg);
                     }
                 }
+
+                StartCoroutine(CameraShake.Instance.ShakeCamera(0.15f, .15f));
 
                 yield return new WaitForSeconds(shootRate);
                 isShooting = false;

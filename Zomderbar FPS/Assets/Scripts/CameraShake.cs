@@ -20,7 +20,7 @@ public class CameraShake : MonoBehaviour
             float x = Random.Range(-1f, 1f) * intensity;
             float y = Random.Range(-1f, 1f) * intensity;
 
-            transform.localPosition = new Vector3(x, y, originalPos.z);
+            transform.localPosition = new Vector3(x, y + 0.721f, originalPos.z);
             elapsed += Time.deltaTime;
             yield return null;
         }
