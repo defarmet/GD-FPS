@@ -475,6 +475,7 @@ GameObject:
   - component: {fileID: 4052029024476061148}
   - component: {fileID: 1862878468}
   - component: {fileID: 1271861088}
+  - component: {fileID: 1828041362}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -512,16 +513,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 4052029024476061148}
+  audioSource: {fileID: 0}
   rb: {fileID: 1862878468}
   hitEffect: {fileID: 8710450972521545467, guid: 7a6f1946870f4114784b1bcd7c1c178c, type: 3}
+  anim: {fileID: 0}
   playerSpeed: 7.5
-  slideMult: 0
+  slideMult: 1.75
   slideTime: 2
   wallRunSpeed: 9
-  jumpHeight: 9.08
+  jumpHeight: 8
   gravityValue: 17.75
   jumpMax: 2
-  hp: 5
+  hp: 15
   switchTime: 0
   doubleJumpHeightMult: 1.6
   doubleJumpSpeedMult: 0.5
@@ -529,14 +532,13 @@ MonoBehaviour:
   shootRate: 0
   shootDistance: 0
   shootDmg: 0
-  gunfire: {fileID: 0}
-  reloadSound: {fileID: 0}
   currentAmmoCount: 000000000000000000000000000000000000000000000000
   reloadTimer: 0
   footfalls: []
   footfallsVol: 0
   timesJumps: 0
   timesJumpsAudio: 0
+  hpOriginal: 0
   gravityValueOG: 0
   isWallRun: 1
   isSameWall: 0
@@ -734,3 +736,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &1828041362
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4052029024476061155}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b5f0a975a84083247bd50d2368303dcd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

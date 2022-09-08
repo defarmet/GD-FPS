@@ -10,6 +10,7 @@ public class playerController : MonoBehaviour, IDamageable
     public           AudioSource         audioSource;
     [SerializeField] Rigidbody           rb;
     [SerializeField] GameObject          hitEffect;
+    [SerializeField] Animator anim;
 
     [Header("---------- Player Attributes -----------")]
     [Range(1, 10)]   [SerializeField] public float playerSpeed;
@@ -61,6 +62,7 @@ public class playerController : MonoBehaviour, IDamageable
 
     private void Start()
     {
+        anim = GetComponent<Animator>();
         playerSpeedOG = playerSpeed;
         gravityValueOG = gravityValue;
         hpOriginal = hp;
@@ -161,9 +163,9 @@ public class playerController : MonoBehaviour, IDamageable
             Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDistance, Color.red, 0.0000001f);
             if (gunstat.Count != 0 && Input.GetButton("Shoot") && currentAmmoCount[selectedWeapon] > 0 && isShooting == false && !gameManager.instance.isPaused) {
                 isShooting = true;
+                anim.SetTrigger("GunReoil");
                 audioSource.PlayOneShot(gunstat[selectedWeapon].shootSound);
-                StartCoroutine(CameraShake.Instance.ShakeCamera(0.15f, .08f));
-                
+
                 gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(currentAmmoCount[selectedWeapon] - 1).gameObject.SetActive(false);
                 currentAmmoCount[selectedWeapon]--;
                 
@@ -181,7 +183,6 @@ public class playerController : MonoBehaviour, IDamageable
                             isDamageable.takeDamage(shootDmg);
                     }
                 }
-
                 StartCoroutine(CameraShake.Instance.ShakeCamera(0.15f, .15f));
 
                 yield return new WaitForSeconds(shootRate);
