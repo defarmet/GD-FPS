@@ -44,10 +44,12 @@ public class gameManager : MonoBehaviour
     {
         instance = this;
         player = GameObject.FindGameObjectWithTag("Player");
-        playerScript = player.GetComponent<playerController>();
+        if (player) {
+            playerScript = player.GetComponent<playerController>();
 
-        playerSpawnPoint = GameObject.FindGameObjectWithTag("Player Spawn Point");
-        playerScript.respawn();
+            playerSpawnPoint = GameObject.FindGameObjectWithTag("Player Spawn Point");
+            playerScript.respawn();
+        }
     }
 
     void Start()
