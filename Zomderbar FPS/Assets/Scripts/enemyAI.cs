@@ -155,7 +155,7 @@ public class enemyAI : MonoBehaviour, IDamageable
         if(isNoisy && damagedAudioClips.Length > 0)
         {
             source.clip = damagedAudioClips[Random.Range(0, damagedAudioClips.Length)];
-            source.PlayOneShot(source.clip);
+            source.PlayOneShot(source.clip, volume);
         }
     }
 
@@ -164,7 +164,7 @@ public class enemyAI : MonoBehaviour, IDamageable
         if (isNoisy && atackAudioClips.Length > 0)
         {
             source.clip = atackAudioClips[Random.Range(0, atackAudioClips.Length)];
-            source.PlayOneShot(source.clip);
+            source.PlayOneShot(source.clip, volume);
         }
     }
 }
