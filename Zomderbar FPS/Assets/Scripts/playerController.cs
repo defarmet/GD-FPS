@@ -21,8 +21,8 @@ public class playerController : MonoBehaviour, IDamageable
     [Range(1, 3)]    [SerializeField] public int   jumpMax;
     [Range(0, 310)]  [SerializeField] public int   hp;
     [Range(0.1f, 2)] [SerializeField] float        switchTime;
-    [Range(1, 2)]    [SerializeField] float        doubleJumpHeightMult;
-    [Range(0.1f, 1)] [SerializeField] float        doubleJumpSpeedMult;
+    [Range(0.1f, 2)]    [SerializeField] float        doubleJumpHeightMult;
+    [Range(0.01f, 0.1f)] [SerializeField] float        doubleJumpSpeedMult;
 
     [Header("---------- Gun Stats -----------")]
     [SerializeField]                  GameObject  gunModel;
@@ -52,6 +52,7 @@ public class playerController : MonoBehaviour, IDamageable
            float playerSpeedOG;
     public int   hpOriginal;
            int   ammoCountOrig;
+           float wallJumpSpeedOG;
     public float gravityValueOG;
            bool  canSlide = true;
            bool  isSliding = false;
@@ -64,6 +65,7 @@ public class playerController : MonoBehaviour, IDamageable
         playerSpeedOG = playerSpeed;
         gravityValueOG = gravityValue;
         hpOriginal = hp;
+        wallJumpSpeedOG = wallRunSpeed;
         ammoCountOrig = 0;
         audioSource = GetComponent<AudioSource>();
         controller.enabled = true;
@@ -93,6 +95,7 @@ public class playerController : MonoBehaviour, IDamageable
             playerVelocity.y = 0f;
             timesJumps = 0;
             timesJumpsAudio = 0;
+            isWallRun = false;
         }
 
         move = ((transform.right * Input.GetAxis("Horizontal")) + (transform.forward * Input.GetAxis("Vertical")));
@@ -104,11 +107,33 @@ public class playerController : MonoBehaviour, IDamageable
             timesJumps++;
 
             if (timesJumps > 1)
-                playerVelocity.y = jumpHeight * doubleJumpHeightMult;
+            {
+                if (isWallRun)
+                {
+                    playerVelocity.y = jumpHeight * doubleJumpHeightMult * 0.97f;
+                    //playerSpeed *= wallRunSpeed;
+                    StartCoroutine(OffTheWall());
+                    
+                }
+                    
+
+
+                else
+                    playerVelocity.y = jumpHeight * doubleJumpHeightMult;
+
+            }
+                
         }
 
         playerVelocity.y -= gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
+    }
+
+    IEnumerator OffTheWall()
+    {
+        playerSpeed *= wallRunSpeed / 1.3f;
+        yield return new WaitForSeconds(0.04f);
+        playerSpeed = playerSpeedOG;
     }
 
     /*

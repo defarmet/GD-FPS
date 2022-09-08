@@ -15,6 +15,7 @@ public class WallRun : MonoBehaviour
             if (other.CompareTag("Player")) {
                 playerAudio.PlayOneShot(notif, notifVol);
                 gameManager.instance.playerScript.isSameWall = true;
+                gameManager.instance.playerScript.isWallRun = true;
                 StartCoroutine(wallRunGrav());
                 gameManager.instance.playerScript.timesJumps = 1;
             }
