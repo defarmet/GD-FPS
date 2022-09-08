@@ -6,6 +6,7 @@ using Cinemachine;
 public class CameraShake : MonoBehaviour
 {
     public static CameraShake Instance { get; private set; }
+    
     private void Awake()
     {
         Instance = this;
@@ -15,17 +16,14 @@ public class CameraShake : MonoBehaviour
     {
         Vector3 originalPos = transform.localPosition;
         float elapsed = 0.0f;
-        while (elapsed < duration)
-        {
+        while (elapsed < duration) {
             float x = Random.Range(-1f, 1f) * intensity;
             float y = Random.Range(-1f, 1f) * intensity;
 
-            transform.localPosition = new Vector3(x, y, originalPos.z);
+            transform.localPosition = new Vector3(x, y + 0.721f, originalPos.z);
             elapsed += Time.deltaTime;
             yield return null;
         }
         transform.localPosition = originalPos;
-        
     }
-
 }
