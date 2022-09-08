@@ -2186,6 +2186,10 @@ MonoBehaviour:
   anim: {fileID: 7544197267852600213}
   bullet: {fileID: 8585047719546498357, guid: 5cbae0886876130479ce3133b574aefd, type: 3}
   bulletSpawn: {fileID: 7544197267042164636}
+  isNoisy: 0
+  volume: 0
+  atackAudioClips: []
+  damagedAudioClips: []
   HP: 150
   fieldOfView: 15
   fieldOfViewShoot: 10
@@ -2555,7 +2559,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7544197267042164636}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.169, z: 0.668}
+  m_LocalPosition: {x: 0, y: 0, z: 0.668}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
