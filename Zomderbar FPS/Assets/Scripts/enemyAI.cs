@@ -11,14 +11,21 @@ public class enemyAI : MonoBehaviour, IDamageable
     [SerializeField] Animator     anim;
     [SerializeField] GameObject   bullet;
     [SerializeField] GameObject   bulletSpawn;
+    AudioSource source;
+
+    [Header("---------- Audio -----------")]
+    [SerializeField] bool isNoisy;
+    [Range(0, 1)] [SerializeField] float volume;
+    [SerializeField] AudioClip[] atackAudioClips;
+    [SerializeField] AudioClip[] damagedAudioClips;
 
     [Header("---------- Stats -----------")]
     [Range(0, 150)] public           int   HP;
     [Range(1, 180)] [SerializeField] int   fieldOfView;
     [Range(1, 90)]  [SerializeField] int   fieldOfViewShoot;
     [Range(1, 10)]  [SerializeField] float playerFaceSpeed;
-    [Range(1, 5)]   [SerializeField] int   speedRoam;
-    [Range(1, 5)]   [SerializeField] int   speedChase;
+    [Range(1, 15)]   [SerializeField] int   speedRoam;
+    [Range(1, 15)]   [SerializeField] int   speedChase;
                     [SerializeField] float animationBuffer;
 
     [Header("---------- Weapon Stats -----------")]
@@ -37,6 +44,11 @@ public class enemyAI : MonoBehaviour, IDamageable
     {
         agent.stoppingDistance = shootRange * 0.8f;
         anim.SetBool("Dead", false);
+        if(isNoisy)
+        {
+            source = GetComponent<AudioSource>();
+            source.volume = volume;
+        }
     }
 
     /*
@@ -99,7 +111,9 @@ public class enemyAI : MonoBehaviour, IDamageable
             gameManager.instance.enemyKilled++;
             anim.SetBool("Dead", true);
             agent.enabled = false;
-            
+
+            Rigidbody rb = GetComponent<Rigidbody>();
+            rb.isKinematic = true;
             foreach (Collider col in GetComponents<Collider>())
                 col.enabled = false;
         }
@@ -112,6 +126,7 @@ public class enemyAI : MonoBehaviour, IDamageable
     {
         isShooting = true;
         anim.SetTrigger("Shoot");
+        SoundAtack();
         yield return new WaitForSeconds(animationBuffer);
 
         GameObject bulletClone = Instantiate(bullet, bulletSpawn.transform.position, bullet.transform.rotation);
@@ -127,10 +142,29 @@ public class enemyAI : MonoBehaviour, IDamageable
     {
         agent.speed = 0;
         anim.SetTrigger("Damage");
+        SoundTakeDamage();
         yield return new WaitForSeconds(0.1f);
 
         agent.speed = speedChase;
         agent.stoppingDistance = 0;
         agent.SetDestination(gameManager.instance.player.transform.position);
+    }
+
+    private void SoundTakeDamage()
+    {
+        if(isNoisy && damagedAudioClips.Length > 0)
+        {
+            source.clip = damagedAudioClips[Random.Range(0, damagedAudioClips.Length)];
+            source.PlayOneShot(source.clip);
+        }
+    }
+
+    private void SoundAtack()
+    {
+        if (isNoisy && atackAudioClips.Length > 0)
+        {
+            source.clip = atackAudioClips[Random.Range(0, atackAudioClips.Length)];
+            source.PlayOneShot(source.clip);
+        }
     }
 }
