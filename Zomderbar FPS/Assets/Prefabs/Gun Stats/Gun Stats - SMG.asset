@@ -17,5 +17,7 @@ MonoBehaviour:
   shootDmg: 2
   gunHUD: 2
   model: {fileID: 7119148598554248763, guid: fc5c35e4acf35694cbfc705b422499a3, type: 3}
+  shootSound: {fileID: 8300000, guid: 8602b7d5cd15c1943a50aa53f171c8cf, type: 3}
+  reloadSound: {fileID: 8300000, guid: e7431ee05349a6e4bbda242212ca5daa, type: 3}
   ammoCapacity: 20
   reloadTime: 0.4

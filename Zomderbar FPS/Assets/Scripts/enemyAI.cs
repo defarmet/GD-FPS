@@ -7,19 +7,19 @@ public class enemyAI : MonoBehaviour, IDamageable
 {
     [Header("---------- Components -----------")]
     [SerializeField] NavMeshAgent agent;
-    [SerializeField] private Transform head;
-    [SerializeField] private Animator anim;
-    [SerializeField] GameObject bullet;
-    [SerializeField] GameObject bulletSpawn;
+    [SerializeField] Transform    head;
+    [SerializeField] Animator     anim;
+    [SerializeField] GameObject   bullet;
+    [SerializeField] GameObject   bulletSpawn;
 
     [Header("---------- Stats -----------")]
-    [Range(0, 150)] [SerializeField] public int   HP;
+    [Range(0, 150)] public           int   HP;
     [Range(1, 180)] [SerializeField] int   fieldOfView;
     [Range(1, 90)]  [SerializeField] int   fieldOfViewShoot;
     [Range(1, 10)]  [SerializeField] float playerFaceSpeed;
     [Range(1, 5)]   [SerializeField] int   speedRoam;
     [Range(1, 5)]   [SerializeField] int   speedChase;
-    [SerializeField]                 float animationBuffer;
+                    [SerializeField] float animationBuffer;
 
     [Header("---------- Weapon Stats -----------")]
     [Range(0.1f, 5)] [SerializeField] float         shootRate;
@@ -32,10 +32,10 @@ public class enemyAI : MonoBehaviour, IDamageable
     Vector3       playerDir;
     private float distanceFromPlayer;
     bool          isShooting = false;
-
+    
     void Start()
     {
-        agent.stoppingDistance = shootRange;
+        agent.stoppingDistance = shootRange * 0.8f;
         anim.SetBool("Dead", false);
     }
 
@@ -66,7 +66,7 @@ public class enemyAI : MonoBehaviour, IDamageable
             agent.SetDestination(gameManager.instance.player.transform.position);
             if (hit.collider.CompareTag("Player") && !isShooting && angle <= fieldOfView) {
                 if (distanceFromPlayer <= visionRange) {
-                    agent.stoppingDistance = shootRange;
+                    agent.stoppingDistance = shootRange * 0.8f;
                     facePlayer(); 
                     
                     if (distanceFromPlayer <= shootRange && angle <= fieldOfViewShoot)

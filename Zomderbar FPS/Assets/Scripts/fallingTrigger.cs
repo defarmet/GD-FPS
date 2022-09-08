@@ -4,16 +4,21 @@ using UnityEngine;
 
 public class fallingTrigger : MonoBehaviour
 {
-    public int layerToFall; //changes to this layer
-    private int layerOfObject = 0; //preserve layer of the object entering. defaults to default layer
+    public int        layerToFall;
+    public GameObject fallingGuy = null;
 
     private void OnTriggerEnter(Collider other)
     {
-        layerOfObject = other.gameObject.layer;
-        other.gameObject.layer = layerToFall;
+        if (other.CompareTag("Player")) {
+            fallingGuy = other.gameObject;
+            other.gameObject.layer = layerToFall;
+            StartCoroutine(resetLayer());
+        }
     }
-    private void OnTriggerExit(Collider other)
+
+    IEnumerator resetLayer()
     {
-        other.gameObject.layer = layerOfObject;
+        yield return new WaitForSeconds(.8f);
+        fallingGuy.layer = 0;
     }
 }

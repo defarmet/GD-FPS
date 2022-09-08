@@ -514,7 +514,6 @@ MonoBehaviour:
   controller: {fileID: 4052029024476061148}
   rb: {fileID: 1862878468}
   hitEffect: {fileID: 8710450972521545467, guid: 7a6f1946870f4114784b1bcd7c1c178c, type: 3}
-  cameraShake: {fileID: 2870030080688321195}
   playerSpeed: 7.5
   slideMult: 0
   slideTime: 2
@@ -531,6 +530,7 @@ MonoBehaviour:
   shootDistance: 0
   shootDmg: 0
   gunfire: {fileID: 0}
+  reloadSound: {fileID: 0}
   currentAmmoCount: 000000000000000000000000000000000000000000000000
   reloadTimer: 0
   footfalls: []
@@ -648,8 +648,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 1999225964781732724, guid: d77e4e2b3decfd64690f5ae345a51321, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 48497e81bfdd3e54c95ceb82ffc34d24, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 0.28
   m_Pitch: 1
   Loop: 0
