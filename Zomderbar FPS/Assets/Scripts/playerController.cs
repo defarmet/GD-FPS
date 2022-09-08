@@ -7,10 +7,9 @@ public class playerController : MonoBehaviour, IDamageable
 {
     [Header("---------- Components -----------")]
     public           CharacterController controller;
-    public                            AudioSource audioSource;
+    public           AudioSource         audioSource;
     [SerializeField] Rigidbody           rb;
     [SerializeField] GameObject          hitEffect;
-    //[SerializeField] CameraShake cameraShake;
 
     [Header("---------- Player Attributes -----------")]
     [Range(1, 10)]   [SerializeField] public float playerSpeed;
@@ -35,9 +34,8 @@ public class playerController : MonoBehaviour, IDamageable
     [SerializeField]                  float       reloadTimer;
 
     [Header("--------- Audio ----------")]
-
-    [SerializeField] AudioClip[] footfalls;
-    [Range(0, 1)][SerializeField] float footfallsVol;
+    [SerializeField]               AudioClip[] footfalls;
+    [Range(0, 1)] [SerializeField] float       footfallsVol;
 
     bool isShooting = false;
     bool alreadyReloadedUI = false;
@@ -51,16 +49,15 @@ public class playerController : MonoBehaviour, IDamageable
     public int timesJumps;
     public int timesJumpsAudio;
 
-    float playerSpeedOG;
+           float playerSpeedOG;
     public int   hpOriginal;
-    int   ammoCountOrig;
+           int   ammoCountOrig;
     public float gravityValueOG;
-    bool canSlide = true;
-    bool isSliding = false;
-    bool isOnAir = false;
-    public bool isWallRun = true;
-    public bool isSameWall = false;
-    bool canShoot = true;
+           bool  canSlide = true;
+           bool  isSliding = false;
+    public bool  isWallRun = true;
+    public bool  isSameWall = false;
+           bool  canShoot = true;
 
     private void Start()
     {
@@ -93,7 +90,6 @@ public class playerController : MonoBehaviour, IDamageable
     void playerMovement()
     {
         if (controller.isGrounded && playerVelocity.y < 0) {
-            isOnAir = false;
             playerVelocity.y = 0f;
             timesJumps = 0;
             timesJumpsAudio = 0;
@@ -102,22 +98,14 @@ public class playerController : MonoBehaviour, IDamageable
         move = ((transform.right * Input.GetAxis("Horizontal")) + (transform.forward * Input.GetAxis("Vertical")));
         controller.Move(move * Time.deltaTime * playerSpeed);
 
-        //if(isSameWall == false)
-        //{
-            if (Input.GetButtonDown("Jump") && timesJumps < jumpMax)
-            {
-            //gunfire.PlayOneShot(footfalls[Random.Range(0, footfalls.Length)], footfallsVol);
-                isOnAir = true;
-                playerVelocity.y = jumpHeight;
-                timesJumps++;
-                //timesJumpsAudio++;
+        if (Input.GetButtonDown("Jump") && timesJumps < jumpMax)
+        {
+            playerVelocity.y = jumpHeight;
+            timesJumps++;
 
-                if (timesJumps > 1)
-                {
-                    playerVelocity.y = jumpHeight * doubleJumpHeightMult;
-                }
-            }
-        //}
+            if (timesJumps > 1)
+                playerVelocity.y = jumpHeight * doubleJumpHeightMult;
+        }
 
         playerVelocity.y -= gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
@@ -128,16 +116,12 @@ public class playerController : MonoBehaviour, IDamageable
      */
     void slide()
     {
-        if (canSlide)
-        {
-            if (Input.GetButtonDown("Sprint"))
-            {
+        if (canSlide) {
+            if (Input.GetButtonDown("Sprint")) {
                 isSliding = true;
                 StartCoroutine(slowSlide());
 
-            }
-            else if (Input.GetButtonUp("Sprint"))
-            {
+            } else if (Input.GetButtonUp("Sprint")) {
                 isSliding = false;
                 transform.localScale = new Vector3(1, 1, 1);
                 playerSpeed = playerSpeedOG;
@@ -148,28 +132,19 @@ public class playerController : MonoBehaviour, IDamageable
 
     IEnumerator slowSlide()
     {
-
-        //transform.localScale = new Vector3(1, .5f, 1);
         controller.transform.localScale = new Vector3(1, 0.5f, 1);
-        //gunModel.transform.localScale = new Vector3(1, 1, 1);
 
         if (timesJumps > 0)
-        {
             playerSpeed = playerSpeed * slideMult + 0.5f;
-        }
         else
-        {
             playerSpeed = playerSpeed * slideMult;
-        }
-        while (isSliding)
-        {
+        
+        while (isSliding) {
             yield return new WaitForSeconds(0.2f);
             playerSpeed -= 0.3f;
 
             if (playerSpeed <= playerSpeedOG / 1.5)
-            {
                 break;
-            }
         }
     }
 
@@ -182,27 +157,24 @@ public class playerController : MonoBehaviour, IDamageable
 
     IEnumerator shoot()
     {
-
-        if (canShoot)
-        {
+        if (canShoot) {
             Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDistance, Color.red, 0.0000001f);
-
-            if (gunstat.Count != 0 && Input.GetButton("Shoot") && currentAmmoCount[selectedWeapon] > 0 && isShooting == false && !gameManager.instance.isPaused)
-            {
+            if (gunstat.Count != 0 && Input.GetButton("Shoot") && currentAmmoCount[selectedWeapon] > 0 && isShooting == false && !gameManager.instance.isPaused) {
                 isShooting = true;
                 audioSource.PlayOneShot(gunstat[selectedWeapon].shootSound);
+                StartCoroutine(CameraShake.Instance.ShakeCamera(0.15f, .08f));
+                
                 gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(currentAmmoCount[selectedWeapon] - 1).gameObject.SetActive(false);
                 currentAmmoCount[selectedWeapon]--;
-
-                if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out RaycastHit hit, shootDistance))
-                {
+                
+                if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out RaycastHit hit, shootDistance)) {
                     Instantiate(hitEffect, hit.point, hitEffect.transform.rotation);
-
-                    if (hit.collider.GetComponent<IDamageable>() != null)
-                    {
+                    if (hit.collider.GetComponent<IDamageable>() != null) {
                         IDamageable isDamageable = hit.collider.GetComponent<IDamageable>();
 
-                        /* Headshot handler */
+                        /*
+                         * Headshot handler
+                         */
                         if (hit.collider is SphereCollider)
                             isDamageable.takeDamage(shootDmg * 2);
                         else
@@ -262,14 +234,12 @@ public class playerController : MonoBehaviour, IDamageable
                     alreadyReloadedUI = false;
                 }
                 selectedWeapon++;
-                
             } else if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedWeapon > 0) {
                 if (alreadyReloadedUI) {
                     gameManager.instance.currentGunHUD.transform.GetChild(3).gameObject.SetActive(false);
                     alreadyReloadedUI = false;
                 }
                 selectedWeapon--;
-                
             }
                 
             shootRate = gunstat[selectedWeapon].shootRate;
@@ -287,8 +257,6 @@ public class playerController : MonoBehaviour, IDamageable
                 gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
 
             yield return new WaitForSeconds(switchTime);
-
-
         }
     }
 
@@ -305,7 +273,10 @@ public class playerController : MonoBehaviour, IDamageable
         }
     }
 
-    public IEnumerator SlowPlayer(float slowFactor, float slowDuration) //slow factor of 2, will half player speed.
+    /*
+     * slow factor of 2, will half player speed.
+     */
+    public IEnumerator SlowPlayer(float slowFactor, float slowDuration)
     {
         playerSpeed = playerSpeed / slowFactor;
         yield return new WaitForSecondsRealtime(slowDuration);
@@ -328,11 +299,15 @@ public class playerController : MonoBehaviour, IDamageable
         gameManager.instance.currentMenuOpen = gameManager.instance.playerDeadMenu;
         gameManager.instance.currentMenuOpen.SetActive(true);
 
-        //Menu Navigation
-        //clear selected object first
+        /*
+         * Menu Navigation
+         * Clear selected object first.
+         */
         EventSystem.current.SetSelectedGameObject(null);
 
-        //set new selected object
+        /*
+         * Set new selected object
+         */
         EventSystem.current.SetSelectedGameObject(gameManager.instance.deadFirstButton);
     }
 
@@ -371,7 +346,6 @@ public class playerController : MonoBehaviour, IDamageable
             if (currentAmmoCount[selectedWeapon] == ammoCountOrig && !alreadyReloadedUI) {
                 StartCoroutine(alreadyReloaded());
             } else if (currentAmmoCount[selectedWeapon] != ammoCountOrig) {
-                //yield return new WaitForSeconds(gameManager.instance.gunStatsScript.reloadTime);
                 audioSource.PlayOneShot(gunstat[selectedWeapon].reloadSound);
                 
                 canShoot = false;
@@ -379,8 +353,8 @@ public class playerController : MonoBehaviour, IDamageable
                 currentAmmoCount[selectedWeapon] = ammoCountOrig;
                 for (int i = 0; i < currentAmmoCount[selectedWeapon]; ++i)
                     gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
-                canShoot=true;
                 
+                canShoot = true;
             }
         }
     }

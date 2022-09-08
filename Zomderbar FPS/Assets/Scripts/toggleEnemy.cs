@@ -8,13 +8,10 @@ public class toggleEnemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
-        {
+        if(other.tag == "Player") {
             foreach (var x in enemies)
                 x.SetActive(true);
         }
         Destroy(gameObject);
     }
-
-    
 }
