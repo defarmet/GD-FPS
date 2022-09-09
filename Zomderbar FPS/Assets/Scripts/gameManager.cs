@@ -11,6 +11,7 @@ public class gameManager : MonoBehaviour
     public static gameManager instance;
 
     public GameObject       player;
+    public GameObject       playerStart;
     public playerController playerScript;
     public EnemySpawners    spawnerScript;
 
@@ -51,9 +52,13 @@ public class gameManager : MonoBehaviour
     void Awake()
     {
         instance = this;
-        player = GameObject.FindGameObjectWithTag("Player");
+        if (!player)
+            player = GameObject.FindGameObjectWithTag("Player");
+
         if (player) {
             playerScript = player.GetComponent<playerController>();
+            DontDestroyOnLoad(player);
+            playerStart = player;
 
             playerSpawnPoint = GameObject.FindGameObjectWithTag("Player Spawn Point");
             playerScript.respawn();
