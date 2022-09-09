@@ -375,11 +375,13 @@ public class playerController : MonoBehaviour, IDamageable
                 audioSource.PlayOneShot(gunstat[selectedWeapon].reloadSound);
                 
                 canShoot = false;
+                anim.SetBool("Reloading", true);
+                yield return new WaitForSeconds(reloadTimer- .25f);
+                anim.SetBool("Reloading", false);
                 yield return new WaitForSeconds(reloadTimer);
                 currentAmmoCount[selectedWeapon] = ammoCountOrig;
                 for (int i = 0; i < currentAmmoCount[selectedWeapon]; ++i)
                     gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
-                
                 canShoot = true;
             }
         }
