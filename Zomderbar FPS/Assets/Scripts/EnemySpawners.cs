@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class EnemySpawners : MonoBehaviour
 {
-                   [SerializeField] GameObject   Door;
                    [SerializeField] GameObject[] spawners;
                    [SerializeField] GameObject[] enemies;
                    public           int          enemiesToSpawn;
                    [SerializeField] float        spawnInterval;
-                   [SerializeField] bool         bossToSpawn;
-    [Range(1, 10)] [SerializeField] int          waves;
                    public           int          enemiesSpawned;
                    public           bool         spawnerActivated = false;
     
@@ -18,23 +15,23 @@ public class EnemySpawners : MonoBehaviour
     enemyAI    bossScript;
     bool       bossSpawned;
 
-    private void Awake()
-    {
-        if (bossToSpawn) {
-            boss = GameObject.FindGameObjectWithTag("Boss");
-            bossScript = boss.GetComponent<enemyAI>();
-            boss.SetActive(false);
-        }
-    }
+    //private void Awake()
+    //{
+    //    if (bossToSpawn) {
+    //        boss = GameObject.FindGameObjectWithTag("Boss");
+    //        bossScript = boss.GetComponent<enemyAI>();
+    //        boss.SetActive(false);
+    //    }
+    //}
     private void Update()
     {
-        if (bossToSpawn && gameManager.instance.enemyKilled == enemiesToSpawn * waves && spawnerActivated) {
-            boss.SetActive(true);
-            bossSpawned = true;
-        }
+        //if (bossToSpawn && gameManager.instance.enemyKilled == enemiesToSpawn * waves && spawnerActivated) {
+        //    boss.SetActive(true);
+        //    bossSpawned = true;
+        //}
 
-        if (bossSpawned && bossScript.HP <= 0)
-            Door.SetActive(false);
+        //if (bossSpawned && bossScript.HP <= 0)
+        //    Door.SetActive(false);
     }
     
     private void OnTriggerEnter(Collider other)
@@ -47,7 +44,7 @@ public class EnemySpawners : MonoBehaviour
 
     private IEnumerator SpawnEnemy()
     {
-        for (int i = 0; i < waves; ++i) {
+       
             while (enemiesSpawned < enemiesToSpawn) {
                 int enemy = Random.Range(0, enemies.Length);
                 int spawn = Random.Range(0, spawners.Length);
@@ -55,7 +52,7 @@ public class EnemySpawners : MonoBehaviour
                 yield return new WaitForSeconds(spawnInterval);
                 enemiesSpawned++;
             }
-            enemiesSpawned = 0;
-        }
+            
+        
     }
 }
