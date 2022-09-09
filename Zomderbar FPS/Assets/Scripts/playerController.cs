@@ -10,6 +10,7 @@ public class playerController : MonoBehaviour, IDamageable
     public           AudioSource         audioSource;
     [SerializeField] Rigidbody           rb;
     [SerializeField] GameObject          hitEffect;
+    [SerializeField] GameObject bloodEffect;
     [SerializeField] Animator anim;
 
     [Header("---------- Player Attributes -----------")]
@@ -199,6 +200,8 @@ public class playerController : MonoBehaviour, IDamageable
                     if (hit.collider.GetComponent<IDamageable>() != null) {
                         IDamageable isDamageable = hit.collider.GetComponent<IDamageable>();
 
+                        Instantiate(bloodEffect, hit.point, hit.transform.rotation);
+
                         /*
                          * Headshot handler
                          */
@@ -378,7 +381,7 @@ public class playerController : MonoBehaviour, IDamageable
                 anim.SetBool("Reloading", true);
                 yield return new WaitForSeconds(reloadTimer- .25f);
                 anim.SetBool("Reloading", false);
-                yield return new WaitForSeconds(reloadTimer);
+                yield return new WaitForSeconds(.25f);
                 currentAmmoCount[selectedWeapon] = ammoCountOrig;
                 for (int i = 0; i < currentAmmoCount[selectedWeapon]; ++i)
                     gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
