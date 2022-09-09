@@ -45,8 +45,8 @@ public class playerController : MonoBehaviour, IDamageable
     Vector3 playerVelocity;
     Vector3 move = Vector3.zero;
     
-    List<gunStats> gunstat = new List<gunStats>();
-    int            weapIndx;
+    public List<gunStats> gunstat = new List<gunStats>();
+           int            weapIndx;
     
     public int timesJumps;
     public int timesJumpsAudio;
@@ -224,6 +224,11 @@ public class playerController : MonoBehaviour, IDamageable
      */
     public void gunPickup(gunStats _gunStat, int _currentGunHUD)
     {
+        for (int i = 0; i < gunstat.Count; i++) {
+            if (gunstat[i].gunHUD == _currentGunHUD)
+                return;
+        }
+
         if (alreadyReloadedUI) {
             gameManager.instance.currentGunHUD.transform.GetChild(3).gameObject.SetActive(false);
             alreadyReloadedUI = false;

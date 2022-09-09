@@ -11,7 +11,6 @@ public class gameManager : MonoBehaviour
     public static gameManager instance;
 
     public GameObject       player;
-    public GameObject       playerStart;
     public playerController playerScript;
     public EnemySpawners    spawnerScript;
 
@@ -49,16 +48,17 @@ public class gameManager : MonoBehaviour
     public GameObject deadFirstButton;
     public GameObject winFirstButton;
     
+    static public List<gunStats> statsStart = new List<gunStats>();
+    
     void Awake()
     {
         instance = this;
-        if (!player)
-            player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("Player");
 
         if (player) {
             playerScript = player.GetComponent<playerController>();
-            DontDestroyOnLoad(player);
-            playerStart = player;
+            for (int i = 0; i < statsStart.Count; i++)
+                playerScript.gunPickup(statsStart[i], statsStart[i].gunHUD);
 
             playerSpawnPoint = GameObject.FindGameObjectWithTag("Player Spawn Point");
             playerScript.respawn();
