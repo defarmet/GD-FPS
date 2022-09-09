@@ -325,6 +325,14 @@ public class playerController : MonoBehaviour, IDamageable
         gameManager.instance.isPaused = false;
         updatePlayerHp();
         resetPlayerAmmo();
+        StartCoroutine(resetEnemies());
+    }
+
+    IEnumerator resetEnemies()
+    {
+        enemyAI.resetPos = true;
+        yield return new WaitForSeconds(0.1f);
+        enemyAI.resetPos = false;
     }
 
     public void death()

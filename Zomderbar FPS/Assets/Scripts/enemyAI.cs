@@ -39,9 +39,13 @@ public class enemyAI : MonoBehaviour, IDamageable
     Vector3       playerDir;
     private float distanceFromPlayer;
     bool          isShooting = false;
+
+                  Vector3 startPos;
+    public static bool    resetPos = false;
     
     void Start()
     {
+        startPos = transform.position;
         agent.stoppingDistance = shootRange * 0.8f;
         anim.SetBool("Dead", false);
         if(isNoisy)
@@ -58,6 +62,9 @@ public class enemyAI : MonoBehaviour, IDamageable
     void Update()
     {
         if (agent.isActiveAndEnabled) {
+            if (resetPos)
+                transform.position = startPos;
+
             anim.SetFloat("Speed", Mathf.Lerp(anim.GetFloat("Speed"), agent.velocity.normalized.magnitude, Time.deltaTime * 5));
             playerDir = gameManager.instance.player.transform.position - head.position;
             distanceFromPlayer = Vector3.Distance(transform.position, gameManager.instance.player.transform.position);
