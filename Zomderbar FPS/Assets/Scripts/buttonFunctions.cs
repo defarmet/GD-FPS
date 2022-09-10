@@ -43,6 +43,7 @@ public class buttonFunctions : MonoBehaviour
     
     public void playGame()
     {
+        gameManager.statsStart = new List<gunStats>(gameManager.instance.playerScript.gunstat);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         gameManager.instance.cursorUnlockUnpause();
     }
