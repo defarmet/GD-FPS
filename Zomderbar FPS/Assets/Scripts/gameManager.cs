@@ -21,6 +21,7 @@ public class gameManager : MonoBehaviour
     public GameObject playerDeadMenu;
     public GameObject settingsMenu;
     public GameObject winMenu;
+    public GameObject gameCompleteMenu;
 
     public GameObject   currentGunHUD;
     public GameObject[] gunHUD;
@@ -47,13 +48,19 @@ public class gameManager : MonoBehaviour
     public GameObject settingsClosedButton;
     public GameObject deadFirstButton;
     public GameObject winFirstButton;
+    public GameObject completeFirstButton;
+
+    static public List<gunStats> statsStart = new List<gunStats>();
     
     void Awake()
     {
         instance = this;
         player = GameObject.FindGameObjectWithTag("Player");
+
         if (player) {
             playerScript = player.GetComponent<playerController>();
+            for (int i = 0; i < statsStart.Count; i++)
+                playerScript.gunPickup(statsStart[i], statsStart[i].gunHUD);
 
             playerSpawnPoint = GameObject.FindGameObjectWithTag("Player Spawn Point");
             playerScript.respawn();
