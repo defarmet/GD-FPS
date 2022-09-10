@@ -17900,6 +17900,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1171951260, guid: c885e96b6e66df44f9c8459daed5b5a6, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1171951260, guid: c885e96b6e66df44f9c8459daed5b5a6, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1171951260, guid: c885e96b6e66df44f9c8459daed5b5a6, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1171951260, guid: c885e96b6e66df44f9c8459daed5b5a6, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1412448662, guid: c885e96b6e66df44f9c8459daed5b5a6, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1106324013810332867, guid: c885e96b6e66df44f9c8459daed5b5a6, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -22950,7 +22970,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 231418661e4995540ab51bc8fbe6d39d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Door: {fileID: 0}
   spawners:
   - {fileID: 1627659824}
   - {fileID: 146344543}
@@ -22962,8 +22981,6 @@ MonoBehaviour:
   - {fileID: 272806662335539770, guid: 1895415fb0081e741b2393be79600f90, type: 3}
   enemiesToSpawn: 6
   spawnInterval: 5
-  bossToSpawn: 0
-  waves: 1
   enemiesSpawned: 0
   spawnerActivated: 0
 --- !u!65 &1918499804
@@ -27977,7 +27994,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 231418661e4995540ab51bc8fbe6d39d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Door: {fileID: 0}
   spawners:
   - {fileID: 631937990648855230}
   - {fileID: 631937991921666322}
@@ -27989,8 +28005,6 @@ MonoBehaviour:
   - {fileID: 4493914613880827488, guid: 6dc4cf4496348884d8ee27743ae38562, type: 3}
   enemiesToSpawn: 8
   spawnInterval: 5
-  bossToSpawn: 0
-  waves: 1
   enemiesSpawned: 0
   spawnerActivated: 0
 --- !u!1 &631937991892560301
@@ -49216,7 +49230,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 231418661e4995540ab51bc8fbe6d39d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Door: {fileID: 0}
   spawners:
   - {fileID: 2694251364015821871}
   - {fileID: 2694251364219103107}
@@ -49227,8 +49240,6 @@ MonoBehaviour:
   - {fileID: 4493914613880827488, guid: 6dc4cf4496348884d8ee27743ae38562, type: 3}
   enemiesToSpawn: 6
   spawnInterval: 2
-  bossToSpawn: 0
-  waves: 1
   enemiesSpawned: 0
   spawnerActivated: 0
 --- !u!1 &2694251363089633005
@@ -59537,7 +59548,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8327476517276500088, guid: 86710afaa6f89fb478ee5a19bbb21249, type: 3}
       propertyPath: m_SceneBindings.Array.size
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8327476517276500088, guid: 86710afaa6f89fb478ee5a19bbb21249, type: 3}
       propertyPath: m_SceneBindings.Array.data[7].key
@@ -59551,6 +59562,10 @@ PrefabInstance:
       propertyPath: m_SceneBindings.Array.data[9].key
       value: 
       objectReference: {fileID: -5730679685849564414, guid: b81f3ee93c2ed6d4b97ad350bfe895d7, type: 2}
+    - target: {fileID: 8327476517276500088, guid: 86710afaa6f89fb478ee5a19bbb21249, type: 3}
+      propertyPath: m_SceneBindings.Array.data[10].key
+      value: 
+      objectReference: {fileID: 8424659906635429815, guid: b81f3ee93c2ed6d4b97ad350bfe895d7, type: 2}
     - target: {fileID: 8327476517276500088, guid: 86710afaa6f89fb478ee5a19bbb21249, type: 3}
       propertyPath: m_SceneBindings.Array.data[1].value
       value: 
@@ -59571,6 +59586,10 @@ PrefabInstance:
       propertyPath: m_SceneBindings.Array.data[9].value
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8327476517276500088, guid: 86710afaa6f89fb478ee5a19bbb21249, type: 3}
+      propertyPath: m_SceneBindings.Array.data[10].value
+      value: 
+      objectReference: {fileID: 1083228641}
     - target: {fileID: 8327476517276500090, guid: 86710afaa6f89fb478ee5a19bbb21249, type: 3}
       propertyPath: m_Name
       value: Cinematic1-FactoryWakeUp
