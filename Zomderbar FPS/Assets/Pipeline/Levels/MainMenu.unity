@@ -902,11 +902,25 @@ PrefabInstance:
       value: UI
       objectReference: {fileID: 0}
     - target: {fileID: 1106324014364692605, guid: c885e96b6e66df44f9c8459daed5b5a6, type: 3}
-      propertyPath: mainMenuFirstButton
+      propertyPath: gameCompleteMenu
       value: 
-      objectReference: {fileID: 1632052297}
+      objectReference: {fileID: 581517290}
+    - target: {fileID: 1106324014364692605, guid: c885e96b6e66df44f9c8459daed5b5a6, type: 3}
+      propertyPath: completeFirstButton
+      value: 
+      objectReference: {fileID: 581517289}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c885e96b6e66df44f9c8459daed5b5a6, type: 3}
+--- !u!1 &581517289 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4863265917607066718, guid: c885e96b6e66df44f9c8459daed5b5a6, type: 3}
+  m_PrefabInstance: {fileID: 581517288}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &581517290 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7127725615908023358, guid: c885e96b6e66df44f9c8459daed5b5a6, type: 3}
+  m_PrefabInstance: {fileID: 581517288}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &662452923
 GameObject:
   m_ObjectHideFlags: 0

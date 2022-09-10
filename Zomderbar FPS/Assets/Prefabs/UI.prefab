@@ -5306,6 +5306,7 @@ MonoBehaviour:
   playerDeadMenu: {fileID: 2211234427028188242}
   settingsMenu: {fileID: 1903366406}
   winMenu: {fileID: 4882587068180262678}
+  gameCompleteMenu: {fileID: 0}
   currentGunHUD: {fileID: 0}
   gunHUD:
   - {fileID: 1821294357}
@@ -5327,6 +5328,7 @@ MonoBehaviour:
   settingsClosedButton: {fileID: 2133056057}
   deadFirstButton: {fileID: 2211234426561014422}
   winFirstButton: {fileID: 5311651440955543577}
+  completeFirstButton: {fileID: 0}
 --- !u!1 &1198111160389297338
 GameObject:
   m_ObjectHideFlags: 0
