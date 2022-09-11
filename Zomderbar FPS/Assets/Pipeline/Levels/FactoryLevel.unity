@@ -11380,12 +11380,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4052029024476061150, guid: 89b87decfe8c3684db207cf23259dd70, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4052029024476061155, guid: 89b87decfe8c3684db207cf23259dd70, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89b87decfe8c3684db207cf23259dd70, type: 3}
+--- !u!4 &964656710 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4052029024476061145, guid: 89b87decfe8c3684db207cf23259dd70, type: 3}
+  m_PrefabInstance: {fileID: 964656709}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &967420221
 GameObject:
   m_ObjectHideFlags: 0
@@ -11980,6 +11989,63 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: f565261a9ac4b364ba569aec2fa6899b, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5973b04797cda845b1522fa4fbdf1a2, type: 3}
+--- !u!1001 &979086483
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 964656710}
+    m_Modifications:
+    - target: {fileID: 100002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
+      propertyPath: m_Name
+      value: BlobShadowProjector
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.2638595
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.19074917
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.6596455
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.75157696
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
 --- !u!1 &982054979
 GameObject:
   m_ObjectHideFlags: 0
@@ -22950,7 +23016,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 231418661e4995540ab51bc8fbe6d39d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Door: {fileID: 0}
   spawners:
   - {fileID: 1627659824}
   - {fileID: 146344543}
@@ -22962,8 +23027,6 @@ MonoBehaviour:
   - {fileID: 272806662335539770, guid: 1895415fb0081e741b2393be79600f90, type: 3}
   enemiesToSpawn: 6
   spawnInterval: 5
-  bossToSpawn: 0
-  waves: 1
   enemiesSpawned: 0
   spawnerActivated: 0
 --- !u!65 &1918499804
@@ -27977,7 +28040,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 231418661e4995540ab51bc8fbe6d39d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Door: {fileID: 0}
   spawners:
   - {fileID: 631937990648855230}
   - {fileID: 631937991921666322}
@@ -27989,8 +28051,6 @@ MonoBehaviour:
   - {fileID: 4493914613880827488, guid: 6dc4cf4496348884d8ee27743ae38562, type: 3}
   enemiesToSpawn: 8
   spawnInterval: 5
-  bossToSpawn: 0
-  waves: 1
   enemiesSpawned: 0
   spawnerActivated: 0
 --- !u!1 &631937991892560301
@@ -49216,7 +49276,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 231418661e4995540ab51bc8fbe6d39d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Door: {fileID: 0}
   spawners:
   - {fileID: 2694251364015821871}
   - {fileID: 2694251364219103107}
@@ -49227,8 +49286,6 @@ MonoBehaviour:
   - {fileID: 4493914613880827488, guid: 6dc4cf4496348884d8ee27743ae38562, type: 3}
   enemiesToSpawn: 6
   spawnInterval: 2
-  bossToSpawn: 0
-  waves: 1
   enemiesSpawned: 0
   spawnerActivated: 0
 --- !u!1 &2694251363089633005
