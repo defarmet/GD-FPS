@@ -8,7 +8,7 @@ public class WinCondition : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if(SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCountInBuildSettings)
+        if(SceneManager.GetActiveScene().buildIndex + 1 < SceneManager.sceneCountInBuildSettings)
         {
             gameManager.instance.winMenu.SetActive(true);
             gameManager.instance.currentMenuOpen = gameManager.instance.winMenu;
