@@ -10,6 +10,11 @@ public class changeRetColor : MonoBehaviour
     public Color origColor = Color.black;
     public Image reticle;
 
+    private void Awake()
+    {
+        cam = Camera.main;
+    }
+
     void Update()
     {
         reticle = gameManager.instance.currentGunHUD.transform.GetChild(2).gameObject.GetComponent<Image>();
