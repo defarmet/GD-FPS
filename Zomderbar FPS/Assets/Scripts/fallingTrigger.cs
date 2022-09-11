@@ -6,7 +6,7 @@ public class fallingTrigger : MonoBehaviour
 {
     public int layerToFall; //changes to this layer
     public GameObject fallingGuy = null; //to see what is in trigger
-    private int layerOfObject = 0; //preserve layer of the object entering. defaults to default layer
+    public int layerOfObject = 0; //preserve layer of the object entering. defaults to default layer
 
     private void OnTriggerEnter(Collider other)
     {
@@ -30,6 +30,6 @@ public class fallingTrigger : MonoBehaviour
     IEnumerator resetLayer() //temp fix until I figure it out
     {
         yield return new WaitForSeconds(.8f);
-        fallingGuy.layer = 0;
+        fallingGuy.layer = layerOfObject;
     }
 }
