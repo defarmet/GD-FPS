@@ -29,7 +29,7 @@ public class playerController : MonoBehaviour, IDamageable
     [Header("---------- Gun Stats -----------")]
     [SerializeField] GameObject gunModel;
     [Range(0.1f, 5)][SerializeField] float shootRate;
-    [Range(1, 30)][SerializeField] float shootDistance;
+    [Range(1, 30)][SerializeField] public float shootDistance;
     [Range(1, 10)][SerializeField] int shootDmg;
     public int[] currentAmmoCount = new int[6];
     int selectedWeapon;
@@ -213,7 +213,7 @@ public class playerController : MonoBehaviour, IDamageable
                     if (hit.collider.GetComponent<IDamageable>() != null)
                     {
                         IDamageable isDamageable = hit.collider.GetComponent<IDamageable>();
-
+                        
                         Instantiate(bloodEffect, hit.point, hit.transform.rotation);
 
                         /*
