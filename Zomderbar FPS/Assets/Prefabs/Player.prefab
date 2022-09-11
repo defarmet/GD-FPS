@@ -561,6 +561,23 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c6b6019cf3b69f943b0ddcd12b8c6706, type: 3}
   - {fileID: 8300000, guid: 65038730e7b6ff542aadefabf385ef36, type: 3}
   footfallsVol: 1
+  audioJump:
+  - {fileID: 8300000, guid: e8134f35686b0744086d0d7ee2c6f401, type: 3}
+  - {fileID: 8300000, guid: c6b6019cf3b69f943b0ddcd12b8c6706, type: 3}
+  - {fileID: 8300000, guid: 65038730e7b6ff542aadefabf385ef36, type: 3}
+  - {fileID: 8300000, guid: 80d4ea7778bc3d9459d9fcea672afcee, type: 3}
+  - {fileID: 8300000, guid: 314755392aa072e4eb6fc3b02b791b72, type: 3}
+  - {fileID: 8300000, guid: f7d6941d3b847874686c2b6a80ab8a1b, type: 3}
+  audioLand: {fileID: 0}
+  audioDamaged:
+  - {fileID: 8300000, guid: c275e9b5ea5426b47a5dd0c5b71c105d, type: 3}
+  - {fileID: 8300000, guid: ca7df70916842e74fb83f92e749e7a54, type: 3}
+  - {fileID: 8300000, guid: 876df07a42121c441ac2125601607600, type: 3}
+  - {fileID: 8300000, guid: b9d8ccfb08ac15042a5eb1c12376603b, type: 3}
+  - {fileID: 8300000, guid: 06b7a9f0e619fb84e8f01c609982d641, type: 3}
+  - {fileID: 8300000, guid: ea0546b32b1ec214c997a3509df3db50, type: 3}
+  audioSlide: {fileID: 8300000, guid: 756c4e23e8553954fa91b4cc2936afa0, type: 3}
+  gunstat: []
   timesJumps: 0
   timesJumpsAudio: 0
   hpOriginal: 0
