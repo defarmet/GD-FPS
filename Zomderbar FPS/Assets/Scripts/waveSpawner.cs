@@ -9,19 +9,34 @@ public class waveSpawner : MonoBehaviour
     [SerializeField] int spawnInterval;
     [SerializeField] int enemiesInWave;
     [SerializeField] List<GameObject> enemiesToSpawn;
+    [SerializeField] bool bossToSpawn;
+    [SerializeField] GameObject door;
+
 
     public GameObject[] spawnLocation;
-
+    private GameObject boss;
+    private enemyAI bossScript;
     public int enemiesSpawned;
     public int currWave;
-    public bool activateSpanwer = false;
+    public bool activateSpawner = false;
     private bool firstSpawn = false;
+
+    private void Awake()
+    {
+        if (bossToSpawn)
+        {
+            boss = GameObject.FindGameObjectWithTag("Boss");
+            bossScript = boss.GetComponent<enemyAI>();
+            boss.SetActive(false);
+
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player" && !firstSpawn)
         {
-            activateSpanwer = true;
+            activateSpawner = true;
             firstSpawn = true;
         }
     }
@@ -30,25 +45,34 @@ public class waveSpawner : MonoBehaviour
 
     private void Update()
     {
-        if (firstSpawn && !activateSpanwer && gameManager.instance.enemyKilled == enemiesInWave)
+        if (firstSpawn && !activateSpawner && gameManager.instance.enemyKilled == enemiesInWave * currWave)
         {
-            activateSpanwer = true;
-            gameManager.instance.enemyKilled = 0;
+            activateSpawner = true;
             ++currWave;
 
+            if (currWave > totalWaves && bossToSpawn)
+            {
+                boss.SetActive(true);
+
+            }
+
+            
         }
 
-        if (activateSpanwer && currWave <= totalWaves)
+        if (activateSpawner && currWave <= totalWaves)
         {
-            
-            activateSpanwer = false;
+
+            activateSpawner = false;
+            GenerateEnemies();
             StartCoroutine(SpawnWave());
 
-            
-            
-            
 
         }
+
+        if (bossToSpawn && bossScript.HP <= 0)
+            door.SetActive(false);
+
+
     }
 
     void GenerateEnemies()
@@ -56,7 +80,7 @@ public class waveSpawner : MonoBehaviour
         enemiesToSpawn.Clear();
         for (int i = 0; i < enemiesInWave; ++i)
         {
-            
+
             int enemy = Random.Range(0, enemies.Length);
             enemiesToSpawn.Add(enemies[enemy]);
         }
@@ -65,7 +89,7 @@ public class waveSpawner : MonoBehaviour
 
     IEnumerator SpawnWave()
     {
-        GenerateEnemies();
+
         for (int i = 0; i < enemiesToSpawn.Count; ++i)
         {
 

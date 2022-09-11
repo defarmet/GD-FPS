@@ -21,6 +21,7 @@ public class gameManager : MonoBehaviour
     public GameObject playerDeadMenu;
     public GameObject settingsMenu;
     public GameObject winMenu;
+    public GameObject gameCompleteMenu;
 
     public GameObject   currentGunHUD;
     public GameObject[] gunHUD;
@@ -47,7 +48,8 @@ public class gameManager : MonoBehaviour
     public GameObject settingsClosedButton;
     public GameObject deadFirstButton;
     public GameObject winFirstButton;
-    
+    public GameObject completeFirstButton;
+
     static public List<gunStats> statsStart = new List<gunStats>();
     
     void Awake()
