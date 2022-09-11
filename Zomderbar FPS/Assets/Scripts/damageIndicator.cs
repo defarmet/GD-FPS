@@ -6,7 +6,6 @@ public class damageIndicator : MonoBehaviour
 {
     public int destroyTime;
 
-    // Start is called before the first frame update
     void Start()
     {
         Destroy(gameObject, destroyTime);

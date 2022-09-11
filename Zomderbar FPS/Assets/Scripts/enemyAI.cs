@@ -7,19 +7,26 @@ public class enemyAI : MonoBehaviour, IDamageable
 {
     [Header("---------- Components -----------")]
     [SerializeField] NavMeshAgent agent;
-    [SerializeField] private Transform head;
-    [SerializeField] private Animator anim;
-    [SerializeField] GameObject bullet;
-    [SerializeField] GameObject bulletSpawn;
+    [SerializeField] Transform    head;
+    [SerializeField] Animator     anim;
+    [SerializeField] GameObject   bullet;
+    [SerializeField] GameObject   bulletSpawn;
+    AudioSource source;
+
+    [Header("---------- Audio -----------")]
+    [SerializeField] bool isNoisy;
+    [Range(0, 1)] [SerializeField] float volume;
+    [SerializeField] AudioClip[] atackAudioClips;
+    [SerializeField] AudioClip[] damagedAudioClips;
 
     [Header("---------- Stats -----------")]
-    [Range(0, 150)] [SerializeField] public int   HP;
+    [Range(0, 150)] public           int   HP;
     [Range(1, 180)] [SerializeField] int   fieldOfView;
     [Range(1, 90)]  [SerializeField] int   fieldOfViewShoot;
     [Range(1, 10)]  [SerializeField] float playerFaceSpeed;
-    [Range(1, 5)]   [SerializeField] int   speedRoam;
-    [Range(1, 5)]   [SerializeField] int   speedChase;
-    [SerializeField]                 float animationBuffer;
+    [Range(1, 15)]   [SerializeField] int   speedRoam;
+    [Range(1, 15)]   [SerializeField] int   speedChase;
+                    [SerializeField] float animationBuffer;
 
     [Header("---------- Weapon Stats -----------")]
     [Range(0.1f, 5)] [SerializeField] float         shootRate;
@@ -32,11 +39,20 @@ public class enemyAI : MonoBehaviour, IDamageable
     Vector3       playerDir;
     private float distanceFromPlayer;
     bool          isShooting = false;
+
+                  Vector3 startPos;
+    public static bool    resetPos = false;
     
     void Start()
     {
+        startPos = transform.position;
         agent.stoppingDistance = shootRange * 0.8f;
         anim.SetBool("Dead", false);
+        if(isNoisy)
+        {
+            source = GetComponent<AudioSource>();
+            source.volume = volume;
+        }
     }
 
     /*
@@ -46,6 +62,9 @@ public class enemyAI : MonoBehaviour, IDamageable
     void Update()
     {
         if (agent.isActiveAndEnabled) {
+            if (resetPos)
+                transform.position = startPos;
+
             anim.SetFloat("Speed", Mathf.Lerp(anim.GetFloat("Speed"), agent.velocity.normalized.magnitude, Time.deltaTime * 5));
             playerDir = gameManager.instance.player.transform.position - head.position;
             distanceFromPlayer = Vector3.Distance(transform.position, gameManager.instance.player.transform.position);
@@ -99,7 +118,9 @@ public class enemyAI : MonoBehaviour, IDamageable
             gameManager.instance.enemyKilled++;
             anim.SetBool("Dead", true);
             agent.enabled = false;
-            
+
+            Rigidbody rb = GetComponent<Rigidbody>();
+            rb.isKinematic = true;
             foreach (Collider col in GetComponents<Collider>())
                 col.enabled = false;
         }
@@ -112,6 +133,7 @@ public class enemyAI : MonoBehaviour, IDamageable
     {
         isShooting = true;
         anim.SetTrigger("Shoot");
+        SoundAtack();
         yield return new WaitForSeconds(animationBuffer);
 
         GameObject bulletClone = Instantiate(bullet, bulletSpawn.transform.position, bullet.transform.rotation);
@@ -127,10 +149,29 @@ public class enemyAI : MonoBehaviour, IDamageable
     {
         agent.speed = 0;
         anim.SetTrigger("Damage");
+        SoundTakeDamage();
         yield return new WaitForSeconds(0.1f);
 
         agent.speed = speedChase;
         agent.stoppingDistance = 0;
         agent.SetDestination(gameManager.instance.player.transform.position);
+    }
+
+    private void SoundTakeDamage()
+    {
+        if(isNoisy && damagedAudioClips.Length > 0)
+        {
+            source.clip = damagedAudioClips[Random.Range(0, damagedAudioClips.Length)];
+            source.PlayOneShot(source.clip, volume);
+        }
+    }
+
+    private void SoundAtack()
+    {
+        if (isNoisy && atackAudioClips.Length > 0)
+        {
+            source.clip = atackAudioClips[Random.Range(0, atackAudioClips.Length)];
+            source.PlayOneShot(source.clip, volume);
+        }
     }
 }

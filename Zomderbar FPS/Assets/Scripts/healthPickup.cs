@@ -8,21 +8,14 @@ public class healthPickup : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {
-            if (gameManager.instance.playerScript.hp < gameManager.instance.playerScript.hpOriginal)
-            {
+        if (other.CompareTag("Player")) {
+            if (gameManager.instance.playerScript.hp < gameManager.instance.playerScript.hpOriginal) {
                 if (gameManager.instance.playerScript.hp + gainHealth > gameManager.instance.playerScript.hpOriginal)
-                {
                     gameManager.instance.playerScript.hp = gameManager.instance.playerScript.hpOriginal;
-                }
                 else
-                {
                     gameManager.instance.playerScript.hp += gainHealth;
-                }
 
                 gameManager.instance.playerScript.updatePlayerHp();
-
                 Destroy(gameObject);
             }
         }

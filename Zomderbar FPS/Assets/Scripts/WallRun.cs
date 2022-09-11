@@ -5,22 +5,17 @@ using UnityEngine;
 public class WallRun : MonoBehaviour
 {
 
-    [SerializeField] AudioSource playerAudio;
-
-    [SerializeField] AudioClip notif;
-
-    [Range(0, 1)][SerializeField] float notifVol;
-
+    [SerializeField]               AudioSource playerAudio;
+    [SerializeField]               AudioClip   notif;
+    [Range(0, 1)] [SerializeField] float       notifVol;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (gameManager.instance.playerScript.isSameWall == false && !gameManager.instance.playerScript.controller.isGrounded)
-        {
-            if (other.CompareTag("Player"))
-            {
+        if (!gameManager.instance.playerScript.isSameWall && !gameManager.instance.playerScript.controller.isGrounded) {
+            if (other.CompareTag("Player")) {
                 playerAudio.PlayOneShot(notif, notifVol);
                 gameManager.instance.playerScript.isSameWall = true;
-                //gameManager.instance.playerScript.gravityValue /= 2.6f;
+                gameManager.instance.playerScript.isWallRun = true;
                 StartCoroutine(wallRunGrav());
                 gameManager.instance.playerScript.timesJumps = 1;
             }

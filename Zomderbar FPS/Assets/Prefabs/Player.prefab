@@ -203,6 +203,7 @@ GameObject:
   - component: {fileID: 4052029023136829287}
   - component: {fileID: 4052029023136829286}
   - component: {fileID: 2046111046}
+  - component: {fileID: 271689309}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -288,6 +289,26 @@ Light:
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!114 &2046111046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4052029023136829285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+--- !u!114 &271689309
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -475,6 +496,7 @@ GameObject:
   - component: {fileID: 4052029024476061148}
   - component: {fileID: 1862878468}
   - component: {fileID: 1271861088}
+  - component: {fileID: 1828041362}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -512,31 +534,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 4052029024476061148}
+  audioSource: {fileID: 0}
   rb: {fileID: 1862878468}
   hitEffect: {fileID: 8710450972521545467, guid: 7a6f1946870f4114784b1bcd7c1c178c, type: 3}
+  bloodEffect: {fileID: 739737685025738707, guid: be44fbb0580bcf74aafe16d47173b2f1, type: 3}
+  anim: {fileID: 0}
   playerSpeed: 7.5
-  slideMult: 0
+  slideMult: 1.549
   slideTime: 2
   wallRunSpeed: 9
-  jumpHeight: 9.08
+  jumpHeight: 8.09
   gravityValue: 17.75
   jumpMax: 2
-  hp: 5
-  switchTime: 0
-  doubleJumpHeightMult: 1.6
-  doubleJumpSpeedMult: 0.5
+  hp: 10
+  switchTime: 1.05
+  doubleJumpHeightMult: 0.883
+  doubleJumpSpeedMult: 0.0473
   gunModel: {fileID: 1150401932}
   shootRate: 0
   shootDistance: 0
   shootDmg: 0
-  gunfire: {fileID: 0}
-  reloadSound: {fileID: 0}
   currentAmmoCount: 000000000000000000000000000000000000000000000000
-  reloadTimer: 0
-  footfalls: []
-  footfallsVol: 0
+  reloadTimer: 2
+  footfalls:
+  - {fileID: 8300000, guid: e8134f35686b0744086d0d7ee2c6f401, type: 3}
+  - {fileID: 8300000, guid: c6b6019cf3b69f943b0ddcd12b8c6706, type: 3}
+  - {fileID: 8300000, guid: 65038730e7b6ff542aadefabf385ef36, type: 3}
+  footfallsVol: 1
   timesJumps: 0
   timesJumpsAudio: 0
+  hpOriginal: 0
   gravityValueOG: 0
   isWallRun: 1
   isSameWall: 0
@@ -734,3 +761,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &1828041362
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4052029024476061155}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b5f0a975a84083247bd50d2368303dcd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

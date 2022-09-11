@@ -10,9 +10,9 @@ public class gameManager : MonoBehaviour
 
     public static gameManager instance;
 
-    public GameObject player;
+    public GameObject       player;
     public playerController playerScript;
-    public EnemySpawners spawnerScript;
+    public EnemySpawners    spawnerScript;
 
     public GameObject currentMenuOpen;
     public GameObject oldMenu;
@@ -21,8 +21,9 @@ public class gameManager : MonoBehaviour
     public GameObject playerDeadMenu;
     public GameObject settingsMenu;
     public GameObject winMenu;
+    public GameObject gameCompleteMenu;
 
-    public GameObject currentGunHUD;
+    public GameObject   currentGunHUD;
     public GameObject[] gunHUD;
 
     public GameObject checkpointHUD;
@@ -38,8 +39,8 @@ public class gameManager : MonoBehaviour
     public AudioMixer masterAudio;
 
     public bool isPaused = false;
-    int firstCount = 3;
-    bool openSettings = false;
+           int  firstCount = 3;
+           bool openSettings = false;
 
     [Header("-----Menu Navigation-----")]
     public GameObject pauseFirstButton;
@@ -47,14 +48,23 @@ public class gameManager : MonoBehaviour
     public GameObject settingsClosedButton;
     public GameObject deadFirstButton;
     public GameObject winFirstButton;
+    public GameObject completeFirstButton;
+
+    static public List<gunStats> statsStart = new List<gunStats>();
+    
     void Awake()
     {
         instance = this;
         player = GameObject.FindGameObjectWithTag("Player");
-        playerScript = player.GetComponent<playerController>();
 
-        playerSpawnPoint = GameObject.FindGameObjectWithTag("Player Spawn Point");
-        playerScript.respawn();
+        if (player) {
+            playerScript = player.GetComponent<playerController>();
+            for (int i = 0; i < statsStart.Count; i++)
+                playerScript.gunPickup(statsStart[i], statsStart[i].gunHUD);
+
+            playerSpawnPoint = GameObject.FindGameObjectWithTag("Player Spawn Point");
+            playerScript.respawn();
+        }
     }
 
     void Start()
@@ -65,8 +75,7 @@ public class gameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Cancel") && (!currentMenuOpen || currentMenuOpen == pauseMenu))
-        {
+        if (Input.GetButtonDown("Cancel") && (!currentMenuOpen || currentMenuOpen == pauseMenu)) {
             currentMenuOpen = pauseMenu;
             currentMenuOpen.SetActive(true);
             pause_game(!isPaused);
@@ -77,8 +86,7 @@ public class gameManager : MonoBehaviour
          * DO NOT TOUCH
          * Required for the settings menu to open the first time.
          */
-        if (firstCount > 0 && openSettings)
-        {
+        if (firstCount > 0 && openSettings) {
             open_settings();
             firstCount--;
         }
@@ -101,21 +109,21 @@ public class gameManager : MonoBehaviour
 
         Cursor.visible = p;
         isPaused = p;
-        if (p)
-        {
+        if (p) {
             Cursor.lockState = CursorLockMode.Confined;
             Time.timeScale = 0;
 
-            //Menu Navigation
-            //clear selected object first
+            /*
+             * Menu Navigation
+             * Clear selected object first.
+             */
             EventSystem.current.SetSelectedGameObject(null);
 
-            //set new selected object
+            /*
+             * set new selected object
+             */
             EventSystem.current.SetSelectedGameObject(pauseFirstButton);
-
-        }
-        else
-        {
+        } else {
             Cursor.lockState = CursorLockMode.Locked;
             Time.timeScale = 1;
             currentMenuOpen.SetActive(false);
@@ -128,15 +136,20 @@ public class gameManager : MonoBehaviour
         currentMenuOpen.SetActive(false);
         if (!oldMenu)
             oldMenu = currentMenuOpen;
+        
         currentMenuOpen = settingsMenu;
         currentMenuOpen.SetActive(true);
         openSettings = true;
 
-        //Menu Navigation
-        //clear selected object first
+        /*
+         * Menu Navigation
+         * Clear selected object first.
+         */
         EventSystem.current.SetSelectedGameObject(null);
 
-        //set new selected object
+        /*
+         * set new selected object
+         */
         EventSystem.current.SetSelectedGameObject(settingsFirstButton);
     }
 
@@ -154,13 +167,15 @@ public class gameManager : MonoBehaviour
         currentMenuOpen.SetActive(true);
         openSettings = false;
 
-
-        //Menu Navigation
-        //clear selected object first
+        /*
+         * Menu Navigation
+         * Clear selected object first.
+         */
         EventSystem.current.SetSelectedGameObject(null);
 
-        //set new selected object
+        /*
+         * set new selected object
+         */
         EventSystem.current.SetSelectedGameObject(settingsClosedButton);
     }
-  
 }
