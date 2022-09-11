@@ -101,12 +101,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 518492604225114834}
   slowEffect: 1
+  hasShake: 0
   damage: 0
   speed: 0
   destroyTime: 3
   destroyOnImpact: 1
   slowFactor: 2.5
-  slowTime: 0.6
+  slowTime: 1.1
 --- !u!135 &2752799969451689423
 SphereCollider:
   m_ObjectHideFlags: 0
