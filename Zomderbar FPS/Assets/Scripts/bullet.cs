@@ -35,10 +35,10 @@ public class bullet : MonoBehaviour
              */
             damage = 0;
         }
-
+        //Hides the range bullet instead of destroying it, so the corrutine of the slow can finish, than it will be destroyed.
         if (destroyOnImpact) {
             gameObject.GetComponent<MeshRenderer>().enabled = false;
-            Destroy(gameObject, slowTime);
+            Destroy(gameObject, slowTime + 0.1f);
         }
     }
 }

@@ -4,21 +4,32 @@ using UnityEngine;
 
 public class fallingTrigger : MonoBehaviour
 {
-    public int        layerToFall;
-    public GameObject fallingGuy = null;
+    public int layerToFall; //changes to this layer
+    public GameObject fallingGuy = null; //to see what is in trigger
+    public int layerOfObject = 0; //preserve layer of the object entering. defaults to default layer
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")) {
+        //layerOfObject = other.gameObject.layer;
+        if (other.CompareTag("Player"))
+        {
             fallingGuy = other.gameObject;
             other.gameObject.layer = layerToFall;
             StartCoroutine(resetLayer());
         }
     }
 
-    IEnumerator resetLayer()
+    
+    //private void OnTriggerExit(Collider other) //seems to no longer work???
+    //{
+    //    if (other.CompareTag("Player"))
+    //        fallingGuy = null;
+    //        other.gameObject.layer = 0;
+    //}
+
+    IEnumerator resetLayer() //temp fix until I figure it out
     {
         yield return new WaitForSeconds(.8f);
-        fallingGuy.layer = 0;
+        fallingGuy.layer = layerOfObject;
     }
 }
