@@ -42,8 +42,11 @@ public class playerController : MonoBehaviour, IDamageable
     [Range(0, 1)][SerializeField] float footfallsVol;
     public AudioClip[] audioJump;
     public AudioClip audioLand;
+    [Range(0, 1)][SerializeField] float landingVol;
     public AudioClip[] audioDamaged;
     public AudioClip audioSlide;
+    [SerializeField] AudioClip offWallJumpSound;
+    [Range(0, 1)][SerializeField] float offWallJumpSoundVol;
 
     bool isShooting = false;
     bool alreadyReloadedUI = false;
@@ -68,6 +71,7 @@ public class playerController : MonoBehaviour, IDamageable
     public bool isSameWall = false;
     bool canShoot = true;
     bool isWalking = true;
+    bool isJump = false;
 
     private void Start()
     {
@@ -88,7 +92,12 @@ public class playerController : MonoBehaviour, IDamageable
             respawn();
 
         if(isWalking && !isSliding)
-            StartCoroutine(footsteps());
+            StartCoroutine(footsteps(0.4f));
+
+        else if (isWalking && isSliding && playerSpeed <= playerSpeedOG/1.5f)
+        {
+            StartCoroutine(footsteps(0.9f));
+        }
 
         playerMovement();
         slide();
@@ -103,7 +112,7 @@ public class playerController : MonoBehaviour, IDamageable
      * Player movement is at a constant running speed.
      */
 
-    IEnumerator footsteps()
+    IEnumerator footsteps(float waitForSecs)
     {
 
         if (controller.isGrounded && move.normalized.magnitude > 0.3f)
@@ -111,7 +120,8 @@ public class playerController : MonoBehaviour, IDamageable
             isWalking = false;
 
             audioSource.PlayOneShot(walking[Random.Range(0, walking.Length)], walkingVol);
-            yield return new WaitForSeconds(0.4f);
+
+            yield return new WaitForSeconds(waitForSecs);
 
             isWalking = true;
         }
@@ -125,6 +135,12 @@ public class playerController : MonoBehaviour, IDamageable
             timesJumps = 0;
             timesJumpsAudio = 0;
             isWallRun = false;
+            //isJump = false;
+            if (isJump)
+            {
+                audioSource.PlayOneShot(audioLand, landingVol);
+                isJump = false;
+            }
         }
 
         move = ((transform.right * Input.GetAxis("Horizontal")) + (transform.forward * Input.GetAxis("Vertical")));
@@ -132,6 +148,7 @@ public class playerController : MonoBehaviour, IDamageable
 
         if (Input.GetButtonDown("Jump") && timesJumps < jumpMax)
         {
+            isJump = true;
             playerVelocity.y = jumpHeight;
             timesJumps++;
             audioSource.PlayOneShot(audioJump[(int)Random.Range(0, audioDamaged.Length - 1)]);
@@ -141,17 +158,16 @@ public class playerController : MonoBehaviour, IDamageable
                 {
                     playerVelocity.y = jumpHeight * doubleJumpHeightMult + 1.5f;
                     //playerSpeed *= wallRunSpeed;
+                    audioSource.PlayOneShot(offWallJumpSound, offWallJumpSoundVol );
                     StartCoroutine(OffTheWall());
 
                 }
-
-
 
                 else
                     playerVelocity.y = jumpHeight * doubleJumpHeightMult;
 
             }
-
+                
         }
 
         playerVelocity.y -= gravityValue * Time.deltaTime;
@@ -176,7 +192,7 @@ public class playerController : MonoBehaviour, IDamageable
             {
                 isSliding = true;
                 StartCoroutine(slowSlide());
-                audioSource.PlayOneShot(audioSlide);
+                //audioSource.PlayOneShot(audioSlide);
             }
             else if (Input.GetButtonUp("Sprint"))
             {
@@ -191,6 +207,7 @@ public class playerController : MonoBehaviour, IDamageable
     IEnumerator slowSlide()
     {
         controller.transform.localScale = new Vector3(1, 0.5f, 1);
+        //audioSource.
 
         if (timesJumps > 0)
             playerSpeed = playerSpeed * slideMult + 0.5f;
