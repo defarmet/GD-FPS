@@ -20,7 +20,7 @@ public class enemyAI : MonoBehaviour, IDamageable
     [SerializeField] AudioClip[] damagedAudioClips;
 
     [Header("---------- Stats -----------")]
-    [Range(0, 150)] public           int   HP;
+    [Range(0, 300)] public           int   HP;
     [Range(1, 180)] [SerializeField] int   fieldOfView;
     [Range(1, 90)]  [SerializeField] int   fieldOfViewShoot;
     [Range(1, 10)]  [SerializeField] float playerFaceSpeed;
@@ -173,5 +173,43 @@ public class enemyAI : MonoBehaviour, IDamageable
             source.clip = atackAudioClips[Random.Range(0, atackAudioClips.Length)];
             source.PlayOneShot(source.clip, volume);
         }
+    }
+
+    public void SetBullet(GameObject newBullet)
+    {
+        bullet = newBullet;
+    }
+    public void SetSpeed(int newSpeed)
+    {
+        speedChase = newSpeed;
+        speedRoam = newSpeed;
+        agent.speed = speedChase;
+    }
+
+    public void SetShootRate(float newRate)
+    {
+        shootRate = newRate;
+    }
+    public void SetShootRange(float newRange)
+    {
+        shootRange = newRange;
+        agent.stoppingDistance = shootRange * 0.8f;
+
+    }
+    public void SetDamage(int newDamage)
+    {
+        damage = newDamage;
+    }
+    public void SetBulletSpeed(int newBulletSpeed)
+    {
+        bulletSpeed = newBulletSpeed;
+    }
+    public void SetBulletTime(int bulletTime)
+    {
+        bulletDestroyTime = bulletTime;
+    }
+    public void SetAnimBuffer(float newBuffer)
+    {
+        animationBuffer = newBuffer;
     }
 }
