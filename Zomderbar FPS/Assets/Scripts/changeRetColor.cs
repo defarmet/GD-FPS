@@ -17,28 +17,30 @@ public class changeRetColor : MonoBehaviour
 
     void Update()
     {
-        reticle = gameManager.instance.currentGunHUD.transform.GetChild(2).gameObject.GetComponent<Image>();
-        if (origColor == Color.black)
+        if (gameManager.instance.currentGunHUD != null)
         {
-            origColor = reticle.GetComponent<Image>().color;
-        }
+            reticle = gameManager.instance.currentGunHUD.transform.GetChild(2).gameObject.GetComponent<Image>();
 
-        shootdist = gameManager.instance.player.GetComponent<playerController>().shootDistance;        
-
-        if (Physics.Raycast(cam.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out RaycastHit hit, shootdist))
-        {
-            if (hit.collider.GetComponent<IDamageable>() != null)
+            if (origColor == Color.black)
             {
-                IDamageable isDamageable = hit.collider.GetComponent<IDamageable>();
-
-                reticle.color = Color.white;
+                origColor = reticle.GetComponent<Image>().color;
             }
-            else
+
+            shootdist = gameManager.instance.player.GetComponent<playerController>().shootDistance;
+
+            if (Physics.Raycast(cam.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out RaycastHit hit, shootdist))
             {
-                reticle.color= origColor;
+                if (hit.collider.GetComponent<IDamageable>() != null)
+                {
+                    IDamageable isDamageable = hit.collider.GetComponent<IDamageable>();
+
+                    reticle.color = origColor;
+                }
+                else
+                {
+                    reticle.color = Color.white;
+                }
             }
         }
     }
-
-
 }
