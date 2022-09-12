@@ -29,7 +29,7 @@ public class WallRun : MonoBehaviour
 
     IEnumerator wallRunGrav()
     {
-        gameManager.instance.playerScript.gravityValue *= 2.6f;
+        gameManager.instance.playerScript.gravityValue *= 2f;
         yield return new WaitForSeconds(0.02f);
         gameManager.instance.playerScript.gravityValue = gameManager.instance.playerScript.gravityValueOG;
         gameManager.instance.playerScript.gravityValue /= 2f;
