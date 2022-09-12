@@ -44,7 +44,7 @@ public class playerController : MonoBehaviour, IDamageable
     public AudioClip audioLand;
     [Range(0, 1)][SerializeField] float landingVol;
     public AudioClip[] audioDamaged;
-    public AudioClip audioSlide;
+    public AudioClip[] audioSlide;
     [SerializeField] AudioClip offWallJumpSound;
     [Range(0, 1)][SerializeField] float offWallJumpSoundVol;
 
@@ -151,7 +151,7 @@ public class playerController : MonoBehaviour, IDamageable
             isJump = true;
             playerVelocity.y = jumpHeight;
             timesJumps++;
-            audioSource.PlayOneShot(audioJump[(int)Random.Range(0, audioDamaged.Length - 1)]);
+            audioSource.PlayOneShot(audioJump[(int)Random.Range(0, audioJump.Length - 1)]);
             if (timesJumps > 1)
             {
                 if (isWallRun)
@@ -214,7 +214,7 @@ public class playerController : MonoBehaviour, IDamageable
         else
             playerSpeed = playerSpeed * slideMult;
 
-        audioSource.PlayOneShot(audioSlide, landingVol);
+        audioSource.PlayOneShot(audioSlide[(int)Random.Range(0, audioSlide.Length - 1)], landingVol);
 
         while (isSliding)
         {
