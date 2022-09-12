@@ -214,8 +214,11 @@ public class playerController : MonoBehaviour, IDamageable
         else
             playerSpeed = playerSpeed * slideMult;
 
+        audioSource.PlayOneShot(audioSlide, landingVol);
+
         while (isSliding)
         {
+            
             yield return new WaitForSeconds(0.2f);
             playerSpeed -= 0.3f;
 

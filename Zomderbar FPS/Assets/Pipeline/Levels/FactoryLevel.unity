@@ -11163,6 +11163,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4052029024476061144, guid: 89b87decfe8c3684db207cf23259dd70, type: 3}
+      propertyPath: audioLand
+      value: 
+      objectReference: {fileID: 8300000, guid: 756c4e23e8553954fa91b4cc2936afa0, type: 3}
+    - target: {fileID: 4052029024476061144, guid: 89b87decfe8c3684db207cf23259dd70, type: 3}
+      propertyPath: audioSlide
+      value: 
+      objectReference: {fileID: 8300000, guid: a9646a6173bb6ad4b951ea60adaaa407, type: 3}
+    - target: {fileID: 4052029024476061144, guid: 89b87decfe8c3684db207cf23259dd70, type: 3}
+      propertyPath: landingVol
+      value: 0.574
+      objectReference: {fileID: 0}
+    - target: {fileID: 4052029024476061144, guid: 89b87decfe8c3684db207cf23259dd70, type: 3}
+      propertyPath: offWallJumpSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 6d50885b858cc4ab2988dff892c9135f, type: 3}
+    - target: {fileID: 4052029024476061144, guid: 89b87decfe8c3684db207cf23259dd70, type: 3}
+      propertyPath: offWallJumpSoundVol
+      value: 0.71
+      objectReference: {fileID: 0}
     - target: {fileID: 4052029024476061145, guid: 89b87decfe8c3684db207cf23259dd70, type: 3}
       propertyPath: m_RootOrder
       value: 25
