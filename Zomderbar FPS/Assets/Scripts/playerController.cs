@@ -36,6 +36,8 @@ public class playerController : MonoBehaviour, IDamageable
     [SerializeField] float reloadTimer;
 
     [Header("--------- Audio ----------")]
+    [SerializeField] AudioClip[] walking;
+    [Range(0, 1)][SerializeField] float walkingVol;
     [SerializeField] AudioClip[] footfalls;
     [Range(0, 1)][SerializeField] float footfallsVol;
     public AudioClip[] audioJump;
@@ -65,6 +67,7 @@ public class playerController : MonoBehaviour, IDamageable
     public bool isWallRun = true;
     public bool isSameWall = false;
     bool canShoot = true;
+    bool isWalking = true;
 
     private void Start()
     {
@@ -84,6 +87,9 @@ public class playerController : MonoBehaviour, IDamageable
         if (transform.position.y < -30)
             respawn();
 
+        if(isWalking && !isSliding)
+            StartCoroutine(footsteps());
+
         playerMovement();
         slide();
 
@@ -96,6 +102,21 @@ public class playerController : MonoBehaviour, IDamageable
     /*
      * Player movement is at a constant running speed.
      */
+
+    IEnumerator footsteps()
+    {
+
+        if (controller.isGrounded && move.normalized.magnitude > 0.3f)
+        {
+            isWalking = false;
+
+            audioSource.PlayOneShot(walking[Random.Range(0, walking.Length)], walkingVol);
+            yield return new WaitForSeconds(0.4f);
+
+            isWalking = true;
+        }
+    }
+
     void playerMovement()
     {
         if (controller.isGrounded && playerVelocity.y < 0)
