@@ -118,7 +118,7 @@ public class playerController : MonoBehaviour, IDamageable
             {
                 if (isWallRun)
                 {
-                    playerVelocity.y = jumpHeight * doubleJumpHeightMult * 0.97f;
+                    playerVelocity.y = jumpHeight * doubleJumpHeightMult + 1.5f;
                     //playerSpeed *= wallRunSpeed;
                     StartCoroutine(OffTheWall());
 
@@ -140,7 +140,7 @@ public class playerController : MonoBehaviour, IDamageable
     IEnumerator OffTheWall()
     {
         playerSpeed *= wallRunSpeed / 1.3f;
-        yield return new WaitForSeconds(0.04f);
+        yield return new WaitForSeconds(0.08f);
         playerSpeed = playerSpeedOG;
     }
 
