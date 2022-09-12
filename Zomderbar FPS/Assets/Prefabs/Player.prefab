@@ -420,8 +420,17 @@ MonoBehaviour:
   shootDmg: 0
   currentAmmoCount: 000000000000000000000000000000000000000000000000
   reloadTimer: 2
-  walking: []
-  walkingVol: 0
+  walking:
+  - {fileID: 8300000, guid: c66efdec5b243a347958dbb8fa459cb8, type: 3}
+  - {fileID: 8300000, guid: 286c430b112c0d145bd387d0c3b57d24, type: 3}
+  - {fileID: 8300000, guid: 0470efc61dc4b3f48bdf9bcd1684bc0f, type: 3}
+  - {fileID: 8300000, guid: 2eef5cade3609de48bab05cfb85f58b6, type: 3}
+  - {fileID: 8300000, guid: de0d8bcf9c7432e428a839efeb7ac077, type: 3}
+  - {fileID: 8300000, guid: 8b828d109a1dd4b4889bcbd819c21c5b, type: 3}
+  - {fileID: 8300000, guid: fe9f35db1f56e3f46a26e5b2edd2a925, type: 3}
+  - {fileID: 8300000, guid: f2cb937472adfd54486847870b7e7b73, type: 3}
+  - {fileID: 8300000, guid: 08c31346fb5f6e54b8cc4c8d68322fde, type: 3}
+  walkingVol: 1
   footfalls:
   - {fileID: 8300000, guid: e8134f35686b0744086d0d7ee2c6f401, type: 3}
   - {fileID: 8300000, guid: c6b6019cf3b69f943b0ddcd12b8c6706, type: 3}
@@ -434,8 +443,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 80d4ea7778bc3d9459d9fcea672afcee, type: 3}
   - {fileID: 8300000, guid: 314755392aa072e4eb6fc3b02b791b72, type: 3}
   - {fileID: 8300000, guid: f7d6941d3b847874686c2b6a80ab8a1b, type: 3}
-  audioLand: {fileID: 0}
-  landingVol: 0
+  audioLand: {fileID: 8300000, guid: 756c4e23e8553954fa91b4cc2936afa0, type: 3}
+  landingVol: 1
   audioDamaged:
   - {fileID: 8300000, guid: c275e9b5ea5426b47a5dd0c5b71c105d, type: 3}
   - {fileID: 8300000, guid: ca7df70916842e74fb83f92e749e7a54, type: 3}
@@ -444,8 +453,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 06b7a9f0e619fb84e8f01c609982d641, type: 3}
   - {fileID: 8300000, guid: ea0546b32b1ec214c997a3509df3db50, type: 3}
   audioSlide: {fileID: 8300000, guid: 756c4e23e8553954fa91b4cc2936afa0, type: 3}
-  offWallJumpSound: {fileID: 0}
-  offWallJumpSoundVol: 0
+  offWallJumpSound: {fileID: 8300000, guid: 6d50885b858cc4ab2988dff892c9135f, type: 3}
+  offWallJumpSoundVol: 1
   gunstat: []
   timesJumps: 0
   timesJumpsAudio: 0
