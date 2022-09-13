@@ -8554,6 +8554,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4052029024476061144, guid: 89b87decfe8c3684db207cf23259dd70, type: 3}
+      propertyPath: audioSlide
+      value: 
+      objectReference: {fileID: 8300000, guid: c6b6019cf3b69f943b0ddcd12b8c6706, type: 3}
+    - target: {fileID: 4052029024476061144, guid: 89b87decfe8c3684db207cf23259dd70, type: 3}
+      propertyPath: audioSlide.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4052029024476061144, guid: 89b87decfe8c3684db207cf23259dd70, type: 3}
+      propertyPath: audioSlide.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: e8134f35686b0744086d0d7ee2c6f401, type: 3}
+    - target: {fileID: 4052029024476061144, guid: 89b87decfe8c3684db207cf23259dd70, type: 3}
+      propertyPath: audioSlide.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: c6b6019cf3b69f943b0ddcd12b8c6706, type: 3}
+    - target: {fileID: 4052029024476061144, guid: 89b87decfe8c3684db207cf23259dd70, type: 3}
+      propertyPath: audioSlide.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 65038730e7b6ff542aadefabf385ef36, type: 3}
+    - target: {fileID: 4052029024476061144, guid: 89b87decfe8c3684db207cf23259dd70, type: 3}
+      propertyPath: audioSlide.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: 80d4ea7778bc3d9459d9fcea672afcee, type: 3}
+    - target: {fileID: 4052029024476061144, guid: 89b87decfe8c3684db207cf23259dd70, type: 3}
+      propertyPath: audioSlide.Array.data[4]
+      value: 
+      objectReference: {fileID: 8300000, guid: 314755392aa072e4eb6fc3b02b791b72, type: 3}
+    - target: {fileID: 4052029024476061144, guid: 89b87decfe8c3684db207cf23259dd70, type: 3}
+      propertyPath: audioSlide.Array.data[5]
+      value: 
+      objectReference: {fileID: 8300000, guid: f7d6941d3b847874686c2b6a80ab8a1b, type: 3}
     - target: {fileID: 4052029024476061145, guid: 89b87decfe8c3684db207cf23259dd70, type: 3}
       propertyPath: m_RootOrder
       value: 0
