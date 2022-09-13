@@ -8282,6 +8282,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 546219792}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &571315205 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7238189088915047950, guid: 31b121b85f2007346912fc165ff3b7c5, type: 3}
+  m_PrefabInstance: {fileID: 509512780}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &583362820
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8292,6 +8297,10 @@ PrefabInstance:
     - target: {fileID: 5227519958668070309, guid: 0faa49d8c90771945ba59c2ee2ad2e10, type: 3}
       propertyPath: m_Name
       value: Slab (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5227519958668070309, guid: 0faa49d8c90771945ba59c2ee2ad2e10, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5227519958668070311, guid: 0faa49d8c90771945ba59c2ee2ad2e10, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -12243,6 +12252,11 @@ Transform:
   m_Father: {fileID: 733942605}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: -181.677, z: 0}
+--- !u!1 &920745950 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5227519958668070309, guid: 0faa49d8c90771945ba59c2ee2ad2e10, type: 3}
+  m_PrefabInstance: {fileID: 943870486}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &925095016
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12424,6 +12438,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slab
       objectReference: {fileID: 0}
+    - target: {fileID: 5227519958668070309, guid: 0faa49d8c90771945ba59c2ee2ad2e10, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5227519958668070311, guid: 0faa49d8c90771945ba59c2ee2ad2e10, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -12486,6 +12504,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0faa49d8c90771945ba59c2ee2ad2e10, type: 3}
+--- !u!1 &944197785 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5227519958668070309, guid: 0faa49d8c90771945ba59c2ee2ad2e10, type: 3}
+  m_PrefabInstance: {fileID: 1441153692}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &953102606
 GameObject:
   m_ObjectHideFlags: 0
@@ -15522,6 +15545,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slab (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 5227519958668070309, guid: 0faa49d8c90771945ba59c2ee2ad2e10, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5227519958668070311, guid: 0faa49d8c90771945ba59c2ee2ad2e10, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -16713,6 +16740,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 0904ab1b9bb737d4c8125ff4bf429fff, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e96f0884fda5de3489374d7c29c80cd2, type: 3}
+--- !u!1 &1255010252 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5227519958668070309, guid: 0faa49d8c90771945ba59c2ee2ad2e10, type: 3}
+  m_PrefabInstance: {fileID: 583362820}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1286054946
 GameObject:
   m_ObjectHideFlags: 0
@@ -17824,6 +17856,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1373198240}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1393648571 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5227519958668070309, guid: 0faa49d8c90771945ba59c2ee2ad2e10, type: 3}
+  m_PrefabInstance: {fileID: 1141653167}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1398539940 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2647541948544521430, guid: 3a2fe0e004692fd4385debab4fe0631b, type: 3}
@@ -18187,6 +18224,10 @@ PrefabInstance:
     - target: {fileID: 5227519958668070309, guid: 0faa49d8c90771945ba59c2ee2ad2e10, type: 3}
       propertyPath: m_Name
       value: Slab (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5227519958668070309, guid: 0faa49d8c90771945ba59c2ee2ad2e10, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5227519958668070311, guid: 0faa49d8c90771945ba59c2ee2ad2e10, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -20966,6 +21007,10 @@ PrefabInstance:
     - target: {fileID: 5227519958668070309, guid: 0faa49d8c90771945ba59c2ee2ad2e10, type: 3}
       propertyPath: m_Name
       value: Slab (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5227519958668070309, guid: 0faa49d8c90771945ba59c2ee2ad2e10, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5227519958668070311, guid: 0faa49d8c90771945ba59c2ee2ad2e10, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -25651,6 +25696,11 @@ GameObject:
 Transform:
   m_CorrespondingSourceObject: {fileID: 578376449398627443, guid: 6dc4cf4496348884d8ee27743ae38562, type: 3}
   m_PrefabInstance: {fileID: 741507523}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1999584972 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5227519958668070309, guid: 0faa49d8c90771945ba59c2ee2ad2e10, type: 3}
+  m_PrefabInstance: {fileID: 1655407123}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2001005026
 GameObject:
@@ -42691,6 +42741,7 @@ GameObject:
   - component: {fileID: 1516368012763400117}
   - component: {fileID: 1516368012763400106}
   - component: {fileID: 1516368012763400107}
+  - component: {fileID: 1516368012763400118}
   m_Layer: 7
   m_Name: Wall (29)
   m_TagString: Untagged
@@ -42776,6 +42827,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1516368012763400104}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1516368012763400118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1516368012763400104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5261610b00086114a998118e1c706b5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boss: {fileID: 571315205}
+  platforms:
+  - {fileID: 1999584972}
+  - {fileID: 1255010252}
+  - {fileID: 1393648571}
+  - {fileID: 944197785}
+  - {fileID: 920745950}
 --- !u!23 &1516368012774537252
 MeshRenderer:
   m_ObjectHideFlags: 0
