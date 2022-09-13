@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class AwakeRandomSound : MonoBehaviour
 {
-    private AudioSource source;
+                     AudioSource source;
     [SerializeField] AudioClip[] arrayOfSounds;
-    [SerializeField] float volume;
+    [SerializeField] float       volume;
+    
     void Awake()
     {
         source = GetComponent<AudioSource>();

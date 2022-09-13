@@ -141,15 +141,7 @@ public class gameManager : MonoBehaviour
         currentMenuOpen.SetActive(true);
         openSettings = true;
 
-        /*
-         * Menu Navigation
-         * Clear selected object first.
-         */
         EventSystem.current.SetSelectedGameObject(null);
-
-        /*
-         * set new selected object
-         */
         EventSystem.current.SetSelectedGameObject(settingsFirstButton);
     }
 
@@ -167,15 +159,7 @@ public class gameManager : MonoBehaviour
         currentMenuOpen.SetActive(true);
         openSettings = false;
 
-        /*
-         * Menu Navigation
-         * Clear selected object first.
-         */
         EventSystem.current.SetSelectedGameObject(null);
-
-        /*
-         * set new selected object
-         */
         EventSystem.current.SetSelectedGameObject(settingsClosedButton);
     }
 }

@@ -8,14 +8,6 @@ public class maskObj : MonoBehaviour
     void Start()
     {
         for (int  i = 0; i < MaskedObj.Length; i++)
-        {
             MaskedObj[i].GetComponent<MeshRenderer>().material.renderQueue = 3002;
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -14,19 +14,19 @@ public class enemyAI : MonoBehaviour, IDamageable
     AudioSource source;
 
     [Header("---------- Audio -----------")]
-    [SerializeField] bool isNoisy;
-    [Range(0, 1)] [SerializeField] float volume;
-    [SerializeField] AudioClip[] atackAudioClips;
-    [SerializeField] AudioClip[] damagedAudioClips;
+    [SerializeField]               bool        isNoisy;
+    [Range(0, 1)] [SerializeField] float       volume;
+    [SerializeField]               AudioClip[] atackAudioClips;
+    [SerializeField]               AudioClip[] damagedAudioClips;
 
     [Header("---------- Stats -----------")]
     [Range(0, 300)] public           int   HP;
     [Range(1, 180)] [SerializeField] int   fieldOfView;
     [Range(1, 90)]  [SerializeField] int   fieldOfViewShoot;
     [Range(1, 10)]  [SerializeField] float playerFaceSpeed;
-    [Range(1, 15)]   [SerializeField] int   speedRoam;
-    [Range(1, 15)]   [SerializeField] int   speedChase;
-                    [SerializeField] float animationBuffer;
+    [Range(1, 15)]  [SerializeField] int   speedRoam;
+    [Range(1, 15)]  [SerializeField] int   speedChase;
+    [SerializeField]                 float animationBuffer;
 
     [Header("---------- Weapon Stats -----------")]
     [Range(0.1f, 5)] [SerializeField] float         shootRate;
@@ -36,9 +36,9 @@ public class enemyAI : MonoBehaviour, IDamageable
     [Range(1, 50)]   [SerializeField] private float shootRange;
     [Range(1, 50)]   [SerializeField] private float visionRange;
 
-    Vector3       playerDir;
-    private float distanceFromPlayer;
-    bool          isShooting = false;
+    Vector3 playerDir;
+    float   distanceFromPlayer;
+    bool    isShooting = false;
 
                   Vector3 startPos;
     public static bool    resetPos = false;
@@ -48,8 +48,7 @@ public class enemyAI : MonoBehaviour, IDamageable
         startPos = transform.position;
         agent.stoppingDistance = shootRange * 0.8f;
         anim.SetBool("Dead", false);
-        if(isNoisy)
-        {
+        if(isNoisy) {
             source = GetComponent<AudioSource>();
             source.volume = volume;
         }
@@ -159,8 +158,7 @@ public class enemyAI : MonoBehaviour, IDamageable
 
     private void SoundTakeDamage()
     {
-        if(isNoisy && damagedAudioClips.Length > 0)
-        {
+        if(isNoisy && damagedAudioClips.Length > 0) {
             source.clip = damagedAudioClips[Random.Range(0, damagedAudioClips.Length)];
             source.PlayOneShot(source.clip, volume);
         }
@@ -168,8 +166,7 @@ public class enemyAI : MonoBehaviour, IDamageable
 
     private void SoundAtack()
     {
-        if (isNoisy && atackAudioClips.Length > 0)
-        {
+        if (isNoisy && atackAudioClips.Length > 0) {
             source.clip = atackAudioClips[Random.Range(0, atackAudioClips.Length)];
             source.PlayOneShot(source.clip, volume);
         }
@@ -190,24 +187,28 @@ public class enemyAI : MonoBehaviour, IDamageable
     {
         shootRate = newRate;
     }
+
     public void SetShootRange(float newRange)
     {
         shootRange = newRange;
         agent.stoppingDistance = shootRange * 0.8f;
-
     }
+
     public void SetDamage(int newDamage)
     {
         damage = newDamage;
     }
+
     public void SetBulletSpeed(int newBulletSpeed)
     {
         bulletSpeed = newBulletSpeed;
     }
+
     public void SetBulletTime(int bulletTime)
     {
         bulletDestroyTime = bulletTime;
     }
+
     public void SetAnimBuffer(float newBuffer)
     {
         animationBuffer = newBuffer;
