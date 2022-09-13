@@ -2656,7 +2656,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 123
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7868335517991384255
 Transform:
   m_ObjectHideFlags: 0
@@ -2714,7 +2714,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 27b98a8c68f991b408c5c6afff25358c, type: 3}
   HP: 10
   fieldOfView: 180
-  fieldOfViewShoot: 45
+  fieldOfViewShoot: 90
   playerFaceSpeed: 1.5
   speedRoam: 0
   speedChase: 0
@@ -2722,9 +2722,9 @@ MonoBehaviour:
   shootRate: 2.5
   damage: 2
   bulletSpeed: 18
-  bulletDestroyTime: 3
-  shootRange: 25
-  visionRange: 13
+  bulletDestroyTime: 5
+  shootRange: 50
+  visionRange: 12
 --- !u!195 &4310470013305417412
 NavMeshAgent:
   m_ObjectHideFlags: 0
