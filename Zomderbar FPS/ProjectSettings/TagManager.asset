@@ -9,6 +9,8 @@ TagManager:
   - EnemyBullet
   - Wall Jumpable
   - Boss
+  - credits
+  - name
   layers:
   - Default
   - TransparentFX
@@ -45,4 +47,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Prime
+    uniqueID: 982019145
+    locked: 0
+  - name: second
+    uniqueID: 1367776615
     locked: 0
