@@ -60,4 +60,10 @@ public class buttonFunctions : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
         Time.timeScale = 1.0f;
     }
+
+    public void Credits()
+    {
+        SceneManager.LoadScene("PlayCredits");
+        Time.timeScale = 1.0f;
+    }
 }
