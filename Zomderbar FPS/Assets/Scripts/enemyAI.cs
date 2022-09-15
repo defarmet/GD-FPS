@@ -98,7 +98,7 @@ public class enemyAI : MonoBehaviour, IDamageable
 
     void facePlayer()
     {
-        if (agent.remainingDistance <= agent.stoppingDistance) {
+        if (agent.remainingDistance <= agent.stoppingDistance && isShooting == false) {
             playerDir.y = 0;
             Quaternion rotation = Quaternion.LookRotation(playerDir);
             transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * playerFaceSpeed);
