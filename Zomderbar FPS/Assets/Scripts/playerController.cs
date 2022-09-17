@@ -288,14 +288,14 @@ public class playerController : MonoBehaviour, IDamageable
      */
     IEnumerator gunSwitch()
     {
-        if (gunstat.Count > 0 && !gameManager.instance.isPaused) {
+        if (gunstat.Count > 0 && !gameManager.instance.isPaused && canShoot) {
             if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedWeapon < gunstat.Count - 1) {
                 if (alreadyReloadedUI) {
                     gameManager.instance.currentGunHUD.transform.GetChild(3).gameObject.SetActive(false);
                     alreadyReloadedUI = false;
                 }
                 selectedWeapon++;
-            } else if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedWeapon > 0) {
+            } else if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedWeapon > 0 && canShoot) {
                 if (alreadyReloadedUI) {
                     gameManager.instance.currentGunHUD.transform.GetChild(3).gameObject.SetActive(false);
                     alreadyReloadedUI = false;
