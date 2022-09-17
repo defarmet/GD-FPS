@@ -6,6 +6,7 @@ using TMPro;
 public class checkpoint : MonoBehaviour
 {
     TextMeshProUGUI text;
+    bool            reached;
 
     void Start()
     {
@@ -14,7 +15,8 @@ public class checkpoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")) {
+        if (other.CompareTag("Player") && !reached) {
+            reached = true;
             gameManager.instance.playerSpawnPoint.transform.position = transform.position;
             StartCoroutine(show_text());
         }
