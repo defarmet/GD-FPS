@@ -169,17 +169,19 @@ public class playerController : MonoBehaviour, IDamageable
      */
     void slide()
     {
-        if (canSlide) {
-            if (Input.GetButtonDown("Sprint")){
-                isSliding = true;
-                StartCoroutine(slowSlide());
-            } else if (Input.GetButtonUp("Sprint")) {
-                isSliding = false;
-                transform.localScale = new Vector3(1, 1, 1);
-                playerSpeed = playerSpeedOG;
-                StartCoroutine(standUp());
-            }
+        
+        if (Input.GetButtonDown("Sprint") && canSlide){
+            isSliding = true;
+            StartCoroutine(slowSlide());
+        } 
+        
+        if (Input.GetButtonUp("Sprint") && isSliding) {
+            isSliding = false;
+            transform.localScale = new Vector3(1, 1, 1);
+            playerSpeed = playerSpeedOG;
+            StartCoroutine(standUp());
         }
+        
     }
 
     IEnumerator slowSlide()
@@ -204,6 +206,7 @@ public class playerController : MonoBehaviour, IDamageable
     IEnumerator standUp()
     {
         canSlide = false;
+        
         yield return new WaitForSeconds(0.5f);
         canSlide = true;
     }
