@@ -57,6 +57,7 @@ public class buttonFunctions : MonoBehaviour
     
     public void quitToMenu()
     {
+        gameManager.statsStart = new List<gunStats>();
         SceneManager.LoadScene("MainMenu");
         Time.timeScale = 1.0f;
     }
