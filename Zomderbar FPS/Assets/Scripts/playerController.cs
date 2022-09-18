@@ -100,7 +100,11 @@ public class playerController : MonoBehaviour, IDamageable
         playerMovement();
         slide();
 
-        StartCoroutine(reload());
+        if (canShoot)
+        {
+            StartCoroutine(reload());
+        }
+        //StartCoroutine(reload());
 
         StartCoroutine(gunSwitch());
         StartCoroutine(shoot());
@@ -213,9 +217,9 @@ public class playerController : MonoBehaviour, IDamageable
 
     IEnumerator shoot()
     {
-        if (canShoot) {
+        //if (canShoot) {
             Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDistance, Color.red, 0.0000001f);
-            if (gunstat.Count != 0 && Input.GetButton("Shoot") && currentAmmoCount[selectedWeapon] > 0 && isShooting == false && !gameManager.instance.isPaused) {
+            if (gunstat.Count != 0 && Input.GetButton("Shoot") && currentAmmoCount[selectedWeapon] > 0 && isShooting == false && !gameManager.instance.isPaused && canShoot) {
                 isShooting = true;
                 anim.SetTrigger("GunReoil");
                 audioSource.PlayOneShot(gunstat[selectedWeapon].shootSound);
@@ -243,7 +247,7 @@ public class playerController : MonoBehaviour, IDamageable
                 yield return new WaitForSeconds(shootRate);
                 isShooting = false;
             }
-        }
+        //}
     }
 
     /*
@@ -415,12 +419,15 @@ public class playerController : MonoBehaviour, IDamageable
         if (Input.GetButtonDown("Reload") && gunstat.Count != 0) {
             if (currentAmmoCount[selectedWeapon] == ammoCountOrig && !alreadyReloadedUI) {
                 StartCoroutine(alreadyReloaded());
-            } else if (currentAmmoCount[selectedWeapon] != ammoCountOrig) {
+            }
+            
+            //if (currentAmmoCount[selectedWeapon] != ammoCountOrig) {
+            else { 
                 audioSource.PlayOneShot(gunstat[selectedWeapon].reloadSound);
                 canShoot = false;
+                isShooting = false;
                 anim.SetBool("Reloading", true);
                 yield return new WaitForSeconds(reloadTimer - .25f);
-
                 anim.SetBool("Reloading", false);
                 yield return new WaitForSeconds(.25f);
                 currentAmmoCount[selectedWeapon] = ammoCountOrig;
