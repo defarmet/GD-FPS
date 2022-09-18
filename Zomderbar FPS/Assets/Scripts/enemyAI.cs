@@ -119,7 +119,9 @@ public class enemyAI : MonoBehaviour, IDamageable
             agent.enabled = false;
 
             Rigidbody rb = GetComponent<Rigidbody>();
-            rb.isKinematic = true;
+            if (rb)
+                rb.isKinematic = true;
+
             foreach (Collider col in GetComponents<Collider>())
                 col.enabled = false;
         }
