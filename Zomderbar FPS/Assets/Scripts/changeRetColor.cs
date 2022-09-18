@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class changeRetColor : MonoBehaviour
 {
     public Camera cam;
-    public float shootdist;
-    public Color origColor = Color.black;
-    public Image reticle;
+    public float  shootdist;
+    public Color  origColor = Color.black;
+    public Image  reticle;
 
     private void Awake()
     {
@@ -17,27 +17,17 @@ public class changeRetColor : MonoBehaviour
 
     void Update()
     {
-        if (gameManager.instance.currentGunHUD != null)
-        {
+        if (gameManager.instance.currentGunHUD != null) {
             reticle = gameManager.instance.currentGunHUD.transform.GetChild(2).gameObject.GetComponent<Image>();
-
             if (origColor == Color.black)
-            {
                 origColor = reticle.GetComponent<Image>().color;
-            }
 
             shootdist = gameManager.instance.player.GetComponent<playerController>().shootDistance;
-
-            if (Physics.Raycast(cam.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out RaycastHit hit, shootdist))
-            {
-                if (hit.collider.GetComponent<IDamageable>() != null)
-                {
+            if (Physics.Raycast(cam.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out RaycastHit hit, shootdist)) {
+                if (hit.collider.GetComponent<IDamageable>() != null) {
                     IDamageable isDamageable = hit.collider.GetComponent<IDamageable>();
-
                     reticle.color = origColor;
-                }
-                else
-                {
+                } else {
                     reticle.color = Color.white;
                 }
             }

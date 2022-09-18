@@ -28,7 +28,8 @@ public class buttonFunctions : MonoBehaviour
 
     public void quit()
     {
-        Application.Quit();
+        if (Application.platform != RuntimePlatform.WebGLPlayer)
+            Application.Quit();
     }
 
     public void save()
@@ -43,7 +44,9 @@ public class buttonFunctions : MonoBehaviour
     
     public void playGame()
     {
-        gameManager.statsStart = new List<gunStats>(gameManager.instance.playerScript.gunstat);
+        if (gameManager.instance.playerScript)
+            gameManager.statsStart = new List<gunStats>(gameManager.instance.playerScript.gunstat);
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         gameManager.instance.cursorUnlockUnpause();
     }
@@ -55,7 +58,14 @@ public class buttonFunctions : MonoBehaviour
     
     public void quitToMenu()
     {
+        gameManager.statsStart = new List<gunStats>();
         SceneManager.LoadScene("MainMenu");
+        Time.timeScale = 1.0f;
+    }
+
+    public void Credits()
+    {
+        SceneManager.LoadScene("PlayCredits");
         Time.timeScale = 1.0f;
     }
 }

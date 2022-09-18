@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class gameManager : MonoBehaviour
 {
@@ -75,7 +76,7 @@ public class gameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Cancel") && (!currentMenuOpen || currentMenuOpen == pauseMenu)) {
+        if (Input.GetButtonDown("Cancel") && (!currentMenuOpen || currentMenuOpen == pauseMenu) && SceneManager.GetActiveScene().buildIndex > 0) {
             currentMenuOpen = pauseMenu;
             currentMenuOpen.SetActive(true);
             pause_game(!isPaused);
@@ -141,15 +142,7 @@ public class gameManager : MonoBehaviour
         currentMenuOpen.SetActive(true);
         openSettings = true;
 
-        /*
-         * Menu Navigation
-         * Clear selected object first.
-         */
         EventSystem.current.SetSelectedGameObject(null);
-
-        /*
-         * set new selected object
-         */
         EventSystem.current.SetSelectedGameObject(settingsFirstButton);
     }
 
@@ -167,15 +160,7 @@ public class gameManager : MonoBehaviour
         currentMenuOpen.SetActive(true);
         openSettings = false;
 
-        /*
-         * Menu Navigation
-         * Clear selected object first.
-         */
         EventSystem.current.SetSelectedGameObject(null);
-
-        /*
-         * set new selected object
-         */
         EventSystem.current.SetSelectedGameObject(settingsClosedButton);
     }
 }

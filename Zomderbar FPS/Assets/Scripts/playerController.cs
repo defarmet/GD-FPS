@@ -6,42 +6,47 @@ using UnityEngine.EventSystems;
 public class playerController : MonoBehaviour, IDamageable
 {
     [Header("---------- Components -----------")]
-    public CharacterController controller;
-    public AudioSource audioSource;
-    [SerializeField] Rigidbody rb;
-    [SerializeField] GameObject hitEffect;
-    [SerializeField] GameObject bloodEffect;
-    [SerializeField] Animator anim;
+    public           CharacterController controller;
+    public           AudioSource         audioSource;
+    [SerializeField] Rigidbody           rb;
+    [SerializeField] GameObject          hitEffect;
+    [SerializeField] GameObject          bloodEffect;
+    [SerializeField] Animator            anim;
 
     [Header("---------- Player Attributes -----------")]
-    [Range(1, 10)][SerializeField] public float playerSpeed;
-    [Range(1.1f, 2)][SerializeField] float slideMult;
-    [SerializeField] int slideTime;
-    [SerializeField] float wallRunSpeed;
-    [Range(8, 18)][SerializeField] float jumpHeight;
-    [Range(15, 30)][SerializeField] public float gravityValue;
-    [Range(1, 3)][SerializeField] public int jumpMax;
-    [Range(0, 310)][SerializeField] public int hp;
-    [Range(0.1f, 2)][SerializeField] float switchTime;
-    [Range(0.1f, 2)][SerializeField] float doubleJumpHeightMult;
-    [Range(0.01f, 0.1f)][SerializeField] float doubleJumpSpeedMult;
+    [Range(1, 10)]   public               float playerSpeed;
+    [Range(1.1f, 2)] [SerializeField]     float slideMult;
+    [SerializeField]                      int   slideTime;
+    [SerializeField]                      float wallRunSpeed;
+    [Range(8, 18)] [SerializeField]       float jumpHeight;
+    [Range(15, 30)]  public               float gravityValue;
+    [Range(1, 3)]    public               int   jumpMax;
+    [Range(0, 310)]  public               int   hp;
+    [Range(0.1f, 2)] [SerializeField]     float switchTime;
+    [Range(0.1f, 2)] [SerializeField]     float doubleJumpHeightMult;
+    [Range(0.01f, 0.1f)] [SerializeField] float doubleJumpSpeedMult;
 
     [Header("---------- Gun Stats -----------")]
-    [SerializeField] GameObject gunModel;
-    [Range(0.1f, 5)][SerializeField] float shootRate;
-    [Range(1, 30)][SerializeField] public float shootDistance;
-    [Range(1, 10)][SerializeField] int shootDmg;
-    public int[] currentAmmoCount = new int[6];
-    int selectedWeapon;
-    [SerializeField] float reloadTimer;
+    [SerializeField]                  GameObject gunModel;
+    [Range(0.1f, 5)] [SerializeField] float      shootRate;
+    [Range(1, 30)] public             float      shootDistance;
+    [Range(1, 10)] [SerializeField]   int        shootDmg;
+    public                            int[]      currentAmmoCount = new int[6];
+                                      int        selectedWeapon;
+    [SerializeField]                  float      reloadTimer;
 
     [Header("--------- Audio ----------")]
-    [SerializeField] AudioClip[] footfalls;
-    [Range(0, 1)][SerializeField] float footfallsVol;
-    public AudioClip[] audioJump;
-    public AudioClip audioLand;
-    public AudioClip[] audioDamaged;
-    public AudioClip audioSlide;
+    [SerializeField]               AudioClip[] walking;
+    [Range(0, 1)] [SerializeField] float       walkingVol;
+    [SerializeField]               AudioClip[] footfalls;
+    [Range(0, 1)] [SerializeField] float       footfallsVol;
+    public                         AudioClip[] audioJump;
+    public                         AudioClip   audioLand;
+    [Range(0, 1)] [SerializeField] float       landingVol;
+    public                         AudioClip[] audioDamaged;
+    public                         AudioClip[] audioSlide;
+    [SerializeField]               AudioClip   offWallJumpSound;
+    [Range(0, 1)] [SerializeField] float       offWallJumpSoundVol;
 
     bool isShooting = false;
     bool alreadyReloadedUI = false;
@@ -50,21 +55,24 @@ public class playerController : MonoBehaviour, IDamageable
     Vector3 move = Vector3.zero;
 
     public List<gunStats> gunstat = new List<gunStats>();
-    int weapIndx;
+           int            weapIndx;
 
     public int timesJumps;
     public int timesJumpsAudio;
 
-    float playerSpeedOG;
-    public int hpOriginal;
-    int ammoCountOrig;
-    float wallJumpSpeedOG;
+           float playerSpeedOG;
+    public int   hpOriginal;
+           int   ammoCountOrig;
+           float wallJumpSpeedOG;
     public float gravityValueOG;
-    bool canSlide = true;
-    bool isSliding = false;
+
+           bool canSlide = true;
+           bool isSliding = false;
     public bool isWallRun = true;
     public bool isSameWall = false;
-    bool canShoot = true;
+           bool canShoot = true;
+           bool isWalking = true;
+           bool isJump = false;
 
     private void Start()
     {
@@ -84,6 +92,11 @@ public class playerController : MonoBehaviour, IDamageable
         if (transform.position.y < -30)
             respawn();
 
+        if(isWalking && !isSliding)
+            StartCoroutine(footsteps(0.4f));
+        else if (isWalking && isSliding && playerSpeed <= playerSpeedOG/1.5f)
+            StartCoroutine(footsteps(0.9f));
+
         playerMovement();
         slide();
 
@@ -96,41 +109,48 @@ public class playerController : MonoBehaviour, IDamageable
     /*
      * Player movement is at a constant running speed.
      */
+
+    IEnumerator footsteps(float waitForSecs)
+    {
+
+        if (controller.isGrounded && move.normalized.magnitude > 0.3f) {
+            isWalking = false;
+            audioSource.PlayOneShot(walking[Random.Range(0, walking.Length)], walkingVol);
+            yield return new WaitForSeconds(waitForSecs);
+            isWalking = true;
+        }
+    }
+
     void playerMovement()
     {
-        if (controller.isGrounded && playerVelocity.y < 0)
-        {
+        if (controller.isGrounded && playerVelocity.y < 0) {
             playerVelocity.y = 0f;
             timesJumps = 0;
             timesJumpsAudio = 0;
             isWallRun = false;
+            if (isJump) {
+                audioSource.PlayOneShot(audioLand, landingVol);
+                isJump = false;
+            }
         }
 
         move = ((transform.right * Input.GetAxis("Horizontal")) + (transform.forward * Input.GetAxis("Vertical")));
         controller.Move(move * Time.deltaTime * playerSpeed);
 
-        if (Input.GetButtonDown("Jump") && timesJumps < jumpMax)
-        {
+        if (Input.GetButtonDown("Jump") && timesJumps < jumpMax) {
+            isJump = true;
             playerVelocity.y = jumpHeight;
             timesJumps++;
-            audioSource.PlayOneShot(audioJump[(int)Random.Range(0, audioDamaged.Length - 1)]);
-            if (timesJumps > 1)
-            {
-                if (isWallRun)
-                {
+            audioSource.PlayOneShot(audioJump[(int)Random.Range(0, audioJump.Length - 1)]);
+            if (timesJumps > 1) {
+                if (isWallRun) {
                     playerVelocity.y = jumpHeight * doubleJumpHeightMult + 1.5f;
-                    //playerSpeed *= wallRunSpeed;
+                    audioSource.PlayOneShot(offWallJumpSound, offWallJumpSoundVol);
                     StartCoroutine(OffTheWall());
-
-                }
-
-
-
-                else
+                } else {
                     playerVelocity.y = jumpHeight * doubleJumpHeightMult;
-
+                }
             }
-
         }
 
         playerVelocity.y -= gravityValue * Time.deltaTime;
@@ -149,22 +169,19 @@ public class playerController : MonoBehaviour, IDamageable
      */
     void slide()
     {
-        if (canSlide)
-        {
-            if (Input.GetButtonDown("Sprint"))
-            {
-                isSliding = true;
-                StartCoroutine(slowSlide());
-                audioSource.PlayOneShot(audioSlide);
-            }
-            else if (Input.GetButtonUp("Sprint"))
-            {
-                isSliding = false;
-                transform.localScale = new Vector3(1, 1, 1);
-                playerSpeed = playerSpeedOG;
-                StartCoroutine(standUp());
-            }
+        
+        if (Input.GetButtonDown("Sprint") && canSlide){
+            isSliding = true;
+            StartCoroutine(slowSlide());
+        } 
+        
+        if (Input.GetButtonUp("Sprint") && isSliding) {
+            isSliding = false;
+            transform.localScale = new Vector3(1, 1, 1);
+            playerSpeed = playerSpeedOG;
+            StartCoroutine(standUp());
         }
+        
     }
 
     IEnumerator slowSlide()
@@ -176,8 +193,8 @@ public class playerController : MonoBehaviour, IDamageable
         else
             playerSpeed = playerSpeed * slideMult;
 
-        while (isSliding)
-        {
+        audioSource.PlayOneShot(audioSlide[(int)Random.Range(0, audioSlide.Length - 1)], landingVol);
+        while (isSliding) {
             yield return new WaitForSeconds(0.2f);
             playerSpeed -= 0.3f;
 
@@ -189,17 +206,16 @@ public class playerController : MonoBehaviour, IDamageable
     IEnumerator standUp()
     {
         canSlide = false;
+        
         yield return new WaitForSeconds(0.5f);
         canSlide = true;
     }
 
     IEnumerator shoot()
     {
-        if (canShoot)
-        {
+        if (canShoot) {
             Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDistance, Color.red, 0.0000001f);
-            if (gunstat.Count != 0 && Input.GetButton("Shoot") && currentAmmoCount[selectedWeapon] > 0 && isShooting == false && !gameManager.instance.isPaused)
-            {
+            if (gunstat.Count != 0 && Input.GetButton("Shoot") && currentAmmoCount[selectedWeapon] > 0 && isShooting == false && !gameManager.instance.isPaused) {
                 isShooting = true;
                 anim.SetTrigger("GunReoil");
                 audioSource.PlayOneShot(gunstat[selectedWeapon].shootSound);
@@ -207,13 +223,10 @@ public class playerController : MonoBehaviour, IDamageable
                 gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(currentAmmoCount[selectedWeapon] - 1).gameObject.SetActive(false);
                 currentAmmoCount[selectedWeapon]--;
 
-                if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out RaycastHit hit, shootDistance))
-                {
+                if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out RaycastHit hit, shootDistance)) {
                     Instantiate(hitEffect, hit.point, hitEffect.transform.rotation);
-                    if (hit.collider.GetComponent<IDamageable>() != null)
-                    {
+                    if (hit.collider.GetComponent<IDamageable>() != null) {
                         IDamageable isDamageable = hit.collider.GetComponent<IDamageable>();
-                        
                         Instantiate(bloodEffect, hit.point, hit.transform.rotation);
 
                         /*
@@ -238,14 +251,12 @@ public class playerController : MonoBehaviour, IDamageable
      */
     public void gunPickup(gunStats _gunStat, int _currentGunHUD)
     {
-        for (int i = 0; i < gunstat.Count; i++)
-        {
+        for (int i = 0; i < gunstat.Count; i++) {
             if (gunstat[i].gunHUD == _currentGunHUD)
                 return;
         }
 
-        if (alreadyReloadedUI)
-        {
+        if (alreadyReloadedUI) {
             gameManager.instance.currentGunHUD.transform.GetChild(3).gameObject.SetActive(false);
             alreadyReloadedUI = false;
         }
@@ -277,21 +288,15 @@ public class playerController : MonoBehaviour, IDamageable
      */
     IEnumerator gunSwitch()
     {
-        if (gunstat.Count > 0 && !gameManager.instance.isPaused)
-        {
-            if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedWeapon < gunstat.Count - 1)
-            {
-                if (alreadyReloadedUI)
-                {
+        if (gunstat.Count > 0 && !gameManager.instance.isPaused && canShoot) {
+            if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedWeapon < gunstat.Count - 1) {
+                if (alreadyReloadedUI) {
                     gameManager.instance.currentGunHUD.transform.GetChild(3).gameObject.SetActive(false);
                     alreadyReloadedUI = false;
                 }
                 selectedWeapon++;
-            }
-            else if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedWeapon > 0)
-            {
-                if (alreadyReloadedUI)
-                {
+            } else if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedWeapon > 0 && canShoot) {
+                if (alreadyReloadedUI) {
                     gameManager.instance.currentGunHUD.transform.GetChild(3).gameObject.SetActive(false);
                     alreadyReloadedUI = false;
                 }
@@ -324,8 +329,7 @@ public class playerController : MonoBehaviour, IDamageable
         hp -= dmg;
         audioSource.PlayOneShot(audioDamaged[(int)Random.Range(0, audioDamaged.Length - 1)]);
         updatePlayerHp();
-        if (hp <= 0)
-        {
+        if (hp < 1) {
             death();
             resetHP();
         }
@@ -394,8 +398,7 @@ public class playerController : MonoBehaviour, IDamageable
      */
     public void resetPlayerAmmo()
     {
-        for (int i = 0; i < gunstat.Count; ++i)
-        {
+        for (int i = 0; i < gunstat.Count; ++i) {
             currentAmmoCount[i] = gunstat[i].ammoCapacity;
             for (int j = 0; j < gunstat[i].ammoCapacity; ++j)
                 gameManager.instance.gunHUD[gunstat[i].gunHUD].transform.GetChild(0).GetChild(j).gameObject.SetActive(true);
@@ -409,24 +412,21 @@ public class playerController : MonoBehaviour, IDamageable
 
     public IEnumerator reload()
     {
-        if (Input.GetButtonDown("Reload") && gunstat.Count != 0)
-        {
-            if (currentAmmoCount[selectedWeapon] == ammoCountOrig && !alreadyReloadedUI)
-            {
+        if (Input.GetButtonDown("Reload") && gunstat.Count != 0) {
+            if (currentAmmoCount[selectedWeapon] == ammoCountOrig && !alreadyReloadedUI) {
                 StartCoroutine(alreadyReloaded());
-            }
-            else if (currentAmmoCount[selectedWeapon] != ammoCountOrig)
-            {
+            } else if (currentAmmoCount[selectedWeapon] != ammoCountOrig) {
                 audioSource.PlayOneShot(gunstat[selectedWeapon].reloadSound);
-
                 canShoot = false;
                 anim.SetBool("Reloading", true);
                 yield return new WaitForSeconds(reloadTimer - .25f);
+
                 anim.SetBool("Reloading", false);
                 yield return new WaitForSeconds(.25f);
                 currentAmmoCount[selectedWeapon] = ammoCountOrig;
                 for (int i = 0; i < currentAmmoCount[selectedWeapon]; ++i)
                     gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
+                
                 canShoot = true;
             }
         }
@@ -449,9 +449,5 @@ public class playerController : MonoBehaviour, IDamageable
         playerSpeed = playerSpeed * doubleJumpSpeedMult;
         yield return new WaitForSeconds(1.8f);
         playerSpeed = playerSpeedOG;
-    }
-    void landAudio()
-    {
-       
     }
 }

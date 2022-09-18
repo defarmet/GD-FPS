@@ -8,8 +8,7 @@ public class WinCondition : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if(SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCountInBuildSettings)
-        {
+        if(SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCountInBuildSettings) {
             gameManager.instance.winMenu.SetActive(true);
             gameManager.instance.currentMenuOpen = gameManager.instance.winMenu;
             gameManager.instance.cursorLockPause();
@@ -24,24 +23,13 @@ public class WinCondition : MonoBehaviour
              * Set new selected object
              */
             EventSystem.current.SetSelectedGameObject(gameManager.instance.winFirstButton);
-        }
-        else
-        {
+        } else {
             gameManager.instance.gameCompleteMenu.SetActive(true);
             gameManager.instance.currentMenuOpen = gameManager.instance.gameCompleteMenu;
             gameManager.instance.cursorLockPause();
 
-            /*
-             * Menu Navigation
-             * Clear selected object first.
-             */
             EventSystem.current.SetSelectedGameObject(null);
-
-            /*
-             * Set new selected object
-             */
             EventSystem.current.SetSelectedGameObject(gameManager.instance.completeFirstButton);
         }
-        
     }
 }
