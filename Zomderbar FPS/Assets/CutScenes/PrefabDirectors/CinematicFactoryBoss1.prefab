@@ -180,6 +180,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4984192445869109086}
   - component: {fileID: 4984192445869109087}
+  - component: {fileID: 4245635147604293766}
   m_Layer: 0
   m_Name: CinematicFactoryBoss1
   m_TagString: Untagged
@@ -233,8 +234,6 @@ PlayableDirector:
     value: {fileID: 0}
   - key: {fileID: -7571269218880028608, guid: b81f3ee93c2ed6d4b97ad350bfe895d7, type: 2}
     value: {fileID: 0}
-  - key: {fileID: 3481222792044450012, guid: 18b7d21e32df8d548aa458f0bd2525de, type: 2}
-    value: {fileID: 0}
   - key: {fileID: -6073488584293087943, guid: 18b7d21e32df8d548aa458f0bd2525de, type: 2}
     value: {fileID: 4984192445300812571}
   - key: {fileID: -5960977327596607560, guid: 18b7d21e32df8d548aa458f0bd2525de, type: 2}
@@ -247,8 +246,24 @@ PlayableDirector:
     value: {fileID: 0}
   - key: {fileID: 371419845994884589, guid: 18b7d21e32df8d548aa458f0bd2525de, type: 2}
     value: {fileID: 0}
+  - key: {fileID: -7645567102205362646, guid: 18b7d21e32df8d548aa458f0bd2525de, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -6873251209957592431, guid: 18b7d21e32df8d548aa458f0bd2525de, type: 2}
+    value: {fileID: 0}
   m_ExposedReferences:
     m_References: []
+--- !u!114 &4245635147604293766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4984192445869109024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ec070c857f462b41a69a38f216d7131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4984192446654392721
 GameObject:
   m_ObjectHideFlags: 0
