@@ -124,6 +124,7 @@ public class enemyAI : MonoBehaviour, IDamageable
 
             foreach (Collider col in GetComponents<Collider>())
                 col.enabled = false;
+            tag = "DeathEnemy";
         }
     }
 

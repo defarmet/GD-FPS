@@ -33,7 +33,7 @@ public class DestroyPallet : MonoBehaviour
         {
             item.enabled = false;
         }
-        Instantiate(particle, particlePos);
+        Instantiate(particle, particlePos.position, Quaternion.identity);
         Destroy(gameObject, 3f);
 
     }

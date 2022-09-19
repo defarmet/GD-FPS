@@ -63666,6 +63666,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4984192445869109087, guid: c86785d573acba04e8422c05a1e505b0, type: 3}
+      propertyPath: m_SceneBindings.Array.size
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984192445869109087, guid: c86785d573acba04e8422c05a1e505b0, type: 3}
+      propertyPath: m_SceneBindings.Array.data[15].key
+      value: 
+      objectReference: {fileID: 7844742451843396723, guid: 18b7d21e32df8d548aa458f0bd2525de, type: 2}
+    - target: {fileID: 4984192445869109087, guid: c86785d573acba04e8422c05a1e505b0, type: 3}
       propertyPath: m_SceneBindings.Array.data[8].value
       value: 
       objectReference: {fileID: 1126625642}
@@ -63689,6 +63697,10 @@ PrefabInstance:
       propertyPath: m_SceneBindings.Array.data[14].value
       value: 
       objectReference: {fileID: 1828041362}
+    - target: {fileID: 4984192445869109087, guid: c86785d573acba04e8422c05a1e505b0, type: 3}
+      propertyPath: m_SceneBindings.Array.data[15].value
+      value: 
+      objectReference: {fileID: 1388768204}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c86785d573acba04e8422c05a1e505b0, type: 3}
 --- !u!136 &4998769433861034211
@@ -83667,6 +83679,14 @@ PrefabInstance:
       value: 0.023181144
       objectReference: {fileID: 0}
     - target: {fileID: 8327476517276500088, guid: 86710afaa6f89fb478ee5a19bbb21249, type: 3}
+      propertyPath: m_SceneBindings.Array.size
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8327476517276500088, guid: 86710afaa6f89fb478ee5a19bbb21249, type: 3}
+      propertyPath: m_SceneBindings.Array.data[11].key
+      value: 
+      objectReference: {fileID: -4976963644556488032, guid: b81f3ee93c2ed6d4b97ad350bfe895d7, type: 2}
+    - target: {fileID: 8327476517276500088, guid: 86710afaa6f89fb478ee5a19bbb21249, type: 3}
       propertyPath: m_SceneBindings.Array.data[1].value
       value: 
       objectReference: {fileID: 1828041362}
@@ -83682,6 +83702,10 @@ PrefabInstance:
       propertyPath: m_SceneBindings.Array.data[10].value
       value: 
       objectReference: {fileID: 1083228641}
+    - target: {fileID: 8327476517276500088, guid: 86710afaa6f89fb478ee5a19bbb21249, type: 3}
+      propertyPath: m_SceneBindings.Array.data[11].value
+      value: 
+      objectReference: {fileID: 1971626746}
     - target: {fileID: 8327476517276500090, guid: 86710afaa6f89fb478ee5a19bbb21249, type: 3}
       propertyPath: m_Name
       value: Cinematic1-FactoryWakeUp

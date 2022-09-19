@@ -48282,6 +48282,14 @@ PrefabInstance:
       value: BossCinematic
       objectReference: {fileID: 0}
     - target: {fileID: 8140598752952478573, guid: aecc5c3228fa96249b17954e12b50f07, type: 3}
+      propertyPath: m_SceneBindings.Array.size
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8140598752952478573, guid: aecc5c3228fa96249b17954e12b50f07, type: 3}
+      propertyPath: m_SceneBindings.Array.data[24].key
+      value: 
+      objectReference: {fileID: 1776797251076526966, guid: c3bd178f3a4e3ae4a9f15092101e878d, type: 2}
+    - target: {fileID: 8140598752952478573, guid: aecc5c3228fa96249b17954e12b50f07, type: 3}
       propertyPath: m_SceneBindings.Array.data[18].value
       value: 
       objectReference: {fileID: 329225318}
@@ -48293,6 +48301,10 @@ PrefabInstance:
       propertyPath: m_SceneBindings.Array.data[20].value
       value: 
       objectReference: {fileID: 359772254}
+    - target: {fileID: 8140598752952478573, guid: aecc5c3228fa96249b17954e12b50f07, type: 3}
+      propertyPath: m_SceneBindings.Array.data[24].value
+      value: 
+      objectReference: {fileID: 1628006647}
     - target: {fileID: 8140598752952478574, guid: aecc5c3228fa96249b17954e12b50f07, type: 3}
       propertyPath: m_RootOrder
       value: 7
