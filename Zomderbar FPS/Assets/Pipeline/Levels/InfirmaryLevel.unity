@@ -396,7 +396,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh41714
+  m_Name: pb_Mesh971884
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -16191,6 +16191,10 @@ PrefabInstance:
     - target: {fileID: 7404619860427698915, guid: 83ce0abd20235534a99d8568197d8625, type: 3}
       propertyPath: m_Name
       value: Scary Wall (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7404619860427698915, guid: 83ce0abd20235534a99d8568197d8625, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7404619860428189379, guid: 83ce0abd20235534a99d8568197d8625, type: 3}
       propertyPath: m_RootOrder
@@ -34422,6 +34426,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 743432938207063632, guid: 2fb0c838a83a9354394b62a86f4bb290, type: 3}
+      propertyPath: m_Radius
+      value: 71.607025
+      objectReference: {fileID: 0}
+    - target: {fileID: 743432938207063632, guid: 2fb0c838a83a9354394b62a86f4bb290, type: 3}
+      propertyPath: m_Center.y
+      value: 3.3929648
+      objectReference: {fileID: 0}
+    - target: {fileID: 743432938207063633, guid: 2fb0c838a83a9354394b62a86f4bb290, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 743432938207063635, guid: 2fb0c838a83a9354394b62a86f4bb290, type: 3}
       propertyPath: m_RootOrder
       value: 29
