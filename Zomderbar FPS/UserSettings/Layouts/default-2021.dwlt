@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 997
   m_ShowMode: 4
-  m_Title: Game
+  m_Title: Scene
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 350}
   m_MaxSize: {x: 10000, y: 10000}
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 2973
+  controlID: 1447
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 2946
+  controlID: 1432
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -222,7 +222,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 2974
+  controlID: 1448
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -622,9 +622,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -32.861332, y: -8.713833, z: 345.3859}
+    m_Target: {x: -6.7087955, y: 59.678658, z: -18.081785}
     speed: 2
-    m_Value: {x: -32.861332, y: -8.713833, z: 345.3859}
+    m_Value: {x: -6.7087955, y: 59.678658, z: -18.081785}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -671,13 +671,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.048293013, y: 0.0050981822, z: -0.00019796175, w: -0.9988877}
+    m_Target: {x: 0.26536542, y: -0.44557214, z: 0.14018047, w: 0.84345704}
     speed: 2
-    m_Value: {x: -0.048293013, y: 0.0050981822, z: -0.00019796175, w: -0.9988877}
+    m_Value: {x: 0.26472878, y: -0.44935787, z: 0.14137152, w: 0.84143347}
   m_Size:
-    m_Target: 417.91483
+    m_Target: 7.2576656
     speed: 2
-    m_Value: 417.91483
+    m_Value: 7.2576656
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -732,10 +732,10 @@ MonoBehaviour:
     m_SaveData: []
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 76900000
-      m_LastClickedID: 36982
-      m_ExpandedIDs: c0dbffff8af1ffff94f1ffff96f9ffff648400009c84000076900000
+      scrollPos: {x: 0, y: 1920}
+      m_SelectedIDs: 3e880000
+      m_LastClickedID: 34878
+      m_ExpandedIDs: 66f9ffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -828,22 +828,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Pipeline/Levels
+    - Assets
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Pipeline/Levels
+  - Assets
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: D:\MyStuff\GD-FPS\Zomderbar FPS
+  m_LastProjectPath: D:\Projects\P&P II\GD-FPS\Zomderbar FPS
   m_LockTracker:
     m_IsLocked: 1
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 199}
-    m_SelectedIDs: dc8b0000
-    m_LastClickedID: 35804
-    m_ExpandedIDs: 00000000b28b0000b48b0000b68b0000b88b0000ba8b0000bc8b0000be8b0000c08b0000c28b0000c48b0000c68b0000c88b0000ca8b0000cc8b0000ce8b0000d08b0000d28b0000d48b0000d68b0000d88b0000da8b0000dc8b0000de8b0000e08b0000e28b0000e48b0000e68b0000e88b0000ea8b0000ec8b0000ee8b0000f08b0000f28b000000ca9a3b
+    scrollPos: {x: 0, y: 79}
+    m_SelectedIDs: e8b10000
+    m_LastClickedID: 45544
+    m_ExpandedIDs: 00000000e8b10000eab10000ecb10000eeb10000f0b10000f2b10000f4b10000f6b10000f8b10000fab10000fcb10000feb1000000b2000002b2000004b2000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -871,7 +871,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000b28b0000b48b0000b68b0000b88b0000ba8b0000bc8b0000be8b0000c08b0000c28b0000c48b0000c68b0000c88b0000ca8b0000cc8b0000ce8b0000d08b0000d28b0000d48b0000d68b0000d88b0000da8b0000dc8b0000de8b0000e08b0000e28b0000e48b0000e68b0000e88b0000ea8b0000ec8b0000ee8b0000f08b0000f28b000000ca9a3b
+    m_ExpandedIDs: 00000000e8b10000eab10000ecb10000eeb10000f0b10000f2b10000f4b10000f6b10000f8b10000fab10000fcb10000feb1000000b2000002b2000004b2000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -957,7 +957,7 @@ MonoBehaviour:
     m_SaveData: []
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 36982
+  m_LastSelectedObjectID: 34878
 --- !u!114 &19
 MonoBehaviour:
   m_ObjectHideFlags: 52
