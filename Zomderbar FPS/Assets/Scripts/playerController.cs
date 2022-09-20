@@ -452,7 +452,7 @@ public class playerController : MonoBehaviour, IDamageable
             }
             
             //if (currentAmmoCount[selectedWeapon] != ammoCountOrig) {
-            else { 
+            else if(!alreadyReloadedUI) { 
                 audioSource.PlayOneShot(gunstat[selectedWeapon].reloadSound);
                 canShoot = false;
                 isShooting = false;
