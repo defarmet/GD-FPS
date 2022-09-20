@@ -74,6 +74,7 @@ public class playerController : MonoBehaviour, IDamageable
            bool canShoot = true;
            bool isWalking = true;
            bool isJump = false;
+           bool canSwitch = true;
 
     private void Start()
     {
@@ -105,9 +106,13 @@ public class playerController : MonoBehaviour, IDamageable
         {
             StartCoroutine(reload());
         }
-        //StartCoroutine(reload());
 
-        StartCoroutine(gunSwitch());
+        if (canSwitch)
+        {
+            StartCoroutine(gunSwitch());
+        }
+        
+
         StartCoroutine(shoot());
     }
 
@@ -304,37 +309,50 @@ public class playerController : MonoBehaviour, IDamageable
      */
     IEnumerator gunSwitch()
     {
+        //canSwitch = false;
+
         if (gunstat.Count > 0 && !gameManager.instance.isPaused && canShoot) {
             if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedWeapon < gunstat.Count - 1) {
                 if (alreadyReloadedUI) {
                     gameManager.instance.currentGunHUD.transform.GetChild(3).gameObject.SetActive(false);
                     alreadyReloadedUI = false;
                 }
+                canSwitch = false;
                 selectedWeapon++;
+                modelChange();
+                yield return new WaitForSeconds(switchTime);
+                canSwitch = true;
+
+
             } else if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedWeapon > 0 && canShoot) {
                 if (alreadyReloadedUI) {
                     gameManager.instance.currentGunHUD.transform.GetChild(3).gameObject.SetActive(false);
                     alreadyReloadedUI = false;
                 }
+                canSwitch=false;
                 selectedWeapon--;
+                modelChange();
+                yield return new WaitForSeconds(switchTime);
+                canSwitch = true;
             }
-
-            shootRate = gunstat[selectedWeapon].shootRate;
-            shootDistance = gunstat[selectedWeapon].shootDist;
-            shootDmg = gunstat[selectedWeapon].shootDmg;
-            ammoCountOrig = gunstat[selectedWeapon].ammoCapacity;
-            reloadTimer = gunstat[selectedWeapon].reloadTime;
-            gunModel.GetComponent<MeshFilter>().sharedMesh = gunstat[selectedWeapon].model.GetComponent<MeshFilter>().sharedMesh;
-            gunModel.GetComponent<MeshRenderer>().sharedMaterial = gunstat[selectedWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;
-
-            gameManager.instance.currentGunHUD.SetActive(false);
-            gameManager.instance.currentGunHUD = gameManager.instance.gunHUD[gunstat[selectedWeapon].gunHUD];
-            gameManager.instance.currentGunHUD.SetActive(true);
-            for (int i = 0; i < currentAmmoCount[selectedWeapon]; ++i)
-                gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
-
-            yield return new WaitForSeconds(switchTime);
         }
+    }
+
+    void modelChange()
+    {
+        shootRate = gunstat[selectedWeapon].shootRate;
+        shootDistance = gunstat[selectedWeapon].shootDist;
+        shootDmg = gunstat[selectedWeapon].shootDmg;
+        ammoCountOrig = gunstat[selectedWeapon].ammoCapacity;
+        reloadTimer = gunstat[selectedWeapon].reloadTime;
+        gunModel.GetComponent<MeshFilter>().sharedMesh = gunstat[selectedWeapon].model.GetComponent<MeshFilter>().sharedMesh;
+        gunModel.GetComponent<MeshRenderer>().sharedMaterial = gunstat[selectedWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;
+
+        gameManager.instance.currentGunHUD.SetActive(false);
+        gameManager.instance.currentGunHUD = gameManager.instance.gunHUD[gunstat[selectedWeapon].gunHUD];
+        gameManager.instance.currentGunHUD.SetActive(true);
+        for (int i = 0; i < currentAmmoCount[selectedWeapon]; ++i)
+            gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
     }
 
     public void takeDamage(int dmg)
