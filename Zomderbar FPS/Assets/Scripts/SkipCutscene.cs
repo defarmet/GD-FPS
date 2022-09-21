@@ -40,15 +40,11 @@ public class SkipCutscene : MonoBehaviour
             SkipCinematic();
             Destroy(pressKeyCanvas);
         }
-        if(director.time == director.playableAsset.duration-0.1f)
-        {
-            pressKeyCanvas.SetActive(false);
-        }
     }
 
     void SkipCinematic()
     {
         director.time = director.playableAsset.duration;
-        Destroy(this, 0.1f);
+        Destroy(this);
     }
 }
