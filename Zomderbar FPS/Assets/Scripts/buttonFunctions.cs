@@ -67,5 +67,6 @@ public class buttonFunctions : MonoBehaviour
     {
         SceneManager.LoadScene("PlayCredits");
         Time.timeScale = 1.0f;
+
     }
 }
