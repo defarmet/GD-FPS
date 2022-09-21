@@ -17,7 +17,7 @@ public class WallRun : MonoBehaviour
                 gameManager.instance.playerScript.isSameWall = true;
                 gameManager.instance.playerScript.isWallRun = true;
                 StartCoroutine(wallRunGrav());
-                gameManager.instance.playerScript.timesJumps = 1;
+                gameManager.instance.playerScript.timesJumps = 0;
             }
         }
     }

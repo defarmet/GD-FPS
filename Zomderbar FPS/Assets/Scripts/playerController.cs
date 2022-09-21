@@ -149,17 +149,23 @@ public class playerController : MonoBehaviour, IDamageable
 
         if (Input.GetButtonDown("Jump") && timesJumps < jumpMax) {
             isJump = true;
-            playerVelocity.y = jumpHeight;
+
+            if (isWallRun)
+            {
+                playerVelocity.y = jumpHeight + 1.5f;
+                audioSource.PlayOneShot(offWallJumpSound, offWallJumpSoundVol);
+                StartCoroutine(OffTheWall());
+            }
+            else
+                playerVelocity.y = jumpHeight;
+
             timesJumps++;
             audioSource.PlayOneShot(audioJump[(int)Random.Range(0, audioJump.Length - 1)]);
+
             if (timesJumps > 1) {
-                if (isWallRun) {
-                    playerVelocity.y = jumpHeight * doubleJumpHeightMult + 1.5f;
-                    audioSource.PlayOneShot(offWallJumpSound, offWallJumpSoundVol);
-                    StartCoroutine(OffTheWall());
-                } else {
-                    playerVelocity.y = jumpHeight * doubleJumpHeightMult;
-                }
+                
+                playerVelocity.y = jumpHeight * doubleJumpHeightMult;
+                
             }
         }
 
