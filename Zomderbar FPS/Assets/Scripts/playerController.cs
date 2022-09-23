@@ -50,6 +50,7 @@ public class playerController : MonoBehaviour, IDamageable
 
     bool isShooting = false;
     bool alreadyReloadedUI = false;
+    bool reloading = false;
 
     Vector3 playerVelocity;
     Vector3 move = Vector3.zero;
@@ -73,6 +74,7 @@ public class playerController : MonoBehaviour, IDamageable
            bool canShoot = true;
            bool isWalking = true;
            bool isJump = false;
+           bool canSwitch = true;
 
     private void Start()
     {
@@ -100,9 +102,17 @@ public class playerController : MonoBehaviour, IDamageable
         playerMovement();
         slide();
 
-        StartCoroutine(reload());
+        if (canShoot)
+        {
+            StartCoroutine(reload());
+        }
 
-        StartCoroutine(gunSwitch());
+        if (canSwitch)
+        {
+            StartCoroutine(gunSwitch());
+        }
+        
+
         StartCoroutine(shoot());
     }
 
@@ -139,17 +149,23 @@ public class playerController : MonoBehaviour, IDamageable
 
         if (Input.GetButtonDown("Jump") && timesJumps < jumpMax) {
             isJump = true;
-            playerVelocity.y = jumpHeight;
+
+            if (isWallRun)
+            {
+                playerVelocity.y = jumpHeight + 1.5f;
+                audioSource.PlayOneShot(offWallJumpSound, offWallJumpSoundVol);
+                StartCoroutine(OffTheWall());
+            }
+            else
+                playerVelocity.y = jumpHeight;
+
             timesJumps++;
             audioSource.PlayOneShot(audioJump[(int)Random.Range(0, audioJump.Length - 1)]);
+
             if (timesJumps > 1) {
-                if (isWallRun) {
-                    playerVelocity.y = jumpHeight * doubleJumpHeightMult + 1.5f;
-                    audioSource.PlayOneShot(offWallJumpSound, offWallJumpSoundVol);
-                    StartCoroutine(OffTheWall());
-                } else {
-                    playerVelocity.y = jumpHeight * doubleJumpHeightMult;
-                }
+                
+                playerVelocity.y = jumpHeight * doubleJumpHeightMult;
+                
             }
         }
 
@@ -213,37 +229,48 @@ public class playerController : MonoBehaviour, IDamageable
 
     IEnumerator shoot()
     {
-        if (canShoot) {
+        //if (canShoot) {
             Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDistance, Color.red, 0.0000001f);
-            if (gunstat.Count != 0 && Input.GetButton("Shoot") && currentAmmoCount[selectedWeapon] > 0 && isShooting == false && !gameManager.instance.isPaused) {
-                isShooting = true;
-                anim.SetTrigger("GunReoil");
-                audioSource.PlayOneShot(gunstat[selectedWeapon].shootSound);
+            if (gunstat.Count != 0 && Input.GetButton("Shoot")  && isShooting == false && !gameManager.instance.isPaused && canShoot) {
+                if (currentAmmoCount[selectedWeapon] > 0)
+                {
+                    isShooting = true;
+                    anim.SetTrigger("GunReoil");
+                    audioSource.PlayOneShot(gunstat[selectedWeapon].shootSound);
 
-                gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(currentAmmoCount[selectedWeapon] - 1).gameObject.SetActive(false);
-                currentAmmoCount[selectedWeapon]--;
+                    gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(currentAmmoCount[selectedWeapon] - 1).gameObject.SetActive(false);
+                    currentAmmoCount[selectedWeapon]--;
 
-                if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out RaycastHit hit, shootDistance)) {
-                    Instantiate(hitEffect, hit.point, hitEffect.transform.rotation);
-                    if (hit.collider.GetComponent<IDamageable>() != null) {
-                        IDamageable isDamageable = hit.collider.GetComponent<IDamageable>();
-                        Instantiate(bloodEffect, hit.point, hit.transform.rotation);
+                    if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out RaycastHit hit, shootDistance))
+                    {
+                        Instantiate(hitEffect, hit.point, hitEffect.transform.rotation);
+                        if (hit.collider.GetComponent<IDamageable>() != null)
+                        {
+                            IDamageable isDamageable = hit.collider.GetComponent<IDamageable>();
+                            Instantiate(bloodEffect, hit.point, hit.transform.rotation);
 
-                        /*
-                         * Headshot handler
-                         */
-                        if (hit.collider is SphereCollider)
-                            isDamageable.takeDamage(shootDmg * 2);
-                        else
-                            isDamageable.takeDamage(shootDmg);
+                            /*
+                             * Headshot handler
+                             */
+                            if (hit.collider is SphereCollider)
+                                isDamageable.takeDamage(shootDmg * 2);
+                            else
+                                isDamageable.takeDamage(shootDmg);
+                        }
                     }
-                }
-                StartCoroutine(CameraShake.Instance.ShakeCamera(0.15f, .15f));
+                    StartCoroutine(CameraShake.Instance.ShakeCamera(0.15f, .15f));
 
-                yield return new WaitForSeconds(shootRate);
-                isShooting = false;
+                    yield return new WaitForSeconds(shootRate);
+                    isShooting = false;
+                }
+                else if(currentAmmoCount[selectedWeapon] <= 0)
+                {
+                    reloading = true;
+                    StartCoroutine(reload());
+                }
             }
-        }
+            
+        //}
     }
 
     /*
@@ -288,37 +315,50 @@ public class playerController : MonoBehaviour, IDamageable
      */
     IEnumerator gunSwitch()
     {
+        //canSwitch = false;
+
         if (gunstat.Count > 0 && !gameManager.instance.isPaused && canShoot) {
             if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedWeapon < gunstat.Count - 1) {
                 if (alreadyReloadedUI) {
                     gameManager.instance.currentGunHUD.transform.GetChild(3).gameObject.SetActive(false);
                     alreadyReloadedUI = false;
                 }
+                canSwitch = false;
                 selectedWeapon++;
+                modelChange();
+                yield return new WaitForSeconds(switchTime);
+                canSwitch = true;
+
+
             } else if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedWeapon > 0 && canShoot) {
                 if (alreadyReloadedUI) {
                     gameManager.instance.currentGunHUD.transform.GetChild(3).gameObject.SetActive(false);
                     alreadyReloadedUI = false;
                 }
+                canSwitch=false;
                 selectedWeapon--;
+                modelChange();
+                yield return new WaitForSeconds(switchTime);
+                canSwitch = true;
             }
-
-            shootRate = gunstat[selectedWeapon].shootRate;
-            shootDistance = gunstat[selectedWeapon].shootDist;
-            shootDmg = gunstat[selectedWeapon].shootDmg;
-            ammoCountOrig = gunstat[selectedWeapon].ammoCapacity;
-            reloadTimer = gunstat[selectedWeapon].reloadTime;
-            gunModel.GetComponent<MeshFilter>().sharedMesh = gunstat[selectedWeapon].model.GetComponent<MeshFilter>().sharedMesh;
-            gunModel.GetComponent<MeshRenderer>().sharedMaterial = gunstat[selectedWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;
-
-            gameManager.instance.currentGunHUD.SetActive(false);
-            gameManager.instance.currentGunHUD = gameManager.instance.gunHUD[gunstat[selectedWeapon].gunHUD];
-            gameManager.instance.currentGunHUD.SetActive(true);
-            for (int i = 0; i < currentAmmoCount[selectedWeapon]; ++i)
-                gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
-
-            yield return new WaitForSeconds(switchTime);
         }
+    }
+
+    void modelChange()
+    {
+        shootRate = gunstat[selectedWeapon].shootRate;
+        shootDistance = gunstat[selectedWeapon].shootDist;
+        shootDmg = gunstat[selectedWeapon].shootDmg;
+        ammoCountOrig = gunstat[selectedWeapon].ammoCapacity;
+        reloadTimer = gunstat[selectedWeapon].reloadTime;
+        gunModel.GetComponent<MeshFilter>().sharedMesh = gunstat[selectedWeapon].model.GetComponent<MeshFilter>().sharedMesh;
+        gunModel.GetComponent<MeshRenderer>().sharedMaterial = gunstat[selectedWeapon].model.GetComponent<MeshRenderer>().sharedMaterial;
+
+        gameManager.instance.currentGunHUD.SetActive(false);
+        gameManager.instance.currentGunHUD = gameManager.instance.gunHUD[gunstat[selectedWeapon].gunHUD];
+        gameManager.instance.currentGunHUD.SetActive(true);
+        for (int i = 0; i < currentAmmoCount[selectedWeapon]; ++i)
+            gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
     }
 
     public void takeDamage(int dmg)
@@ -412,15 +452,18 @@ public class playerController : MonoBehaviour, IDamageable
 
     public IEnumerator reload()
     {
-        if (Input.GetButtonDown("Reload") && gunstat.Count != 0) {
+        if (Input.GetButtonDown("Reload") && gunstat.Count != 0 || reloading ) {
             if (currentAmmoCount[selectedWeapon] == ammoCountOrig && !alreadyReloadedUI) {
                 StartCoroutine(alreadyReloaded());
-            } else if (currentAmmoCount[selectedWeapon] != ammoCountOrig) {
+            }
+            
+            //if (currentAmmoCount[selectedWeapon] != ammoCountOrig) {
+            else if(!alreadyReloadedUI) { 
                 audioSource.PlayOneShot(gunstat[selectedWeapon].reloadSound);
                 canShoot = false;
+                isShooting = false;
                 anim.SetBool("Reloading", true);
                 yield return new WaitForSeconds(reloadTimer - .25f);
-
                 anim.SetBool("Reloading", false);
                 yield return new WaitForSeconds(.25f);
                 currentAmmoCount[selectedWeapon] = ammoCountOrig;
@@ -428,6 +471,7 @@ public class playerController : MonoBehaviour, IDamageable
                     gameManager.instance.currentGunHUD.transform.GetChild(0).GetChild(i).gameObject.SetActive(true);
                 
                 canShoot = true;
+                reloading = false;
             }
         }
     }
