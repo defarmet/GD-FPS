@@ -24,17 +24,17 @@ AnimationClip:
         time: 0
         value: -60
         inSlope: 0
-        outSlope: 0
-        tangentMode: 136
+        outSlope: 14.367533
+        tangentMode: 69
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 35.85
-        value: 850
-        inSlope: 0
+        time: 60.366665
+        value: 807.32
+        inSlope: 14.367533
         outSlope: 0
-        tangentMode: 136
+        tangentMode: 69
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
@@ -59,7 +59,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 35.85
+    m_StopTime: 63.033333
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -82,17 +82,17 @@ AnimationClip:
         time: 0
         value: -60
         inSlope: 0
-        outSlope: 0
-        tangentMode: 136
+        outSlope: 14.367533
+        tangentMode: 69
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 35.85
-        value: 850
-        inSlope: 0
+        time: 60.366665
+        value: 807.32
+        inSlope: 14.367533
         outSlope: 0
-        tangentMode: 136
+        tangentMode: 69
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
@@ -114,7 +114,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 34.716667
+  - time: 63.033333
     functionName: LoadScene
     data: 
     objectReferenceParameter: {fileID: 0}
